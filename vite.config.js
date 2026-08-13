@@ -48,7 +48,7 @@ function homeworkPasswordPlugin() {
 }
 
 export default defineConfig({
-  base: "/",
+  base: "./",
   plugins: [homeworkPasswordPlugin(), react(), tailwindcss()],
   resolve: {
     alias: {
