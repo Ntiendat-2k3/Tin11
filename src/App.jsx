@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
+import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom"
 import { HomePage, LessonDetailPage, PracticeDetailPage } from "@/pages"
 
 export default function App() {
