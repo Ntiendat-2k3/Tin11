@@ -1,0 +1,10 @@
+import { cn } from "@/lib/utils"
+
+export function Progress({ value = 0, className, ...props }) {
+  const safe = Math.max(0, Math.min(100, value))
+  return (
+    <div data-slot="progress" className={cn("h-2 w-full overflow-hidden rounded-full bg-secondary", className)} {...props}>
+      <div className="h-full bg-primary transition-all" style={{ width: `${safe}%` }} />
+    </div>
+  )
+}

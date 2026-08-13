@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lộ trình gia sư Tin học lớp 11 - Định hướng thi</title>
+  <style>
+    :root{
+      --bg:#f6f8fb;
+      --card:#ffffff;
+      --text:#172033;
+      --muted:#667085;
+      --primary:#2457d6;
+      --primary-soft:#eaf0ff;
+      --border:#e4e7ec;
+      --good:#027a48;
+      --warn:#b54708;
+      --danger:#b42318;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+      color:var(--text);
+      background:var(--bg);
+      line-height:1.65;
+    }
+    .wrap{max-width:1120px;margin:0 auto;padding:32px 20px 72px}
+    .hero{
+      background:linear-gradient(135deg,#173ea6,#3767e8);
+      color:#fff;border-radius:22px;padding:34px;
+      box-shadow:0 18px 50px rgba(36,87,214,.18);
+      margin-bottom:24px;
+    }
+    .hero h1{margin:0 0 8px;font-size:34px;line-height:1.2}
+    .hero p{margin:8px 0;max-width:900px;color:#edf2ff}
+    .badge{
+      display:inline-block;background:rgba(255,255,255,.15);
+      border:1px solid rgba(255,255,255,.25);
+      padding:6px 10px;border-radius:999px;font-size:13px;margin:4px 6px 0 0;
+    }
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
+    .card{
+      background:var(--card);border:1px solid var(--border);border-radius:18px;
+      padding:22px;box-shadow:0 4px 18px rgba(16,24,40,.04);
+    }
+    .col-12{grid-column:span 12}.col-8{grid-column:span 8}.col-6{grid-column:span 6}.col-4{grid-column:span 4}
+    h2{font-size:24px;margin:0 0 14px} h3{font-size:19px;margin:18px 0 8px}
+    p{margin:8px 0} ul{padding-left:22px} li{margin:6px 0}
+    table{width:100%;border-collapse:collapse;margin:12px 0 4px;font-size:14px}
+    th,td{padding:11px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+    th{background:#f8fafc;text-align:left;color:#344054;font-weight:700}
+    tr:last-child td{border-bottom:none}
+    .callout{border-left:4px solid var(--primary);background:var(--primary-soft);padding:14px 16px;border-radius:10px;margin:14px 0}
+    .good{border-left-color:var(--good);background:#ecfdf3}
+    .warn{border-left-color:var(--warn);background:#fff7ed}
+    .danger{border-left-color:var(--danger);background:#fff1f0}
+    .kpi{font-weight:700;color:var(--good)}
+    .phase{display:flex;gap:12px;align-items:flex-start;margin:14px 0}
+    .num{
+      min-width:34px;height:34px;border-radius:10px;background:var(--primary);
+      color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800
+    }
+    .small{font-size:13px;color:var(--muted)}
+    .timeline td:first-child{white-space:nowrap;font-weight:700}
+    a{color:var(--primary);text-decoration:none} a:hover{text-decoration:underline}
+    .footer{color:var(--muted);font-size:13px;margin-top:24px;text-align:center}
+    @media(max-width:820px){
+      .col-8,.col-6,.col-4{grid-column:span 12}
+      .hero h1{font-size:28px}
+      table{font-size:13px}
+      th,td{padding:9px 8px}
+    }
+    @media print{
+      body{background:#fff}
+      .wrap{max-width:none;padding:0}
+      .hero{box-shadow:none;border-radius:0}
+      .card{box-shadow:none;break-inside:avoid}
+      a{color:#000;text-decoration:none}
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <h1>Lộ trình gia sư Tin học lớp 11</h1>
+    <p><strong>Mục tiêu:</strong> học chắc chương trình lớp 11 nhưng tổ chức theo định hướng thi: hiểu bản chất, xử lý tình huống, CSDL/SQL vững, hình thành tư duy thuật toán hoặc năng lực Tin học ứng dụng và làm quen dần với cấu trúc câu hỏi thi.</p>
+    <span class="badge">2 buổi/tuần</span>
+    <span class="badge">90–120 phút/buổi</span>
+    <span class="badge">32 tuần</span>
+    <span class="badge">Khoảng 64 buổi</span>
+  </section>
+
+  <div class="grid">
+    <section class="card col-8">
+      <h2>1. Nguyên tắc tổ chức chương trình</h2>
+      <div class="callout">
+        <strong>Không dạy dàn trải theo thứ tự SGK với thời lượng bằng nhau.</strong>
+        Các chủ đề vẫn bám chương trình lớp 11, nhưng thời lượng ưu tiên theo giá trị nền tảng cho kỳ thi sau này.
+      </div>
+      <ul>
+        <li><strong>Ưu tiên cao nhất:</strong> Cơ sở dữ liệu, mô hình quan hệ, khóa, truy vấn, SQL, an toàn dữ liệu.</li>
+        <li><strong>Nếu theo KHMT:</strong> mảng, tìm kiếm, sắp xếp, kiểm thử, độ phức tạp, chia chương trình thành mô-đun.</li>
+        <li><strong>Nếu theo Tin học ứng dụng:</strong> CSDL thực hành, truy vấn nhiều bảng, xử lý dữ liệu, sản phẩm số.</li>
+        <li>Mỗi chủ đề đều có ba tầng: <strong>Hiểu → Áp dụng → Câu thi/tình huống</strong>.</li>
+        <li>Từ đầu năm duy trì <strong>Error Log</strong>: ghi câu sai, nguyên nhân sai và cách tránh lặp lại.</li>
+      </ul>
+    </section>
+
+    <section class="card col-4">
+      <h2>2. Tỷ lệ thời lượng</h2>
+      <table>
+        <tr><th>Nhóm</th><th>Tỷ lệ</th></tr>
+        <tr><td>Kiến thức nền lớp 11</td><td>20%</td></tr>
+        <tr><td>CSDL + SQL</td><td>30%</td></tr>
+        <tr><td>Định hướng KHMT/THƯD</td><td>30%</td></tr>
+        <tr><td>Luyện tình huống + kiểm tra</td><td>20%</td></tr>
+      </table>
+      <p class="small">Có thể điều chỉnh ±5–10% theo năng lực thực tế của học sinh.</p>
+    </section>
+
+    <section class="card col-12">
+      <h2>3. Lộ trình 32 tuần / khoảng 64 buổi</h2>
+      <table class="timeline">
+        <thead>
+          <tr>
+            <th>Giai đoạn</th>
+            <th>Tuần</th>
+            <th>Nội dung trọng tâm</th>
+            <th>Kết quả cần đạt</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>0. Chẩn đoán</td>
+            <td>1</td>
+            <td>Kiểm tra kiến thức lớp 10, tư duy logic, đọc mã, kỹ năng số; tạo Error Log.</td>
+            <td>Xác định rõ điểm yếu theo 4 nhóm: thiếu kiến thức, hiểu sai, suy luận yếu, cẩu thả.</td>
+          </tr>
+          <tr>
+            <td>1. Nền tảng chung</td>
+            <td>2–5</td>
+            <td>Hệ điều hành, phần mềm, phần cứng, lưu trữ, Internet, tìm kiếm, an toàn và ứng xử số.</td>
+            <td>Câu nhận biết xử lý nhanh; giải thích được tình huống thực tế.</td>
+          </tr>
+          <tr>
+            <td>2. CSDL căn bản</td>
+            <td>6–10</td>
+            <td>Dữ liệu, CSDL, hệ QTCSDL, bảng, bản ghi, trường, khóa chính, khóa ngoại, quan hệ.</td>
+            <td>Thiết kế được CSDL nhỏ và chỉ ra đúng khóa/quan hệ.</td>
+          </tr>
+          <tr>
+            <td>3. SQL + tình huống</td>
+            <td>11–15</td>
+            <td>SELECT, WHERE, AND/OR/NOT, ORDER BY, truy vấn nhiều bảng, sao lưu, bảo mật.</td>
+            <td>Đọc/viết được truy vấn cơ bản và phân tích được tình huống quản lý dữ liệu.</td>
+          </tr>
+          <tr>
+            <td>4. Phân nhánh</td>
+            <td>16–25</td>
+            <td>KHMT: mảng, tìm kiếm, sắp xếp, kiểm thử, độ phức tạp, mô-đun. THƯD: CSDL nâng cao, truy vấn, dữ liệu, đồ họa/sản phẩm số.</td>
+            <td>Làm được bài vận dụng vừa và giải thích được cách làm.</td>
+          </tr>
+          <tr>
+            <td>5. Tích hợp</td>
+            <td>26–29</td>
+            <td>Case study: trường học, bán hàng, thư viện, bệnh viện, website, dữ liệu người dùng.</td>
+            <td>Biết kết hợp nhiều mảng kiến thức trong cùng một bài.</td>
+          </tr>
+          <tr>
+            <td>6. Mô phỏng thi lớp 11</td>
+            <td>30–32</td>
+            <td>Đề 50 phút chỉ chứa kiến thức lớp 10–11 đã học; ABCD + Đúng/Sai + câu tình huống.</td>
+            <td>Đạt mục tiêu 8.0+ trên đề tổng hợp lớp 10–11 và kiểm soát tốt tốc độ.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card col-6">
+      <h2>4. Chi tiết khối CSDL – phần trọng tâm nhất</h2>
+      <table>
+        <tr><th>Tuần</th><th>Nội dung</th></tr>
+        <tr><td>6</td><td>Bài toán quản lý dữ liệu và khái niệm CSDL.</td></tr>
+        <tr><td>7</td><td>Hệ quản trị CSDL và mô hình quan hệ.</td></tr>
+        <tr><td>8</td><td>Khóa chính, khóa ngoại, liên kết bảng.</td></tr>
+        <tr><td>9</td><td>Thiết kế CSDL từ tình huống thực tế.</td></tr>
+        <tr><td>10</td><td>Kiểm tra giữa chuyên đề + chữa lỗi.</td></tr>
+        <tr><td>11</td><td>SQL: SELECT, FROM, WHERE.</td></tr>
+        <tr><td>12</td><td>Điều kiện logic AND, OR, NOT.</td></tr>
+        <tr><td>13</td><td>Sắp xếp và truy vấn theo yêu cầu.</td></tr>
+        <tr><td>14</td><td>Truy vấn nhiều bảng và đọc kết quả.</td></tr>
+        <tr><td>15</td><td>An toàn dữ liệu, sao lưu, quyền truy cập + case study tổng hợp.</td></tr>
+      </table>
+    </section>
+
+    <section class="card col-6">
+      <h2>5. Case study mẫu nên dùng</h2>
+      <div class="callout good">
+        <strong>Hệ thống quản lý trường học</strong><br/>
+        HOCSINH — LOP — GIAOVIEN — MONHOC — DIEM
+      </div>
+      <p>Yêu cầu học sinh:</p>
+      <ul>
+        <li>Xác định bảng, trường và kiểu dữ liệu phù hợp.</li>
+        <li>Chọn khóa chính và khóa ngoại.</li>
+        <li>Vẽ quan hệ giữa các bảng.</li>
+        <li>Phát hiện dữ liệu dư thừa hoặc bất hợp lý.</li>
+        <li>Viết truy vấn lấy danh sách học sinh theo điều kiện.</li>
+        <li>Đề xuất quyền truy cập cho giáo viên, học sinh, quản trị viên.</li>
+        <li>Giải thích phương án sao lưu khi hệ thống gặp sự cố.</li>
+      </ul>
+    </section>
+
+    <section class="card col-6">
+      <h2>6A. Nếu học sinh chọn Khoa học máy tính</h2>
+      <table>
+        <tr><th>Chủ đề</th><th>Ưu tiên</th></tr>
+        <tr><td>Mảng 1 chiều và duyệt mảng</td><td>★★★★★</td></tr>
+        <tr><td>Mảng 2 chiều</td><td>★★★★☆</td></tr>
+        <tr><td>Tìm kiếm</td><td>★★★★★</td></tr>
+        <tr><td>Sắp xếp cơ bản</td><td>★★★★★</td></tr>
+        <tr><td>Trace thuật toán</td><td>★★★★★</td></tr>
+        <tr><td>Kiểm thử và test case</td><td>★★★★★</td></tr>
+        <tr><td>Đánh giá độ phức tạp</td><td>★★★★☆</td></tr>
+        <tr><td>Mô-đun, hàm, thư viện</td><td>★★★★☆</td></tr>
+      </table>
+      <div class="callout">
+        Trọng tâm không phải “code chạy được”, mà là <strong>đọc mã, dự đoán kết quả, tìm lỗi, chọn test case và giải thích thuật toán</strong>.
+      </div>
+    </section>
+
+    <section class="card col-6">
+      <h2>6B. Nếu học sinh chọn Tin học ứng dụng</h2>
+      <ul>
+        <li>Tiếp tục đào sâu thiết kế và khai thác CSDL.</li>
+        <li>Truy vấn, cập nhật dữ liệu, khai thác nhiều bảng.</li>
+        <li>Quản lý và bảo vệ dữ liệu.</li>
+        <li>Đồ họa, ảnh, hoạt hình/video và sản phẩm số ở mức đúng chương trình.</li>
+      </ul>
+      <div class="callout warn">
+        Nếu mục tiêu chính là thi, không nên để phần sản phẩm số chiếm quá nhiều thời gian so với CSDL và năng lực xử lý dữ liệu.
+      </div>
+      <p><strong>Gợi ý phân bổ:</strong> 60–65% dữ liệu/CSDL; 20–25% sản phẩm số; 15–20% luyện câu tích hợp và kiểm tra.</p>
+    </section>
+
+    <section class="card col-12">
+      <h2>7. Cấu trúc một buổi gia sư 120 phút</h2>
+      <table>
+        <tr><th>Thời gian</th><th>Hoạt động</th><th>Mục tiêu</th></tr>
+        <tr><td>10 phút</td><td>Retrieval quiz</td><td>Nhớ lại kiến thức buổi trước không nhìn tài liệu.</td></tr>
+        <tr><td>20 phút</td><td>Khái niệm mới</td><td>Hiểu bản chất, ít lý thuyết thừa.</td></tr>
+        <tr><td>30 phút</td><td>Ví dụ có hướng dẫn</td><td>Học cách suy luận.</td></tr>
+        <tr><td>25 phút</td><td>Học sinh tự giải/code</td><td>Chuyển kiến thức thành năng lực.</td></tr>
+        <tr><td>20 phút</td><td>Câu thi có bấm giờ</td><td>Luyện tốc độ và áp lực.</td></tr>
+        <tr><td>10 phút</td><td>Phân tích lỗi</td><td>Cập nhật Error Log.</td></tr>
+        <tr><td>5 phút</td><td>Giao bài</td><td>Ôn đúng điểm yếu.</td></tr>
+      </table>
+    </section>
+
+    <section class="card col-6">
+      <h2>8. Tỷ lệ bài tập</h2>
+      <ul>
+        <li><strong>40%</strong> bài hiểu bản chất.</li>
+        <li><strong>30%</strong> bài ứng dụng/tình huống.</li>
+        <li><strong>20%</strong> câu theo format thi.</li>
+        <li><strong>10%</strong> bài nâng cao.</li>
+      </ul>
+      <p class="small">Học sinh yếu: tăng phần hiểu bản chất. Học sinh 8+: tăng tình huống, test case và câu tích hợp.</p>
+    </section>
+
+    <section class="card col-6">
+      <h2>9. KPI cuối lớp 11</h2>
+      <ul>
+        <li class="kpi">Kiến thức chung lớp 11 ≥ 85%.</li>
+        <li class="kpi">CSDL/SQL cơ bản ≥ 90%.</li>
+        <li class="kpi">Đề tổng hợp kiến thức lớp 10–11 đạt ≥ 8.0.</li>
+        <li>Không nhầm khóa chính/khóa ngoại ở bài cơ bản.</li>
+        <li>Đọc được case dài và tóm tắt đúng dữ kiện.</li>
+        <li>KHMT: trace thuật toán tốt, biết tìm test case lỗi.</li>
+        <li>THƯD: xử lý bài CSDL và dữ liệu tương đối độc lập.</li>
+      </ul>
+    </section>
+
+    <section class="card col-12">
+      <h2>10. Hệ thống kiểm tra trong năm</h2>
+      <table>
+        <tr><th>Tần suất</th><th>Loại</th><th>Mục đích</th></tr>
+        <tr><td>Mỗi buổi</td><td>5–8 câu retrieval</td><td>Chống quên.</td></tr>
+        <tr><td>Mỗi 2 tuần</td><td>Quiz 15–20 phút</td><td>Kiểm tra chủ đề vừa học.</td></tr>
+        <tr><td>Mỗi chuyên đề</td><td>Mini test 30–45 phút</td><td>Đánh giá mức hiểu và vận dụng.</td></tr>
+        <tr><td>Mỗi 6–8 tuần</td><td>Đề tổng hợp</td><td>Kiểm tra khả năng giữ kiến thức dài hạn.</td></tr>
+        <tr><td>Cuối năm</td><td>2–3 đề mô phỏng 50 phút</td><td>Làm quen cấu trúc thi và quản lý thời gian.</td></tr>
+      </table>
+    </section>
+
+    <section class="card col-12">
+      <h2>11. Error Log – công cụ bắt buộc</h2>
+      <table>
+        <tr>
+          <th>Câu/chủ đề</th>
+          <th>Em chọn</th>
+          <th>Đáp án</th>
+          <th>Nguyên nhân</th>
+          <th>Quy tắc tránh sai lần sau</th>
+        </tr>
+        <tr>
+          <td>Khóa ngoại</td>
+          <td>Phương án B</td>
+          <td>Phương án D</td>
+          <td>Hiểu sai quan hệ giữa hai bảng</td>
+          <td>Tìm bảng chứa khóa chính trước, sau đó xác định trường tham chiếu ở bảng còn lại.</td>
+        </tr>
+      </table>
+      <p class="small">Mã lỗi gợi ý: K = thiếu kiến thức; H = hiểu sai; T = suy luận yếu; C = cẩu thả/đọc sai.</p>
+    </section>
+
+    <section class="card col-12">
+      <h2>12. Những điều không nên làm</h2>
+      <div class="grid">
+        <div class="col-6">
+          <div class="callout danger"><strong>Không</strong> dạy Bài 1 → Bài cuối với thời lượng gần như nhau.</div>
+          <div class="callout danger"><strong>Không</strong> biến lớp 11 thành luyện đề lớp 12 quá sớm.</div>
+        </div>
+        <div class="col-6">
+          <div class="callout danger"><strong>Không</strong> cho học sinh học thuộc đáp án trắc nghiệm.</div>
+          <div class="callout danger"><strong>Không</strong> chữa bài chỉ bằng “đáp án đúng là C”.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card col-12">
+      <h2>13. Tài liệu tham khảo</h2>
+      <ul>
+        <li><a href="https://taphuan.nxbgd.vn/tap-huan?grade=11&subjects=11" target="_blank">Tập huấn NXB Giáo dục – lớp 11, môn Tin học</a></li>
+        <li><a href="https://loigiaihay.com/sgk-chuyen-de-hoc-tap-tin-hoc-khoa-hoc-may-tinh-11-pdf-chuyen-de-hoc-tap-tin-hoc-khoa-hoc-may-tinh-11-ket-noi-tri-thuc-a175722.html" target="_blank">Chuyên đề học tập Tin học (Khoa học máy tính) 11 – Kết nối tri thức</a></li>
+        <li><a href="https://kenhgiaovien.com/tai-lieu/giao-tin-hoc-ung-dung-11-ket-noi-tri-thuc-du-ca-nam" target="_blank">Giáo án Tin học ứng dụng 11 – Kết nối tri thức</a></li>
+        <li><a href="https://khoahoc.vietjack.com/thi-online/de-minh-hoa-tot-nghiep-thpt-tin-hoc-nam-2026-co-dap-an-de-so-2/235953" target="_blank">Đề minh họa Tin học 2026 – nguồn luyện tập bổ sung</a></li>
+      </ul>
+      <p class="small">Khi xây đề kiểm tra chính thức cho học sinh, nên ưu tiên bám SGK/tài liệu chính thống và đề thi của Bộ; các nguồn luyện tập bên ngoài chỉ dùng để mở rộng ngân hàng câu hỏi.</p>
+    </section>
+
+    <section class="card col-12">
+      <h2>14. Tóm tắt chiến lược một dòng</h2>
+      <div class="callout good" style="font-size:18px">
+        <strong>Nền tảng lớp 11 → CSDL/SQL thật chắc → phân nhánh KHMT hoặc THƯD → tình huống tích hợp → đề mô phỏng lớp 10–11 → kết thúc lớp 11 ở mức sẵn sàng bước vào lớp 12.</strong>
+      </div>
+    </section>
+  </div>
+
+  <div class="footer">
+    Lộ trình thiết kế cho gia sư Tin học lớp 11 – định hướng học chắc chương trình và chuẩn bị sớm cho kỳ thi tốt nghiệp THPT.
+  </div>
+</div>
+</body>
+</html>
