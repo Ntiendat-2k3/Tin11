@@ -47,26 +47,26 @@ export const common11 = [
     title: "Thực hành sử dụng hệ điều hành",
     cluster: "Máy tính và xã hội tri thức",
     priority: "medium",
-    hours: 1.5,
+    hours: 2.0,
     mustKnow: [
-      "Quản lí tệp và thư mục: cấu trúc cây, đường dẫn tương đối/tuyệt đối",
-      "Các đường tắt (shortcut), thao tác nén và giải nén tệp tin (ZIP, RAR)",
-      "Thiết lập môi trường làm việc cá nhân: màn hình, bàn phím, ngôn ngữ, múi giờ",
-      "Cài đặt và gỡ bỏ phần mềm an toàn qua Control Panel / Settings",
-      "Quản lí tài khoản người dùng và phân quyền truy cập máy tính"
+      "Thành phần giao diện HĐH: Desktop, Taskbar, Window, File Explorer",
+      "Bản chất File và Folder; Đơn vị lưu trữ dữ liệu & Phần mở rộng (Extension)",
+      "6 Thao tác tệp/thư mục: Tạo, Đổi tên, Copy, Move, Delete/Restore, Search",
+      "Tiện ích máy tính: Check Disk, Optimize/Defrag (HDD vs SSD), Screenshot, Calculator, Clipboard History (Win+V)",
+      "Tiện ích thiết bị di động (Android/iOS): Danh bạ, Lịch nhắc việc, Quản lý ứng dụng & Dung lượng bộ nhớ"
     ],
     codeSkills: [
-      "Sử dụng các phím tắt quản lí hệ thống (Ctrl+Shift+Esc, Win+X, Win+R)",
-      "Thực hiện tìm kiếm tệp tin bằng ký tự đại diện (*, ?)"
+      "Thành thạo phím tắt hệ thống (F2, Ctrl+C/X/V, Win+V, Win+Shift+S, Shift+Delete)",
+      "Thao tác phân loại tệp, nén/giải nén ZIP và quản lý dung lượng bộ nhớ"
     ],
     examSkills: [
-      "Sắp xếp đúng quy trình thao tác cài đặt / quản lí tệp",
-      "Chọn phương án xử lí phù hợp khi tệp tin bị khóa hoặc không gỡ được phần mềm"
+      "Phân biệt chính xác Copy vs Move, Delete vs Shift+Delete, HDD vs SSD Optimize",
+      "Giải quyết 3 bài tập tình huống thực tế (Đổi tên tệp lỗi, Downloads lộn xộn, Nén ZIP gửi email)"
     ],
     practice: [
-      "Checklist 8 thao tác chuẩn trên máy tính (nén, gỡ ứng dụng, phân quyền)",
-      "5 câu tình huống xử lí lỗi đường dẫn và cấp quyền truy cập thư mục",
-      "Bài tập tổ chức cây thư mục học tập môn Tin học khoa học"
+      "Quy trình 7 bước dọn dẹp thư mục Downloads lộn xộn",
+      "Bài tập thực hành bắt buộc 10 bước tạo cây thư mục TIN_HOC_11 & Backup",
+      "10 câu mini test củng cố năng lực & 5 cụm chốt kiến thức trọng tâm"
     ],
     sourceIds: ["kgv-cs11", "kgv-app11"],
     lectureContent: b2Content
