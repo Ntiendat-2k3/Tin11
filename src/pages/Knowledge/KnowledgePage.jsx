@@ -10,7 +10,7 @@ const groups = [
   { id: "all", label: "Tất cả bài học" },
   { id: "common", label: "Chủ đề 1-3 (Bài 1-9)" },
   { id: "database", label: "CSDL (Bài 10-16)" },
-  { id: "cs", label: "KHMT & Python (Bài 17-27)" }
+  { id: "cs", label: "KHMT & Python (Bài 17-31)" }
 ]
 
 export function KnowledgePage() {
@@ -30,7 +30,7 @@ export function KnowledgePage() {
       <SectionHeader
         eyebrow="Thư Viện Bài Học Tin Học 11"
         title="Chi tiết từng bài — Lý thuyết, Dạng thi & Bài tập thực hành"
-        description="Toàn bộ 27 bài học theo chương trình Kết nối tri thức. Bấm vào bài học để xem chi tiết giáo trình gia sư với ví dụ thực tế và câu hỏi trắc nghiệm củng cố."
+        description="Toàn bộ bài học theo chương trình Kết nối tri thức. Bấm vào bài học để xem chi tiết giáo trình gia sư với ví dụ thực tế và câu hỏi trắc nghiệm củng cố."
       />
 
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm">

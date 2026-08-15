@@ -177,7 +177,7 @@ export const roadmap = [
   {
     week: 26,
     phase: "Tích hợp lớp 11",
-    sessions: ["Mini-project dữ liệu: thiết kế - truy vấn - xử lí", "Review B1-27 + half-mock 25 phút"],
+    sessions: ["Mini-project dữ liệu: thiết kế - truy vấn - xử lí", "Review B1-31 + half-mock 25 phút"],
     focus: "Khép vòng kiến thức lớp 11 và phát hiện lỗ hổng trước giai đoạn luyện format.",
     checkpoint: "CSDL/SQL >= 90%; KHMT cốt lõi >= 85% hoặc có kế hoạch vá lỗi cụ thể."
   },
@@ -229,7 +229,7 @@ export const phaseSummary = [
   { phase: "Chẩn đoán", weeks: "1", share: 3, objective: "Baseline + Error Log" },
   { phase: "Nền tảng chung", weeks: "2-5", share: 13, objective: "Bài 1-9 chắc và xử lí tình huống" },
   { phase: "CSDL cốt lõi", weeks: "6-11", share: 19, objective: "Bài 10-16, khóa/quan hệ/SQL/bảo mật" },
-  { phase: "Kĩ thuật lập trình", weeks: "12-21", share: 31, objective: "Bài 17-27, trace/test/độ phức tạp" },
+  { phase: "Kĩ thuật lập trình", weeks: "12-21", share: 31, objective: "Bài 17-31, trace/test/độ phức tạp/mô đun & thư viện" },
   { phase: "Thuật toán mở rộng", weeks: "22-24", share: 9, objective: "Đệ quy/chia để trị/quay lui có giới hạn" },
   { phase: "Tích hợp + luyện format", weeks: "25-30", share: 19, objective: "Case, MCQ, Đúng/Sai, mock 50 phút" },
   { phase: "Bridge 12", weeks: "31-32", share: 6, objective: "AI, mạng, HTML/CSS ở mức chuẩn bị" }

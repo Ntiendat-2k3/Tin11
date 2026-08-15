@@ -23,7 +23,7 @@ const ids = lessons.map((item) => item.id)
 assert(new Set(ids).size === ids.length, "id bài học lớp 11 bị trùng")
 assert(common11.length === 9, `common11 phải có 9 bài, hiện có ${common11.length}`)
 assert(database11.length === 7, `database11 phải có 7 bài, hiện có ${database11.length}`)
-assert(cs11.length === 11, `cs11 phải có 11 bài, hiện có ${cs11.length}`)
+assert(cs11.length === 15, `cs11 phải có 15 bài, hiện có ${cs11.length}`)
 assert(advanced11.length === 3, `advanced11 dự kiến 3 chuyên đề, hiện có ${advanced11.length}`)
 
 const sourceIds = new Set(sources.map((item) => item.id))

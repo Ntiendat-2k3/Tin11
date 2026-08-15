@@ -8,7 +8,7 @@ Thư mục này là nơi nên sửa **nội dung giáo trình**. Component UI kh
 |---|---|
 | `common11.js` | Kiến thức chung Bài 1–9 |
 | `database11.js` | CSDL/SQL Bài 10–16 |
-| `cs11.js` | Nhánh Khoa học máy tính Bài 17–27 |
+| `cs11.js` | Nhánh Khoa học máy tính Bài 17–31 |
 | `advanced11.js` | Thuật toán mở rộng, không phải core roadmap |
 | `roadmap.js` | Ghép nội dung vào 32 tuần / 64 buổi |
 | `examStrategy.js` | Snapshot cấu trúc đề, nguyên tắc luyện, Error Log |

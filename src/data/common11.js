@@ -17,25 +17,26 @@ export const common11 = [
     priority: "medium",
     hours: 1.5,
     mustKnow: [
-      "Khái niệm và lịch sử phát triển của Hệ điều hành (OS)",
-      "Vai trò quản lí tài nguyên phần cứng (CPU, bộ nhớ, thiết bị ngoại vi)",
-      "Quản lí tài nguyên phần mềm và cung cấp giao diện người dùng (GUI, CLI)",
-      "Phân biệt Hệ điều hành máy tính (Windows, macOS, Linux) và thiết bị di động (iOS, Android)",
-      "Phân biệt Hệ điều hành với phần mềm ứng dụng và phần mềm tiện ích"
+      "Khái niệm Hệ điều hành (Quản lý – Điều phối – Môi trường ứng dụng)",
+      "5 Nhóm chức năng cốt lõi HĐH: Thiết bị – Dữ liệu – Chương trình – Giao tiếp – Tiện ích (T-D-C-G-T)",
+      "Lịch sử phát triển HĐH: CLI → GUI; Mốc Windows (1985–2021) & Linux nguồn mở",
+      "Đặc điểm HĐH di động (Android, iOS): Cảm ứng – Kết nối – Cảm biến – Tiện ích cá nhân",
+      "Mô hình mối quan hệ 4 tầng: Người dùng → Phần mềm ứng dụng → Hệ điều hành → Phần cứng",
+      "Phân biệt HĐH với Phần mềm ứng dụng (Word, Chrome) và các câu hỏi bẫy"
     ],
     codeSkills: [
-      "Kiểm tra phiên bản OS và thông số hệ thống (System Information / Task Manager)",
-      "Phân tích tiến trình đang chạy và mức tiêu thụ tài nguyên phần cứng"
+      "Thao tác kiểm tra tiến trình đang chạy và mức tiêu thụ RAM/CPU trong Task Manager",
+      "Sử dụng các câu lệnh cơ bản trong CLI (Windows CMD / PowerShell / Terminal)"
     ],
     examSkills: [
-      "Nhận diện đúng chức năng quản lí của Hệ điều hành trong tình huống thực tế",
-      "Phân tích tình huống xung đột phần mềm/thiếu tài nguyên hệ thống",
-      "Trả lời chính xác dạng câu hỏi Trắc nghiệm nhiều lựa chọn & Đúng/Sai về vai trò OS"
+      "Giải quyết 3 dạng câu hỏi thi: Trắc nghiệm định nghĩa, Phân loại HĐH, Đúng/Sai có giải thích",
+      "Phân tích tình huống thực tế (Mở YouTube, Chụp ảnh, Cắm USB, Máy lag do quá tải CPU/RAM)",
+      "Trình bày bài phát biểu tổng kết 2 phút chuẩn đầu ra sau buổi học"
     ],
     practice: [
-      "10 câu trắc nghiệm phân biệt chức năng OS - Ứng dụng - Tiện ích",
-      "1 bảng so sánh chi tiết: Windows vs Linux vs Android",
-      "1 bài tập tình huống: Xử lí máy tính bị treo do đụng độ phần mềm"
+      "10 câu trắc nghiệm tương tác kiểm tra khái niệm và 5 nhóm chức năng",
+      "1 bài tập thực hành phân tích tiến trình Task Manager trên máy tính cá nhân",
+      "7 câu hỏi bài kiểm tra cuối buổi không tài liệu & 5 cụm chốt kiến thức trọng tâm"
     ],
     sourceIds: ["kgv-cs11", "nxbgd-training", "kgv-focus11"],
     lectureContent: b1Content

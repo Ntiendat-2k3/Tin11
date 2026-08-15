@@ -6,6 +6,12 @@ import { b21Content } from "./b21Content.js"
 import { b22Content } from "./b22Content.js"
 import { b23Content } from "./b23Content.js"
 import { b24Content } from "./b24Content.js"
+import { b25Content } from "./b25Content.js"
+import { b26Content } from "./b26Content.js"
+import { b27Content } from "./b27Content.js"
+import { b28Content } from "./b28Content.js"
+import { b29Content } from "./b29Content.js"
+import { b30Content } from "./b30Content.js"
 
 export const cs11 = [
   {
@@ -293,7 +299,8 @@ export const cs11 = [
       "2 bài tập thực hành cải tiến đoạn mã Python: Từ 2 vòng lặp lồng nhau thành 1 vòng lặp",
       "Bài tập đo đạc thời gian chạy thực tế của Tìm kiếm nhị phân với mảng 10 triệu phần tử"
     ],
-    sourceIds: ["kgv-cs11", "kgv-focus11"]
+    sourceIds: ["kgv-cs11", "kgv-focus11"],
+    lectureContent: b25Content
   },
   {
     id: "b26",
@@ -323,7 +330,8 @@ export const cs11 = [
       "Bài tập phân rã bài toán Game Đoán số thành 4 hàm mô-đun độc lập",
       "Sơ đồ cấu trúc mô-đun cho bài toán Thống kê từ vựng trong văn bản"
     ],
-    sourceIds: ["kgv-cs11", "nxbgd-training"]
+    sourceIds: ["kgv-cs11", "nxbgd-training"],
+    lectureContent: b26Content
   },
   {
     id: "b27",
@@ -351,6 +359,122 @@ export const cs11 = [
       "Bảng Tiêu chí chấm điểm (Rubric) đánh giá dự án lập trình theo 5 tiêu chí chuẩn",
       "Bài tập thực hành mở rộng dự án: Thêm tính năng Tìm kiếm và Sắp xếp vào chương trình đã có"
     ],
-    sourceIds: ["kgv-cs11", "nxbgd-training"]
+    sourceIds: ["kgv-cs11", "nxbgd-training"],
+    lectureContent: b27Content
+  },
+  {
+    id: "b28",
+    lesson: "Bài 28",
+    title: "Thiết kế chương trình theo mô đun",
+    priority: "high",
+    hours: 2,
+    mustKnow: [
+      "Khái niệm mô đun chương trình (Module) và nguyên lý thiết kế mô đun (Modular Design)",
+      "Hai nguyên lý cốt lõi: Tính liên kết cao (High Cohesion) và Tính phụ thuộc thấp (Low Coupling)",
+      "4 ưu điểm vượt trội: Dễ phát triển song song (Teamwork), Dễ tái sử dụng (Reusability), Dễ kiểm thử khoanh vùng bug, Dễ bảo trì",
+      "Kỹ thuật refactor từ hàm ôm đồm sang các mô-đun hàm đơn nhiệm"
+    ],
+    codeSkills: [
+      "Phân tách một hàm lớn thành các mô-đun hàm có Cohesion cao",
+      "Thiết kế tham số đầu vào và đầu ra tổng quát để mô-đun đạt Coupling thấp",
+      "Viết mã Python minh họa tái sử dụng mô-đun cho nhiều bài toán khác nhau"
+    ],
+    examSkills: [
+      "Nhận diện và đánh giá mức độ Cohesion/Coupling trong mã nguồn đề thi",
+      "Lựa chọn thiết kế mô-đun tối ưu nhất cho bài toán bối cảnh",
+      "Giải bài tập trắc nghiệm và câu hỏi Đúng/Sai về thiết kế mô-đun"
+    ],
+    practice: [
+      "Bài tập đánh giá và tái cấu trúc đoạn mã ôm đồm theo nguyên lý mô-đun",
+      "Bài tập thiết kế mô-đun sắp xếp dùng lại cho danh sách sản phẩm và danh sách học sinh",
+      "Sơ đồ phân tách mô-đun xử lý dữ liệu và mô-đun hiển thị"
+    ],
+    sourceIds: ["kgv-cs11", "nxbgd-training"],
+    lectureContent: b28Content
+  },
+  {
+    id: "b29",
+    lesson: "Bài 29",
+    title: "Thực hành thiết kế chương trình theo mô đun",
+    priority: "high",
+    hours: 2,
+    mustKnow: [
+      "Quy trình 6 bước thực hành thiết kế chương trình theo mô đun",
+      "Kỹ thuật lập Bảng Hợp đồng Interface (Input/Output) trước khi gõ code",
+      "Kỹ thuật kiểm thử đơn vị độc lập (Unit Test) bằng câu lệnh `assert` trong Python",
+      "Tích hợp các mô-đun đã kiểm thử đúng thành chương trình hoàn chỉnh"
+    ],
+    codeSkills: [
+      "Lập bảng quy định tham số vào/ra cho các thành viên làm việc song song",
+      "Viết các dòng lệnh `assert dieukien, thongbao` để tự động kiểm thử mô-đun",
+      "Khoanh vùng và sửa lỗi ngay tại mô-đun vừa viết"
+    ],
+    examSkills: [
+      "Đọc hiểu kịch bản kiểm thử unit test bằng lệnh `assert`",
+      "Phát hiện lỗi không khớp kiểu dữ liệu giữa các mô-đun khi tích hợp"
+    ],
+    practice: [
+      "Bài tập thực hành 6 bước cho bài toán Lọc số nguyên tố",
+      "Thiết kế bộ câu lệnh `assert` kiểm thử đơn vị cho 3 mô-đun Quản lý điểm",
+      "Bài tập lập Bảng Hợp đồng Interface cho ứng dụng Quản lý Thư viện"
+    ],
+    sourceIds: ["kgv-cs11", "nxbgd-training"],
+    lectureContent: b29Content
+  },
+  {
+    id: "b30",
+    lesson: "Bài 30",
+    title: "Thiết lập thư viện cho chương trình",
+    priority: "high",
+    hours: 2,
+    mustKnow: [
+      "Khái niệm Thư viện chương trình (Program Library) và sự khác biệt với Mô-đun đơn lẻ",
+      "Phân loại 3 nhóm thư viện: Thư viện chuẩn (Standard), Thư viện bên thứ ba (Third-party), Thư viện tự tạo (Custom Library)",
+      "3 cú pháp nạp thư viện trong Python: `import`, `from ... import ...`, `import ... as ...`",
+      "Quy trình tự đóng gói các mô-đun cá nhân thành file thư viện `.py` riêng"
+    ],
+    codeSkills: [
+      "Sử dụng các thư viện chuẩn có sẵn như `math`, `random`",
+      "Tạo file thư viện tự định nghĩa (như `xu_ly_diem.py`) và nạp `import` ở chương trình khác",
+      "Sử dụng đúng cú pháp import phù hợp với từng ngữ cảnh"
+    ],
+    examSkills: [
+      "Dự đoán kết quả thực thi của đoạn mã có nạp thư viện `math` / `random`",
+      "Phát hiện lỗi cú pháp gọi hàm khi nạp thư viện sai cách",
+      "Giải bài tập Trắc nghiệm & Đúng/Sai về Thư viện chương trình trong đề thi THPT 2026"
+    ],
+    practice: [
+      "Tạo file thư viện `thuat_toan.py` chứa Tìm kiếm & Sắp xếp rồi nạp vào `app.py`",
+      "Bài tập ứng dụng các hàm `math.sqrt()`, `math.pi`, `random.randint()`",
+      "Bài tập tự đóng gói Thư viện tiện ích xử lý mảng cá nhân"
+    ],
+    sourceIds: ["kgv-cs11", "nxbgd-training"],
+    lectureContent: b30Content
+  },
+  {
+    id: "b31",
+    lesson: "Bài 31",
+    title: "Thực hành thiết lập thư viện chương trình",
+    priority: "high",
+    hours: 2,
+    mustKnow: [
+      "Quy trình thực hành thiết lập, đóng gói và tái sử dụng thư viện",
+      "Ứng dụng thư viện vào các dự án lập trình thực tế",
+      "Nội dung chi tiết sẽ được bổ sung sau..."
+    ],
+    codeSkills: [
+      "Thực hành đóng gói và nhập thư viện trong Python",
+      "Nội dung chi tiết sẽ được bổ sung sau..."
+    ],
+    examSkills: [
+      "Giải quyết bài tập liên quan đến tái sử dụng thư viện",
+      "Nội dung chi tiết sẽ được bổ sung sau..."
+    ],
+    practice: [
+      "Xây dựng thư viện tiện ích riêng và tích hợp vào chương trình",
+      "Nội dung chi tiết sẽ được bổ sung sau..."
+    ],
+    sourceIds: ["kgv-cs11"]
   }
 ]
+

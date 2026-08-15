@@ -29,7 +29,7 @@ export const sources = [
     publisher: "Kênh Giáo Viên",
     type: "reference",
     url: "https://kenhgiaovien.com/tai-lieu/giao-khoa-hoc-may-tinh-11-ket-noi-tri-thuc-du-ca-nam",
-    useFor: "Đối chiếu danh mục Bài 1-27, đặc biệt Chủ đề 6 Kĩ thuật lập trình."
+    useFor: "Đối chiếu danh mục Bài 1-31, đặc biệt Chủ đề 6 Kĩ thuật lập trình."
   },
   {
     id: "kgv-app11",
