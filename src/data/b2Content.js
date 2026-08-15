@@ -257,29 +257,7 @@ export const b2Content = {
     },
     {
       id: "sec-9",
-      title: "XII & XX. Cấu trúc Buổi học Gia sư 120 phút & Phương pháp Giảng dạy",
-      subsections: [
-        {
-          heading: "Phương pháp giảng dạy 20% Lý thuyết – 50% Thực hành – 20% Tình huống – 10% Kiểm tra",
-          text: "Nguyên tắc vàng khi dạy gia sư 1-1: Không giảng thao tác mà học sinh có thể tự khám phá. Đặt câu hỏi gợi mở để học sinh tự làm và đúc kết bài học."
-        }
-      ],
-      flowList: [
-        {
-          title: "Khung thời lượng 120 phút chuẩn bài giảng Gia sư 1-1",
-          subtitle: "Chi tiết lộ trình giảng dạy Bài 2 từ khởi động tới chốt kiến thức",
-          steps: [
-            { num: 1, title: "0–10 min: Kiểm tra Bài 1", desc: "Hỏi tình huống: 'Nếu máy không có HĐH thì có mở Chrome/Word được không? Vì sao?'" },
-            { num: 2, title: "10–20 min: Khởi động tình huống", desc: "Đưa thư mục 15 file lộn xộn: 'Hãy sắp xếp để lần sau tìm thấy file trong 10 giây'." },
-            { num: 3, title: "20–50 min: Thao tác tệp & thư mục", desc: "Hướng dẫn & thực hành: File, Folder, Path, Copy, Move, Rename, Delete, Restore, Search." },
-            { num: 4, title: "50–75 min: Challenge 1", desc: "Học sinh tự tạo cây thư mục HocTap > BaiHoc, BaiTap, DeThi, HinhAnh, Backup." },
-            { num: 5, title: "75–90 min: Tiện ích HĐH PC", desc: "Thực hành Screenshot, Calculator, Clipboard (Win+V), Check Disk, Optimize HDD vs SSD." },
-            { num: 6, title: "90–105 min: Tiện ích Di động", desc: "Thực hành Contacts, Calendar, Reminders, App Management và quy trình dọn bộ nhớ đầy." },
-            { num: 7, title: "105–115 min: Mini Test 15 câu", desc: "Làm bài kiểm tra ngắn đánh giá mức độ thông hiểu và vận dụng." },
-            { num: 8, title: "115–120 min: Chốt 5 kiến thức đinh", desc: "Học sinh tự tóm tắt lại 5 ý quan trọng nhất của buổi học." }
-          ]
-        }
-      ],
+      title: "IX. 5 Kiến thức 'Đinh' Cần Nhớ Của Bài Học",
       checkpointCards: [
         { title: "1. File vs Folder", detail: "File = dữ liệu có tên & đuôi mở rộng; Folder = cấu trúc tổ chức dữ liệu." },
         { title: "2. File Explorer", detail: "Công cụ trung tâm quản lý toàn bộ ổ đĩa, tệp và thư mục trên Windows." },
@@ -608,30 +586,13 @@ export const b2Content = {
     },
     {
       id: "practice-b2-7",
-      badge: "Khung Giáo án Gia sư",
-      title: "Khung Phân bổ 90 phút Buổi học & Tiêu chí Đánh giá Mức Đạt / Khá / Tốt",
-      duration: "90 phút",
+      badge: "Đánh giá & BTVN",
+      title: "Tiêu chí Đánh giá Năng lực Sau Buổi học & Bài tập Về nhà",
+      duration: "Tổng kết",
       type: "exercise",
-      description: "Chi tiết bảng phân bổ thời gian 90 phút toàn buổi học và tiêu chí đánh giá năng lực học sinh sau bài thực hành.",
+      description: "Xem chi tiết bảng tiêu chí đánh giá mức độ hoàn thành bài học (Mức Đạt, Khá, Tốt) và dặn dò bài tập về nhà.",
       content: {
-        objective: "Bảng tổng hợp phân bổ 90 phút bài giảng và tiêu chí đánh giá chuẩn năng lực.",
-        table: {
-          headers: ["Thời gian", "Nội dung bài học / thực hành", "Mục tiêu cần đạt"],
-          rows: [
-            ["0–10 min", "Ôn tập kiến thức Bài 1", "Kích hoạt kiến thức cũ"],
-            ["10–25 min", "Lý thuyết File, Folder, File Explorer", "Nắm vững kiến thức cốt lõi"],
-            ["25–35 min", "6 Thao tác: Copy, Move, Rename, Delete, Search", "Thành thạo thao tác máy tính"],
-            ["35–40 min", "Tiện ích hệ điều hành PC (Check, Optimize)", "Kiến thức SGK & thực tế"],
-            ["40–45 min", "Tiện ích trên thiết bị di động", "Liên hệ thực tế Android/iOS"],
-            ["45–50 min", "Luyện tập 1 – Quick Drill (Khởi động nhanh)", "Củng cố phản xạ thao tác"],
-            ["50–60 min", "Luyện tập 2 – Quản lý File TIN_HOC_11", "Thực hành phân loại cây thư mục"],
-            ["60–67 min", "Luyện tập 3 – Thử thách 'File bị mất'", "Vận dụng xử lý Recycle Bin"],
-            ["67–72 min", "Luyện tập 4 – Search & Dữ liệu lớn", "Rèn luyện kỹ năng tìm kiếm"],
-            ["72–80 min", "Luyện tập 5 – Case Study bạn An", "Tư duy giải quyết vấn đề thực tế"],
-            ["80–85 min", "Mini Test kiểm tra năng lực", "Đánh giá mức độ tiếp thu"],
-            ["85–90 min", "Chốt 5 kiến thức đinh + Giao BTVN", "Củng cố và dặn dò bài tập"]
-          ]
-        },
+        objective: "Đánh giá mức độ đạt năng lực thực hành của học sinh và dặn dò bài tập về nhà.",
         criteria: [
           { level: "Mức Đạt", desc: "Tạo được Folder; tạo/đổi tên file; Copy/Move file; Delete/Restore; dùng ô Search tìm tệp." },
           { level: "Mức Khá", desc: "Giải thích được sự khác nhau giữa Copy vs Move; biết tổ chức dữ liệu hợp lý; biết xử lý tình huống file bị mất; tìm kiếm dữ liệu tốt." },
