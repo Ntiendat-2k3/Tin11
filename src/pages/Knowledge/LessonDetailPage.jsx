@@ -578,7 +578,14 @@ export function LessonDetailPage() {
                       )}
                     </div>
                     <h3 className="text-sm md:text-base font-bold text-slate-900 dark:text-slate-100 leading-snug">
-                      {ex.title}
+                      <Link 
+                        to={`/lesson/${id}/practice/${ex.id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:underline hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                      >
+                        {ex.title} ↗
+                      </Link>
                     </h3>
                     {ex.description && (
                       <p className="text-xs text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
@@ -589,9 +596,11 @@ export function LessonDetailPage() {
                   
                   <Link 
                     to={`/lesson/${id}/practice/${ex.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-lg text-xs md:text-sm font-extrabold text-white bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-600 dark:hover:bg-indigo-500 shadow-xs transition-all cursor-pointer mt-3"
                   >
-                    <span>Làm Bài Tập / Vào Quiz</span>
+                    <span>Mở Bài Tập Làm Trên Lớp (Tab mới ↗)</span>
                     <ArrowLeft className="h-3.5 w-3.5 rotate-180" />
                   </Link>
                 </div>

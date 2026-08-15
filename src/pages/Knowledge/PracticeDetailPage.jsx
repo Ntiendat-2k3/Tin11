@@ -274,7 +274,7 @@ export function PracticeDetailPage() {
               <div className="space-y-4">
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
                   <CheckSquare className="h-6 w-6 text-teal-600" />
-                  Các bước thực hiện bài tập:
+                  Các bước thực hiện & Yêu cầu bài tập:
                 </h3>
                 <div className="space-y-3">
                   {practiceItem.content.requirements.map((req, idx) => (
@@ -282,8 +282,91 @@ export function PracticeDetailPage() {
                       <span className="shrink-0 flex h-7 w-7 items-center justify-center rounded-lg bg-teal-600 text-white font-bold text-sm">
                         {idx + 1}
                       </span>
-                      <p className="text-base md:text-lg text-slate-800 dark:text-slate-200 font-medium pt-0.5">
+                      <p className="text-base md:text-lg text-slate-800 dark:text-slate-200 font-medium pt-0.5 whitespace-pre-wrap">
                         {req}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Time Allocation Table */}
+            {practiceItem.content.table && (
+              <div className="space-y-4">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <Clock className="h-6 w-6 text-indigo-600" />
+                  Bảng phân bổ thời lượng buổi học (90 phút):
+                </h3>
+                <div className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs">
+                  <table className="w-full text-left text-sm md:text-base">
+                    <thead className="bg-slate-900 text-white font-bold">
+                      <tr>
+                        {practiceItem.content.table.headers.map((h, idx) => (
+                          <th key={idx} className="p-4">{h}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
+                      {practiceItem.content.table.rows.map((row, rIdx) => (
+                        <tr key={rIdx} className={rIdx % 2 === 0 ? "bg-white dark:bg-slate-900" : "bg-slate-50 dark:bg-slate-800/50"}>
+                          {row.map((cell, cIdx) => (
+                            <td key={cIdx} className={`p-4 ${cIdx === 0 ? "font-bold text-teal-700 dark:text-teal-400" : "text-slate-700 dark:text-slate-300"}`}>
+                              {cell}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {/* Evaluation Criteria */}
+            {practiceItem.content.criteria && (
+              <div className="space-y-4">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <CheckCircle2 className="h-6 w-6 text-emerald-600" />
+                  Tiêu chí đánh giá mức độ hoàn thành bài học:
+                </h3>
+                <div className="grid gap-3 md:grid-cols-3">
+                  {practiceItem.content.criteria.map((c, idx) => (
+                    <div key={idx} className={`p-5 rounded-2xl border shadow-xs space-y-2 ${
+                      c.level === "Mức Đạt" ? "bg-emerald-50/70 border-emerald-300 dark:bg-emerald-950/40 dark:border-emerald-800" :
+                      c.level === "Mức Khá" ? "bg-blue-50/70 border-blue-300 dark:bg-blue-950/40 dark:border-blue-800" :
+                      "bg-purple-50/70 border-purple-300 dark:bg-purple-950/40 dark:border-purple-800"
+                    }`}>
+                      <span className={`inline-block px-3 py-1 rounded-full text-xs font-black text-white ${
+                        c.level === "Mức Đạt" ? "bg-emerald-600" :
+                        c.level === "Mức Khá" ? "bg-blue-600" : "bg-purple-600"
+                      }`}>
+                        {c.level}
+                      </span>
+                      <p className="text-sm md:text-base font-medium text-slate-800 dark:text-slate-200 leading-relaxed">
+                        {c.desc}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Homework List */}
+            {practiceItem.content.homework && (
+              <div className="space-y-4">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <Sparkles className="h-6 w-6 text-amber-500" />
+                  Bài tập về nhà sau buổi học:
+                </h3>
+                <div className="grid gap-4 md:grid-cols-2">
+                  {practiceItem.content.homework.map((hw, idx) => (
+                    <div key={idx} className="p-5 rounded-2xl border border-amber-200 bg-amber-50/50 dark:border-amber-900/60 dark:bg-slate-900 space-y-2">
+                      <span className="px-3 py-0.5 rounded-full text-xs font-black bg-amber-200 text-amber-900 dark:bg-amber-900 dark:text-amber-200">
+                        {hw.title}
+                      </span>
+                      <p className="text-sm md:text-base font-medium text-slate-800 dark:text-slate-200 leading-relaxed">
+                        {hw.desc}
                       </p>
                     </div>
                   ))}
@@ -297,7 +380,7 @@ export function PracticeDetailPage() {
                   <Sparkles className="h-5 w-5 text-teal-600" />
                   Hướng dẫn nộp bài & Báo cáo:
                 </h4>
-                <p className="text-base md:text-lg text-slate-700 dark:text-slate-300 font-medium">
+                <p className="text-base md:text-lg text-slate-700 dark:text-slate-300 font-medium whitespace-pre-wrap">
                   {practiceItem.content.submissionHint}
                 </p>
               </div>
