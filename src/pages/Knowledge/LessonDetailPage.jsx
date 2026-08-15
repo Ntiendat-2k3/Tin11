@@ -556,55 +556,53 @@ export function LessonDetailPage() {
         {/* PRACTICE EXERCISES & QUIZ LINKS SECTION */}
         {lecture?.practiceExercises && (
           <section id="practice-exercises" className="scroll-mt-24 pt-8 border-t-2 border-teal-500/30">
-            <h2 className="mb-3 flex items-center gap-2.5 text-lg md:text-2xl font-black text-slate-900 dark:text-white">
-              <Sparkles className="h-6 w-6 text-indigo-500" />
-              Luyện Tập Buổi Học & Quiz Tương Tác
-            </h2>
-            <p className="mb-4 text-xs md:text-sm text-slate-600 dark:text-slate-400 font-medium">
-              Bấm vào bài tập hoặc quiz bên dưới để chuyển sang trang làm bài chuyên biệt (Quiz trực tuyến hoặc phiếu bài tập tự thiết kế).
-            </p>
-            <div className="grid gap-4 md:grid-cols-2">
-              {lecture.practiceExercises.map((ex, idx) => (
-                <div key={idx} className="rounded-xl border border-indigo-200/90 bg-gradient-to-br from-indigo-50/70 via-slate-50 to-teal-50/40 p-5 shadow-xs hover:shadow-sm transition-all dark:from-indigo-950/40 dark:via-slate-900 dark:to-slate-900 dark:border-indigo-800/80 flex flex-col justify-between space-y-3">
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="px-2.5 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider bg-indigo-200/80 text-indigo-900 dark:bg-indigo-900/80 dark:text-indigo-200">
-                        {ex.badge || "Bài Tập Buổi Học"}
+            <div className="space-y-4">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <h2 className="flex items-center gap-2.5 text-lg md:text-2xl font-black text-slate-900 dark:text-white">
+                  <Sparkles className="h-6 w-6 text-indigo-500" />
+                  Luyện Tập Buổi Học & Quiz Tương Tác
+                </h2>
+                <Badge className="bg-indigo-600 text-white text-xs px-3 py-1 font-bold rounded-lg">
+                  {lecture.practiceExercises.length} Dạng Bài Tập Thực Hành
+                </Badge>
+              </div>
+
+              <Link
+                to={`/lesson/${id}/practice/${lecture.practiceExercises[0]?.id || "default"}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block rounded-3xl border-2 border-indigo-300/80 bg-gradient-to-r from-indigo-950 via-slate-900 to-teal-950 p-6 md:p-8 text-white shadow-xl hover:border-indigo-400 hover:shadow-2xl transition-all cursor-pointer relative overflow-hidden"
+              >
+                <div className="absolute right-0 top-0 -mr-12 -mt-12 h-48 w-48 rounded-full bg-indigo-500/20 blur-3xl group-hover:bg-indigo-500/30 transition-all" />
+                
+                <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                  <div className="space-y-3 max-w-2xl">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="px-3.5 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-indigo-500/30 border border-indigo-400/40 text-indigo-200">
+                        🚀 Trung Tâm Luyện Tập Chuyên Biệt
                       </span>
-                      {ex.duration && (
-                        <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400">
-                          ⏱️ {ex.duration}
-                        </span>
-                      )}
+                      <span className="px-3 py-1 rounded-full text-xs font-bold bg-white/10 text-teal-300 border border-white/15">
+                        {lecture.practiceExercises.length} Dạng bài tập & Quiz
+                      </span>
                     </div>
-                    <h3 className="text-sm md:text-base font-bold text-slate-900 dark:text-slate-100 leading-snug">
-                      <Link 
-                        to={`/lesson/${id}/practice/${ex.id}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:underline hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-                      >
-                        {ex.title} ↗
-                      </Link>
+
+                    <h3 className="text-xl md:text-3xl font-black text-white group-hover:text-teal-300 transition-colors flex items-center gap-3 leading-snug">
+                      Mở Trung Tâm Luyện Tập & Quiz Tương Tác ↗
                     </h3>
-                    {ex.description && (
-                      <p className="text-xs text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
-                        {ex.description}
-                      </p>
-                    )}
+
+                    <p className="text-xs md:text-base text-slate-300 font-medium leading-relaxed">
+                      Bấm vào đây để mở toàn bộ bài tập thực hành làm trên lớp (gồm Quiz khởi động, Quản lý file TIN_HOC_11, Thử thách file bị mất, Search, Case study & Tiêu chí đánh giá) trong một giao diện có <strong>Sidebar danh sách dạng bài</strong> giúp dễ chọn và làm bài.
+                    </p>
                   </div>
-                  
-                  <Link 
-                    to={`/lesson/${id}/practice/${ex.id}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-lg text-xs md:text-sm font-extrabold text-white bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-600 dark:hover:bg-indigo-500 shadow-xs transition-all cursor-pointer mt-3"
-                  >
-                    <span>Mở Bài Tập Làm Trên Lớp (Tab mới ↗)</span>
-                    <ArrowLeft className="h-3.5 w-3.5 rotate-180" />
-                  </Link>
+
+                  <div className="shrink-0 w-full md:w-auto">
+                    <span className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-indigo-600 group-hover:bg-indigo-500 text-white font-black text-sm md:text-base shadow-lg transition-all">
+                      <span>Mở Trang Luyện Tập (Tab mới ↗)</span>
+                      <ArrowLeft className="h-5 w-5 rotate-180" />
+                    </span>
+                  </div>
                 </div>
-              ))}
+              </Link>
             </div>
           </section>
         )}
