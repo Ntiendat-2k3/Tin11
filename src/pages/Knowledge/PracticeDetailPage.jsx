@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import { getLessonById } from "@/data"
 import { 
   ArrowLeft, CheckCircle2, HelpCircle, Lightbulb, ExternalLink, 
-  Sparkles, CheckSquare, Clock, Send, RefreshCw, Layers
+  Sparkles, CheckSquare, Clock, Send, RefreshCw, Layers, ChevronDown
 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -32,10 +32,14 @@ export function PracticeDetailPage() {
   const [submitted, setSubmitted] = useState(false)
   const [score, setScore] = useState(0)
 
+  // Collapsible solution toggle state
+  const [showSolution, setShowSolution] = useState(false)
+
   useEffect(() => {
     setSelectedAnswers({})
     setSubmitted(false)
     setScore(0)
+    setShowSolution(false) // Reset toggle whenever switching active exercise
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [activeId])
 
@@ -319,20 +323,30 @@ export function PracticeDetailPage() {
             {/* CUSTOM TEACHER-DESIGNED EXERCISE SHEET */}
             {!isQuiz && practiceItem.content && (
               <div className="rounded-3xl border border-slate-200 bg-white p-6 md:p-10 shadow-md dark:border-slate-800 dark:bg-slate-900 space-y-8">
-                <div className="border-b pb-4 space-y-2">
-                  <span className="px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-purple-100 text-purple-900 dark:bg-purple-950 dark:text-purple-200">
-                    📝 Phiếu Bài Tập Tự Thiết Kế Buổi Học
-                  </span>
+                
+                {/* 1. ĐỀ BÀI HEADER */}
+                <div className="border-b pb-4 space-y-3">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-purple-100 text-purple-900 dark:bg-purple-950 dark:text-purple-200">
+                      📌 ĐỀ BÀI THỰC HÀNH
+                    </span>
+                    {practiceItem.duration && (
+                      <span className="text-xs font-bold text-slate-500 dark:text-slate-400">
+                        ⏱️ Thời gian: {practiceItem.duration}
+                      </span>
+                    )}
+                  </div>
                   <h2 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white">
                     {practiceItem.title}
                   </h2>
                 </div>
 
+                {/* 2. MỤC TIÊU BÀI TẬP */}
                 {practiceItem.content.objective && (
                   <div className="rounded-2xl border border-amber-200 bg-amber-50/60 p-5 dark:border-amber-900/60 dark:bg-amber-950/40">
                     <h4 className="font-bold text-amber-900 dark:text-amber-300 text-base md:text-lg mb-1 flex items-center gap-2">
                       <Lightbulb className="h-5 w-5 text-amber-600" />
-                      Mục tiêu cần đạt buổi học:
+                      Mục tiêu cần đạt:
                     </h4>
                     <p className="text-base md:text-lg text-slate-700 dark:text-slate-300 font-medium">
                       {practiceItem.content.objective}
@@ -340,11 +354,12 @@ export function PracticeDetailPage() {
                   </div>
                 )}
 
+                {/* 3. YÊU CẦU ĐỀ BÀI (TASKS / REQUIREMENTS) */}
                 {practiceItem.content.requirements && (
                   <div className="space-y-4">
                     <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
                       <CheckSquare className="h-6 w-6 text-teal-600" />
-                      Các bước thực hiện & Yêu cầu bài tập:
+                      Các yêu cầu thực hiện (Đề bài):
                     </h3>
                     <div className="space-y-3">
                       {practiceItem.content.requirements.map((req, idx) => (
@@ -361,155 +376,173 @@ export function PracticeDetailPage() {
                   </div>
                 )}
 
-                {/* QA List */}
+                {/* 4. CÂU HỎI ĐỀ BÀI (NẾU CÓ Q&A) */}
                 {practiceItem.content.qaList && (
                   <div className="space-y-4">
                     <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
                       <HelpCircle className="h-6 w-6 text-amber-500" />
-                      Câu hỏi kiểm tra & Đáp án giải thích:
+                      Câu hỏi đề bài yêu cầu giải đáp:
                     </h3>
                     <div className="space-y-3">
                       {practiceItem.content.qaList.map((qa, idx) => (
-                        <div key={idx} className="p-5 rounded-2xl border border-amber-200 bg-amber-50/50 dark:border-amber-900/60 dark:bg-slate-900 space-y-2">
+                        <div key={idx} className="p-5 rounded-2xl border border-amber-200 bg-amber-50/50 dark:border-amber-900/60 dark:bg-slate-900">
                           <h4 className="font-bold text-slate-900 dark:text-white text-base md:text-lg">
-                            ❓ {qa.q}
+                            ❓ Câu hỏi #{idx + 1}: {qa.q}
                           </h4>
-                          <div className="p-3 rounded-xl bg-white dark:bg-slate-800 border border-teal-200 dark:border-slate-700 text-teal-950 dark:text-teal-200 font-semibold text-sm md:text-base">
-                            {qa.a}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* 5. NÚT XEM ĐÁP ÁN (TOGGLE BUTTON) */}
+                <div className="pt-4 border-t border-slate-200 dark:border-slate-800">
+                  <Button
+                    onClick={() => setShowSolution(!showSolution)}
+                    className={`w-full py-4 px-6 rounded-2xl font-black text-base md:text-lg flex items-center justify-between transition-all cursor-pointer shadow-md ${
+                      showSolution
+                        ? "bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900"
+                        : "bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:from-emerald-700 hover:to-teal-700"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2.5">
+                      <CheckCircle2 className="h-6 w-6 text-emerald-300" />
+                      <span>{showSolution ? "Ẩn Đáp Án & Hướng Dẫn" : "💡 Bấm vào đây để Xem Đáp Án & Hướng Dẫn Giải Chi Tiết"}</span>
+                    </span>
+                    <ChevronDown className={`h-6 w-6 transition-transform duration-300 ${showSolution ? "rotate-180" : ""}`} />
+                  </Button>
+                </div>
+
+                {/* 6. NỘI DUNG ĐÁP ÁN XỔ XUỐNG KHI CLICK BUTTON */}
+                {showSolution && (
+                  <div className="space-y-6 pt-2 animate-in fade-in slide-in-from-top-2 duration-300 border-2 border-emerald-300/80 bg-emerald-50/30 dark:bg-emerald-950/20 p-6 md:p-8 rounded-3xl">
+                    <div className="flex items-center gap-2 text-emerald-800 dark:text-emerald-300 font-black text-xl border-b border-emerald-200/80 dark:border-emerald-800/80 pb-3">
+                      <CheckCircle2 className="h-6 w-6 text-emerald-600" />
+                      <span>Đáp Án Chi Tiết & Hướng Dẫn Thao Tác</span>
+                    </div>
+
+                    {/* QA Solutions */}
+                    {practiceItem.content.qaList && (
+                      <div className="space-y-3">
+                        <h4 className="font-extrabold text-slate-900 dark:text-white text-base">
+                          💡 Đáp án giải thích chi tiết:
+                        </h4>
+                        {practiceItem.content.qaList.map((qa, idx) => (
+                          <div key={idx} className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-emerald-300 dark:border-emerald-800 text-emerald-950 dark:text-emerald-200 font-semibold text-base leading-relaxed shadow-xs">
+                            <p className="font-bold text-slate-700 dark:text-slate-300 text-xs mb-1">Câu hỏi #{idx + 1}: {qa.q}</p>
+                            <p className="text-emerald-900 dark:text-emerald-300">{qa.a}</p>
                           </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
+                        ))}
+                      </div>
+                    )}
 
-                {/* Knowledge Notice Callout */}
-                {practiceItem.content.knowledgeNotice && (
-                  <div className="rounded-2xl border border-indigo-200 bg-indigo-50/70 p-5 dark:border-indigo-900/60 dark:bg-indigo-950/40">
-                    <h4 className="font-bold text-indigo-950 dark:text-indigo-200 text-base md:text-lg mb-1 flex items-center gap-2">
-                      <Sparkles className="h-5 w-5 text-indigo-600" />
-                      Kiến thức cần nhớ:
-                    </h4>
-                    <p className="text-base md:text-lg text-slate-800 dark:text-slate-200 font-bold leading-relaxed whitespace-pre-wrap">
-                      {practiceItem.content.knowledgeNotice}
-                    </p>
-                  </div>
-                )}
+                    {/* Submission / Solution hint */}
+                    {practiceItem.content.submissionHint && (
+                      <div className="rounded-2xl border border-teal-200 bg-white p-5 dark:bg-slate-800 dark:border-teal-900 space-y-1">
+                        <h4 className="font-bold text-teal-950 dark:text-teal-200 text-base mb-1 flex items-center gap-2">
+                          <Sparkles className="h-5 w-5 text-teal-600" />
+                          Hướng dẫn đáp án & Thao tác kiểm tra:
+                        </h4>
+                        <p className="text-base text-slate-800 dark:text-slate-200 font-medium whitespace-pre-wrap leading-relaxed">
+                          {practiceItem.content.submissionHint}
+                        </p>
+                      </div>
+                    )}
 
-                {/* Scoring Levels (8/10, 9/10, 10/10) */}
-                {practiceItem.content.scoring && (
-                  <div className="space-y-4">
-                    <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                      <CheckCircle2 className="h-6 w-6 text-emerald-600" />
-                      Thang điểm & Tiêu chí đánh giá bài tập:
-                    </h3>
-                    <div className="grid gap-3 md:grid-cols-3">
-                      {practiceItem.content.scoring.map((sc, idx) => (
-                        <div key={idx} className="p-5 rounded-2xl border border-emerald-200 bg-emerald-50/60 dark:border-emerald-900/60 dark:bg-slate-900 space-y-2">
-                          <span className="px-3 py-1 rounded-full text-xs font-black bg-emerald-600 text-white">
-                            {sc.level}
-                          </span>
-                          <p className="text-sm md:text-base font-medium text-slate-800 dark:text-slate-200 leading-relaxed">
-                            {sc.desc}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
+                    {/* Knowledge Notice */}
+                    {practiceItem.content.knowledgeNotice && (
+                      <div className="rounded-2xl border border-indigo-200 bg-indigo-50/80 p-5 dark:border-indigo-900/60 dark:bg-indigo-950/60 space-y-1">
+                        <h4 className="font-bold text-indigo-950 dark:text-indigo-200 text-base flex items-center gap-2">
+                          <Sparkles className="h-5 w-5 text-indigo-600" />
+                          Kiến thức ghi nhớ:
+                        </h4>
+                        <p className="text-base text-slate-800 dark:text-slate-200 font-bold leading-relaxed whitespace-pre-wrap">
+                          {practiceItem.content.knowledgeNotice}
+                        </p>
+                      </div>
+                    )}
 
-                {/* Time Allocation Table */}
-                {practiceItem.content.table && (
-                  <div className="space-y-4">
-                    <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                      <Clock className="h-6 w-6 text-indigo-600" />
-                      Bảng phân bổ thời lượng buổi học (90 phút):
-                    </h3>
-                    <div className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs">
-                      <table className="w-full text-left text-sm md:text-base">
-                        <thead className="bg-slate-900 text-white font-bold">
-                          <tr>
-                            {practiceItem.content.table.headers.map((h, idx) => (
-                              <th key={idx} className="p-4">{h}</th>
-                            ))}
-                          </tr>
-                        </thead>
-                        <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
-                          {practiceItem.content.table.rows.map((row, rIdx) => (
-                            <tr key={rIdx} className={rIdx % 2 === 0 ? "bg-white dark:bg-slate-900" : "bg-slate-50 dark:bg-slate-800/50"}>
-                              {row.map((cell, cIdx) => (
-                                <td key={cIdx} className={`p-4 ${cIdx === 0 ? "font-bold text-teal-700 dark:text-teal-400" : "text-slate-700 dark:text-slate-300"}`}>
-                                  {cell}
-                                </td>
-                              ))}
-                            </tr>
+                    {/* Scoring */}
+                    {practiceItem.content.scoring && (
+                      <div className="space-y-3">
+                        <h4 className="font-bold text-slate-900 dark:text-white text-base">
+                          🏆 Thang điểm đánh giá:
+                        </h4>
+                        <div className="grid gap-3 md:grid-cols-3">
+                          {practiceItem.content.scoring.map((sc, idx) => (
+                            <div key={idx} className="p-4 rounded-xl border border-emerald-200 bg-white dark:bg-slate-800 space-y-1">
+                              <span className="px-2.5 py-0.5 rounded-full text-xs font-black bg-emerald-600 text-white">
+                                {sc.level}
+                              </span>
+                              <p className="text-xs md:text-sm font-medium text-slate-800 dark:text-slate-200 leading-relaxed">
+                                {sc.desc}
+                              </p>
+                            </div>
                           ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                )}
-
-                {/* Evaluation Criteria */}
-                {practiceItem.content.criteria && (
-                  <div className="space-y-4">
-                    <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                      <CheckCircle2 className="h-6 w-6 text-emerald-600" />
-                      Tiêu chí đánh giá mức độ hoàn thành bài học:
-                    </h3>
-                    <div className="grid gap-3 md:grid-cols-3">
-                      {practiceItem.content.criteria.map((c, idx) => (
-                        <div key={idx} className={`p-5 rounded-2xl border shadow-xs space-y-2 ${
-                          c.level === "Mức Đạt" ? "bg-emerald-50/70 border-emerald-300 dark:bg-emerald-950/40 dark:border-emerald-800" :
-                          c.level === "Mức Khá" ? "bg-blue-50/70 border-blue-300 dark:bg-blue-950/40 dark:border-blue-800" :
-                          "bg-purple-50/70 border-purple-300 dark:bg-purple-950/40 dark:border-purple-800"
-                        }`}>
-                          <span className={`inline-block px-3 py-1 rounded-full text-xs font-black text-white ${
-                            c.level === "Mức Đạt" ? "bg-emerald-600" :
-                            c.level === "Mức Khá" ? "bg-blue-600" : "bg-purple-600"
-                          }`}>
-                            {c.level}
-                          </span>
-                          <p className="text-sm md:text-base font-medium text-slate-800 dark:text-slate-200 leading-relaxed">
-                            {c.desc}
-                          </p>
                         </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
+                      </div>
+                    )}
 
-                {/* Homework List */}
-                {practiceItem.content.homework && (
-                  <div className="space-y-4">
-                    <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                      <Sparkles className="h-6 w-6 text-amber-500" />
-                      Bài tập về nhà sau buổi học:
-                    </h3>
-                    <div className="grid gap-4 md:grid-cols-2">
-                      {practiceItem.content.homework.map((hw, idx) => (
-                        <div key={idx} className="p-5 rounded-2xl border border-amber-200 bg-amber-50/50 dark:border-amber-900/60 dark:bg-slate-900 space-y-2">
-                          <span className="px-3 py-0.5 rounded-full text-xs font-black bg-amber-200 text-amber-900 dark:bg-amber-900 dark:text-amber-200">
-                            {hw.title}
-                          </span>
-                          <p className="text-sm md:text-base font-medium text-slate-800 dark:text-slate-200 leading-relaxed">
-                            {hw.desc}
-                          </p>
+                    {/* Table */}
+                    {practiceItem.content.table && (
+                      <div className="space-y-3">
+                        <h4 className="font-bold text-slate-900 dark:text-white text-base flex items-center gap-2">
+                          <Clock className="h-5 w-5 text-indigo-600" />
+                          Phân bổ thời gian:
+                        </h4>
+                        <div className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs">
+                          <table className="w-full text-left text-xs md:text-sm">
+                            <thead className="bg-slate-900 text-white font-bold">
+                              <tr>
+                                {practiceItem.content.table.headers.map((h, idx) => (
+                                  <th key={idx} className="p-3">{h}</th>
+                                ))}
+                              </tr>
+                            </thead>
+                            <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
+                              {practiceItem.content.table.rows.map((row, rIdx) => (
+                                <tr key={rIdx} className={rIdx % 2 === 0 ? "bg-white dark:bg-slate-900" : "bg-slate-50 dark:bg-slate-800/50"}>
+                                  {row.map((cell, cIdx) => (
+                                    <td key={cIdx} className={`p-3 ${cIdx === 0 ? "font-bold text-teal-700 dark:text-teal-400" : "text-slate-700 dark:text-slate-300"}`}>
+                                      {cell}
+                                    </td>
+                                  ))}
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
                         </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
+                      </div>
+                    )}
 
-                {practiceItem.content.submissionHint && (
-                  <div className="rounded-2xl border border-teal-200 bg-teal-50/60 p-5 dark:border-teal-900/60 dark:bg-teal-950/40">
-                    <h4 className="font-bold text-teal-950 dark:text-teal-200 text-base md:text-lg mb-1 flex items-center gap-2">
-                      <Sparkles className="h-5 w-5 text-teal-600" />
-                      Hướng dẫn nộp bài & Báo cáo:
-                    </h4>
-                    <p className="text-base md:text-lg text-slate-700 dark:text-slate-300 font-medium whitespace-pre-wrap">
-                      {practiceItem.content.submissionHint}
-                    </p>
+                    {/* Criteria */}
+                    {practiceItem.content.criteria && (
+                      <div className="space-y-3">
+                        <h4 className="font-bold text-slate-900 dark:text-white text-base flex items-center gap-2">
+                          <CheckCircle2 className="h-5 w-5 text-emerald-600" />
+                          Tiêu chí đánh giá mức độ hoàn thành:
+                        </h4>
+                        <div className="grid gap-3 md:grid-cols-3">
+                          {practiceItem.content.criteria.map((c, idx) => (
+                            <div key={idx} className={`p-4 rounded-xl border space-y-1 ${
+                              c.level === "Mức Đạt" ? "bg-emerald-50/70 border-emerald-300 dark:bg-emerald-950/40" :
+                              c.level === "Mức Khá" ? "bg-blue-50/70 border-blue-300 dark:bg-blue-950/40" :
+                              "bg-purple-50/70 border-purple-300 dark:bg-purple-950/40"
+                            }`}>
+                              <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-black text-white ${
+                                c.level === "Mức Đạt" ? "bg-emerald-600" :
+                                c.level === "Mức Khá" ? "bg-blue-600" : "bg-purple-600"
+                              }`}>
+                                {c.level}
+                              </span>
+                              <p className="text-xs md:text-sm font-medium text-slate-800 dark:text-slate-200 leading-relaxed">
+                                {c.desc}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
