@@ -430,177 +430,264 @@ export const b2Content = {
   practiceExercises: [
     {
       id: "practice-b2-1",
-      badge: "Bài 1 – 5 phút",
-      title: "Bài 1 – Khởi động nhanh (5 câu phản xạ thao tác)",
-      duration: "5 phút",
-      type: "quiz",
-      description: "Giáo viên đưa lần lượt các tình huống, học sinh chọn phương án thao tác xử lý đúng nhất trong 5 phút.",
+      badge: "Bài 1 – 3 phút",
+      title: "Bài 1 – Tạo cấu trúc thư mục (TIN_HOC_11)",
+      duration: "3 phút",
+      type: "exercise",
+      description: "Biết tạo thư mục, tổ chức dữ liệu theo cấu trúc và làm quen với File Explorer.",
       content: {
-        objective: "Mức 1 (Nhận biết): Kiểm tra phản xạ thao tác nhanh trên hệ điều hành.",
-        questions: [
-          {
-            q: "Câu 1: Em muốn tạo thư mục 'TinHoc11'. Thao tác nào đúng?",
-            options: ["A. Click chuột phải -> New -> Folder", "B. Nhấn Alt + F4", "C. Mở Calculator", "D. Nhấn Shift + Delete"],
-            answer: "A",
-            explanation: "Thao tác chuẩn tạo thư mục mới trên Windows là chuột phải -> New -> Folder (hoặc Ctrl + Shift + N)."
-          },
-          {
-            q: "Câu 2: Em có file 'Bai2.docx' và muốn tạo thêm một bản sao trong thư mục 'Backup'. Dùng thao tác nào?",
-            options: ["A. Move -> Paste", "B. Copy -> Paste", "C. Rename -> Enter", "D. Delete -> Restore"],
-            answer: "B",
-            explanation: "Tạo thêm bản sao giữ nguyên file gốc dùng Copy (Ctrl+C) -> Paste (Ctrl+V)."
-          },
-          {
-            q: "Câu 3: Em muốn chuyển file 'Bai2.docx' từ 'Downloads' sang 'TinHoc11'. Dùng thao tác nào?",
-            options: ["A. Copy -> Paste", "B. Move (Cut) -> Paste", "C. Print -> Save", "D. Zip -> Extract"],
-            answer: "B",
-            explanation: "Chuyển vị trí tệp từ nơi này sang nơi khác dùng Move/Cut (Ctrl+X) -> Paste (Ctrl+V)."
-          },
-          {
-            q: "Câu 4: Em lỡ tay xóa nhầm một tệp tin. Cần kiểm tra ở đâu đầu tiên để khôi phục?",
-            options: ["A. Control Panel", "B. Recycle Bin (Thùng rác)", "C. Google Drive", "D. Task Manager"],
-            answer: "B",
-            explanation: "File bị xóa thông thường sẽ được chuyển vào Recycle Bin, chọn chuột phải -> Restore để khôi phục."
-          },
-          {
-            q: "Câu 5: Em có 500 file và muốn tìm tất cả các file có đuôi '.pdf'. Sử dụng công cụ gì?",
-            options: ["A. Thanh ô Search trong File Explorer", "B. Command Prompt gõ exit", "C. Mở Snipping Tool", "D. Nhấn F2"],
-            answer: "A",
-            explanation: "Sử dụng ô Search trong File Explorer với từ khóa '*.pdf' để tìm nhanh tất cả file PDF."
-          }
-        ]
+        objective: "Mức độ: Cơ bản | Thời gian: 3 phút. Học sinh tự tạo đúng cấu trúc thư mục mà không cần giáo viên hướng dẫn từng bước.",
+        requirements: [
+          "Tạo thư mục chính: TIN_HOC_11",
+          "Tạo thư mục con 1: BAI_HOC",
+          "Tạo thư mục con 2: BAI_TAP",
+          "Tạo thư mục con 3: DE_THI",
+          "Tạo thư mục con 4: HINH_ANH"
+        ],
+        submissionHint: "Giáo viên kiểm tra: Học sinh phải tự tạo đúng cây thư mục TIN_HOC_11 > BAI_HOC, BAI_TAP, DE_THI, HINH_ANH trên máy tính."
       }
     },
     {
       id: "practice-b2-2",
-      badge: "Bài 2 – 10 phút",
-      title: "Bài 2 – Thực hành Quản lý File & Cấu trúc Thư mục TIN_HOC_11",
-      duration: "10 phút",
+      badge: "Bài 2 – 3 phút",
+      title: "Bài 2 – Tạo và đổi tên File / Folder (Bai1_HeDieuHanh)",
+      duration: "3 phút",
       type: "exercise",
-      description: "Tài liệu gửi về lộn xộn trong Downloads. Học sinh tự tạo cấu trúc thư mục TIN_HOC_11 và phân loại 10 tệp vào đúng thư mục.",
+      description: "Tạo các thư mục Bai1, Bai2, Bai3 trong BAI_HOC và đổi tên Bai1 thành Bai1_HeDieuHanh.",
       content: {
-        objective: "Mức 2 (Thông hiểu): Tự thiết kế cây thư mục chuẩn và phân loại dữ liệu khoa học.",
+        objective: "Mức độ: Cơ bản | Thời gian: 3 phút. Thành thạo thao tác tạo mới và đổi tên thư mục.",
         requirements: [
-          "Tạo cấu trúc cây thư mục: TIN_HOC_11 chứa 4 thư mục con: BAI_HOC, DE_THI, HINH_ANH, BACKUP.",
-          "Bước 1: Chuyển các file bài học (Bai1.docx -> Bai5.docx) vào thư mục BAI_HOC.",
-          "Bước 2: Chuyển các file đề thi (DeThi1.pdf, DeThi2.pdf) vào thư mục DE_THI.",
-          "Bước 3: Chuyển các file ảnh (Anh1.png, Anh2.jpg, Anh3.jpg) vào thư mục HINH_ANH.",
-          "Bước 4: Đổi tên file 'Bai1.docx' thành 'Bai1_HeDieuHanh.docx' (dùng phím F2).",
-          "Bước 5: Copy file 'Bai1_HeDieuHanh.docx' vào thư mục BACKUP."
+          "Trong thư mục BAI_HOC: Tạo 3 thư mục con: Bai1, Bai2, Bai3.",
+          "Thao tác đổi tên: Đổi tên thư mục Bai1 thành Bai1_HeDieuHanh (sử dụng phím F2 hoặc click chuột phải -> Rename)."
         ],
-        submissionHint: "Giải thích câu hỏi của Giáo viên: Tại sao ở Bước 5 lại dùng thao tác Copy chứ không dùng Move?\nĐáp án mong đợi: Vì cần giữ lại file gốc trong thư mục BAI_HOC đồng thời tạo thêm một bản sao lưu dự phòng trong thư mục BACKUP."
-      }
-    },
-    {
-      id: "practice-b2-3",
-      badge: "Bài 3 – 7 phút",
-      title: "Bài 3 – Thử thách 'File Bị Mất' & Cơ chế Khôi phục Recycle Bin",
-      duration: "7 phút",
-      type: "exercise",
-      description: "Thực hành quy trình tạo file baitap.txt, xóa tệp, kiểm tra Recycle Bin, khôi phục Restore và phân tích tình huống mất tệp vĩnh viễn.",
-      content: {
-        objective: "Mức 3 (Vận dụng): Hiểu bản chất cơ chế lưu vết Thùng rác và xử lý khi tệp bị xóa vĩnh viễn.",
-        requirements: [
-          "Thao tác 1: Tạo một file văn bản mẫu đặt tên 'baitap.txt' trong thư mục tạm.",
-          "Thao tác 2: Bấm Delete để xóa file. Trả lời câu hỏi: File hiện đang nằm ở đâu? -> Kiểm tra Recycle Bin.",
-          "Thao tác 3: Chọn Restore để đưa file trở lại thư mục ban đầu.",
-          "Câu hỏi thảo luận mở rộng: Nếu file KHÔNG còn nằm trong Recycle Bin thì sao?\nĐáp án phân tích: (1) File đã bị xóa vĩnh viễn bằng Shift+Delete; (2) Recycle Bin đã bị dọn sạch (Empty Recycle Bin); (3) Dung lượng file quá lớn vượt quá sức chứa Recycle Bin. Khi đó việc khôi phục sẽ rất khó khăn, cần dùng phần mềm phục hồi dữ liệu chuyên dụng hoặc dùng bản sao Backup từ trước."
+        qaList: [
+          { q: "Đổi tên một folder có làm mất dữ liệu bên trong folder đó không?", a: "Đáp án: KHÔNG. Đổi tên chỉ thay đổi tên hiển thị của đối tượng, không xóa nội dung bên trong." }
         ]
       }
     },
     {
-      id: "practice-b2-4",
-      badge: "Bài 4 – 5 phút",
-      title: "Bài 4 – Thử thách Tìm kiếm Search & Tư duy Quản lý Dữ liệu lớn",
-      duration: "5 phút",
+      id: "practice-b2-3",
+      badge: "Bài 3 – 4 phút",
+      title: "Bài 3 – Thao tác Copy và Move (Tạo bản sao vs Chuyển vị trí)",
+      duration: "4 phút",
       type: "exercise",
-      description: "Thực hành 3 nhiệm vụ tìm kiếm tệp bằng thanh ô Search trong File Explorer và phân tích tư duy tổ chức khi máy có 100.000 tệp.",
+      description: "Tạo BaiTap1.txt, BaiTap2.txt trong BAI_TAP. Copy BaiTap1.txt sang DE_THI, Move BaiTap2.txt sang BAI_HOC.",
       content: {
-        objective: "Khai thác tối đa công cụ Search và hình thành tư duy sắp xếp dữ liệu lớn.",
+        objective: "Mức độ: Cơ bản | Thời gian: 4 phút. Hiểu rõ bản chất Copy (tạo bản sao) và Move (chuyển vị trí).",
         requirements: [
-          "Nhiệm vụ 1: Tìm tất cả tệp có phần mở rộng .pdf trong thư mục tổng bằng từ khóa '*.pdf'.",
-          "Nhiệm vụ 2: Tìm tất cả tệp có tên chứa chuỗi 'Bai2'.",
-          "Nhiệm vụ 3: Tìm một file cụ thể khi giáo viên chỉ cung cấp một phần tên tệp ngẫu nhiên.",
-          "Câu hỏi tư duy: Nếu máy tính có 100.000 file, việc tổ chức thư mục tốt mang lại lợi ích gì?\nĐáp án mong đợi: Giúp tìm kiếm dữ liệu trong vài giây, dễ quản lý phân loại, giảm nguy cơ nhầm lẫn/xóa nhầm, dễ dàng thực hiện sao lưu (backup) và chia sẻ tài liệu."
+          "Tạo trong thư mục BAI_TAP 2 tệp văn bản: BaiTap1.txt và BaiTap2.txt",
+          "Thao tác 1: Copy BaiTap1.txt sang thư mục DE_THI.",
+          "Thao tác 2: Move BaiTap2.txt sang thư mục BAI_HOC."
+        ],
+        qaList: [
+          { q: "Sau khi thực hiện xong, BaiTap1.txt có còn ở thư mục BAI_TAP không?", a: "Đáp án: VẪN CÒN. Vì Copy tạo thêm một bản sao độc lập tại thư mục DE_THI." },
+          { q: "BaiTap2.txt có còn ở thư mục BAI_TAP không? Vì sao?", a: "Đáp án: KHÔNG CÒN. Vì Move đã chuyển vị trí tệp sang thư mục BAI_HOC." }
+        ],
+        knowledgeNotice: "💡 KIẾN THỨC CẦN NHỚ:\n• COPY = Tạo thêm bản sao độc lập.\n• MOVE = Thay đổi vị trí của đối tượng trong hệ thống tệp."
+      }
+    },
+    {
+      id: "practice-b2-4",
+      badge: "Bài 4 – 3 phút",
+      title: "Bài 4 – Thao tác Delete và Khôi phục Restore",
+      duration: "3 phút",
+      type: "exercise",
+      description: "Tạo file test.txt, xóa file, mở Recycle Bin tìm test.txt và Restore khôi phục tệp.",
+      content: {
+        objective: "Mức độ: Cơ bản | Thời gian: 3 phút. Hiểu cơ chế chuyển vào Thùng rác của Windows và xóa vĩnh viễn.",
+        requirements: [
+          "Bước 1: Tạo file test.txt.",
+          "Bước 2: Bấm phím Delete để xóa file.",
+          "Bước 3: Mở Recycle Bin (Thùng rác).",
+          "Bước 4: Tìm file test.txt và chọn Restore."
+        ],
+        qaList: [
+          { q: "Khi xóa file thông thường trên Windows, file có mất vĩnh viễn ngay không?", a: "Đáp án: Thông thường KHÔNG. File thường được chuyển vào Recycle Bin trước." },
+          { q: "Nếu sử dụng tổ hợp phím Shift + Delete thì sao?", a: "Đáp án: File thường bị xóa vĩnh viễn khỏi chỉ mục đĩa mà không chuyển vào Recycle Bin." }
         ]
       }
     },
     {
       id: "practice-b2-5",
-      badge: "Bài 5 – 8 phút",
-      title: "Bài 5 – Case Study Thực tế: Bạn An Chuẩn bị Thi Tin học & Ổ C Báo Đầy",
-      duration: "8 phút",
+      badge: "Bài 5 – 3 phút",
+      title: "Bài 5 – Tìm kiếm File bằng ô Search",
+      duration: "3 phút",
       type: "exercise",
-      description: "Giải quyết bài toán thực tế: Thư mục Downloads lộn xộn 12 tệp, ổ C báo Low disk space và An cần gửi toàn bộ tài liệu cho giáo viên.",
+      description: "Tìm tất cả file .pdf, tìm file có tên chứa 'Bai2', tìm file cụ thể dựa vào một phần tên.",
       content: {
-        objective: "Vận dụng tổng hợp kỹ năng tổ chức dữ liệu, dọn dẹp bộ nhớ và đóng gói tệp ZIP.",
+        objective: "Mức độ: Cơ bản → Khá | Thời gian: 3 phút. Sử dụng công cụ Search trong File Explorer để tìm dữ liệu nhanh.",
         requirements: [
-          "Bước 1 – Tổ chức dữ liệu khoa học: Đề xuất cấu trúc TIN_HOC_11 gồm 5 thư mục con (BAI_HOC, BAI_TAP, DE_THI, HINH_ANH, VIDEO). Move các tệp lộn xộn vào đúng thư mục.",
-          "Bước 2 – Lọc và xử lý ổ đĩa báo Low Disk Space: Không xóa bừa bãi! Kiểm tra và xóa tệp rác trong Recycle Bin, tệp tạm, các file video/ảnh dung lượng lớn trùng lặp.",
-          "Bước 3 – Đóng gói gửi cho Giáo viên: Nhấp chuột phải vào thư mục TIN_HOC_11 -> Chọn Send to -> Compressed (zipped) folder để nén thành file 'TIN_HOC_11.zip' gọn nhẹ trước khi gửi."
+          "Giáo viên chuẩn bị khoảng 15-20 file (Bai1.docx, Bai2.docx, DeThi1.pdf, Anh1.jpg...).",
+          "Nhiệm vụ 1: Tìm tất cả file .pdf bằng từ khóa '*.pdf'.",
+          "Nhiệm vụ 2: Tìm file có tên chứa 'Bai2'.",
+          "Nhiệm vụ 3: Tìm một file cụ thể chỉ dựa vào một phần tên."
+        ],
+        qaList: [
+          { q: "Nếu có hàng nghìn file thì ô Search trong File Explorer giúp ích như thế nào?", a: "Đáp án mong đợi: Tìm dữ liệu nhanh hơn rất nhiều; Không cần mở từng thư mục tìm thủ công; Có thể lọc chính xác theo tên hoặc phần mở rộng loại file." }
         ]
       }
     },
     {
       id: "practice-b2-6",
-      badge: "Bài 6 – 3 phút",
-      title: "Bài 6 – 5 Câu hỏi Bẫy Tư duy Thao tác Cuối buổi",
-      duration: "3 phút",
-      type: "quiz",
-      description: "Giải đáp 5 câu hỏi tình huống bẫy về Copy/Move, Đổi đuôi tệp, Shift+Delete và nguyên tắc quản lý tệp.",
+      badge: "Bài 6 – 4 phút",
+      title: "Bài 6 – Sắp xếp Thư mục Downloads Lộn xộn",
+      duration: "4 phút",
+      type: "exercise",
+      description: "Tổ chức lại thư mục Downloads chứa 9 tệp lộn xộn (bai1.docx, de1.pdf, anh1.jpg, baitap.docx, slide.pptx...) trong 4 phút.",
       content: {
-        objective: "Củng cố chống nhầm lẫn các bẫy lý thuyết thường gặp trong bài kiểm tra.",
+        objective: "Mức độ: Thông hiểu | Thời gian: 4 phút. Kiểm tra khả năng phân loại dữ liệu và tổ chức cấu trúc thư mục hợp lý.",
+        requirements: [
+          "Tình huống: Downloads chứa bai1.docx, bai2.docx, de1.pdf, de2.pdf, anh1.jpg, anh2.png, baitap.docx, slide.pptx, anh3.jpg.",
+          "Nhiệm vụ: Trong 4 phút, tổ chức lại sao cho một học sinh lớp 11 dễ dàng tìm tài liệu sau này.",
+          "Gợi ý cấu trúc: TIN_HOC_11 > BAI_HOC, BAI_TAP, DE_THI, HINH_ANH, TAI_LIEU."
+        ],
+        submissionHint: "Lưu ý đánh giá: Không bắt học sinh phải có đúng một cấu trúc duy nhất. Quan trọng là cấu trúc đó có LOGIC, DỄ TÌM KIẾM và CÓ THỂ MỞ RỘNG về sau."
+      }
+    },
+    {
+      id: "practice-b2-7",
+      badge: "Bài 7 – 3 phút",
+      title: "Bài 7 – Cạm bẫy Phần mở rộng (Bẫy Extension)",
+      duration: "3 phút",
+      type: "exercise",
+      description: "Phân tích tình huống đổi tên baitap.docx thành baitap.pdf và hiểu rõ nguyên tắc chuyển đổi định dạng tệp.",
+      content: {
+        objective: "Mức độ: Thông hiểu | Thời gian: 3 phút. Nhận thức rõ Đổi tên file ≠ Chuyển đổi định dạng file.",
+        requirements: [
+          "Thực hành tình huống: Đổi tên file baitap.docx thành baitap.pdf.",
+          "Thử mở file bằng ứng dụng xem PDF."
+        ],
+        qaList: [
+          { q: "File baitap.docx sau khi đổi tên thành baitap.pdf có thực sự trở thành file PDF không? Tại sao?", a: "Đáp án: KHÔNG. Đổi tên phần mở rộng không làm thay đổi định dạng dữ liệu thực tế bên trong file." }
+        ],
+        knowledgeNotice: "💡 KIẾN THỨC CẦN NHỚ:\n• ĐỔI TÊN FILE ≠ CHUYỂN ĐỔI ĐỊNH DẠNG FILE.\n• Ví dụ thực tế: Muốn chuyển Word (.docx) -> PDF (.pdf), cần sử dụng chức năng Save as PDF hoặc công cụ chuyển đổi phù hợp."
+      }
+    },
+    {
+      id: "practice-b2-8",
+      badge: "Bài 8 – 4 phút",
+      title: "Bài 8 – Thực hành Sao lưu Dữ liệu (Backup)",
+      duration: "4 phút",
+      type: "exercise",
+      description: "Tạo bản sao dự phòng cho file BAI_HOC\\Bai2_HeDieuHanh.docx sang thư mục BACKUP.",
+      content: {
+        objective: "Mức độ: Thông hiểu → Khá | Thời gian: 4 phút. Khắc sâu nguyên tắc Backup dữ liệu.",
+        requirements: [
+          "Tình huống: Có file BAI_HOC\\Bai2_HeDieuHanh.docx",
+          "Nhiệm vụ: Tạo bản sao dự phòng vào thư mục BACKUP\\Bai2_HeDieuHanh.docx"
+        ],
+        qaList: [
+          { q: "Tại sao ở thao tác làm bản sao lưu Backup phải dùng Copy chứ không dùng Move?", a: "Đáp án: Vì Backup phải giữ lại file gốc trong thư mục BAI_HOC đồng thời tạo thêm một bản sao dự phòng trong thư mục BACKUP." }
+        ],
+        knowledgeNotice: "💡 KIẾN THỨC TRỌNG TÂM:\nBackup = Tạo bản dự phòng (Copy) để giảm nguy cơ mất mát dữ liệu."
+      }
+    },
+    {
+      id: "practice-b2-9",
+      badge: "Bài 9 – 4 phút",
+      title: "Bài 9 – Case thực tế: Máy tính Báo đầy Bộ nhớ (Low Disk Space)",
+      duration: "4 phút",
+      type: "exercise",
+      description: "Giải quyết bài toán khi máy tính hiển thị Low Disk Space mà không xóa tùy tiện dữ liệu quan trọng.",
+      content: {
+        objective: "Mức độ: Vận dụng | Thời gian: 4 phút. Hiểu quy trình dọn dẹp bộ nhớ đĩa an toàn.",
+        requirements: [
+          "Quy trình xử lý chuẩn:\nKiểm tra dung lượng -> Xác định file/thư mục lớn -> Kiểm tra dữ liệu không cần thiết -> Xóa dữ liệu không cần -> Kiểm tra Recycle Bin -> Gỡ ứng dụng không sử dụng nếu cần -> Kiểm tra lại dung lượng."
+        ],
+        qaList: [
+          { q: "Có được tự ý xóa ngay toàn bộ thư mục Downloads khi máy báo Low Disk Space không?", a: "Đáp án: KHÔNG. Phải kiểm tra nội dung trước vì trong Downloads có thể chứa tài liệu quan trọng, file cài đặt, hình ảnh, bài tập học tập." }
+        ],
+        submissionHint: "Mục tiêu: Học sinh phải biết không phải cứ 'ổ đĩa đầy' là xóa dữ liệu một cách tùy tiện."
+      }
+    },
+    {
+      id: "practice-b2-10",
+      badge: "Bài 10 – 6 phút",
+      title: "Bài 10 – Thử thách Tổng hợp 6 Phút",
+      duration: "6 phút",
+      type: "exercise",
+      description: "Thực hiện chuỗi 7 thao tác tổng hợp trong vòng 6 phút: Tạo thư mục, phân loại 10 tệp, đổi tên, Copy Backup, Search, Delete/Restore và giải thích.",
+      content: {
+        objective: "Mức độ: Vận dụng cao | Thời gian: 6 phút. Đánh giá toàn diện năng lực thao tác và tư duy quản lý hệ thống tệp.",
+        requirements: [
+          "Trong vòng 6 phút thực hiện các nhiệm vụ trong Downloads:\n1. Tạo một hệ thống thư mục hợp lý (BAI_HOC, BAI_TAP, DE_THI, HINH_ANH, BACKUP).\n2. Phân loại toàn bộ 10 file trong Downloads.\n3. Đổi tên Bai2.docx thành Bai2_HeDieuHanh.docx.\n4. Copy file này sang thư mục BACKUP.\n5. Tìm De2.pdf bằng công cụ Search.\n6. Xóa một file bất kỳ và Khôi phục file đó từ Recycle Bin.\n7. Giải thích vì sao dùng Copy ở bước backup."
+        ],
+        scoring: [
+          { level: "8 / 10 Điểm", desc: "Hoàn thành phần lớn thao tác, còn cần giáo viên hướng dẫn ở một số bước." },
+          { level: "9 / 10 Điểm", desc: "Tự hoàn thành gần như toàn bộ bài tập, hiểu rõ bản chất Copy và Move." },
+          { level: "10 / 10 Điểm", desc: "Tự hoàn thành xuất sắc không cần hướng dẫn, giải thích được lý do lựa chọn từng thao tác, có tư duy tổ chức dữ liệu hệ thống." }
+        ]
+      }
+    },
+    {
+      id: "practice-b2-minitest",
+      badge: "Mini Test – 5 phút",
+      title: "II. Mini Test Cuối Phần Luyện Tập (5 Câu trắc nghiệm)",
+      duration: "5 phút",
+      type: "quiz",
+      description: "5 câu hỏi trắc nghiệm đánh giá mức độ ghi nhớ kiến thức cốt lõi cuối phần luyện tập.",
+      content: {
+        objective: "Đánh giá mức độ ghi nhớ kiến thức cốt lõi.",
         questions: [
           {
-            q: "Câu 1: Lan Copy tệp a.docx từ thư mục A sang B. Sau đó xóa file ở thư mục A. File ở thư mục B có còn không?",
-            options: ["A. Có, vì bản sao ở B độc lập với A.", "B. Không, vì tệp ở A đã bị xóa.", "C. Tệp ở B tự động chuyển thành file rác.", "D. Tệp ở B đổi tên thành b.docx."],
-            answer: "A",
-            explanation: "Copy tạo ra bản sao độc lập ở thư mục B. Việc xóa tệp gốc ở A không ảnh hưởng tới tệp ở B."
-          },
-          {
-            q: "Câu 2: Lan Move (Cắt) tệp từ A sang B. Sau khi hoàn tất, tìm file ở thư mục A có còn không?",
-            options: ["A. Còn nguyên", "B. Không còn (nếu thao tác Move hoàn tất)", "C. Nhân đôi thành 2 tệp", "D. Chuyển vào Recycle Bin"],
+            q: "Câu 1: Công cụ nào dùng để quản lý file và folder chính trên hệ điều hành Windows?",
+            options: ["A. Calculator", "B. File Explorer", "C. Paint", "D. Task Manager"],
             answer: "B",
-            explanation: "Thao tác Move di chuyển đối tượng sang vị trí mới nên thư mục gốc A sẽ không còn tệp."
+            explanation: "File Explorer là tiện ích mặc định trên Windows dùng để quản lý hệ thống tệp và thư mục."
           },
           {
-            q: "Câu 3: Lan đổi tên tệp 'photo.jpg' thành 'photo.png'. Tệp có thực sự trở thành định dạng PNG không?",
-            options: ["A. Có", "B. Không, chỉ thay đổi tên hiển thị phần mở rộng chứ không biến đổi cấu trúc ảnh gốc", "C. Tệp biến thành file PDF", "D. Tệp tự động nén ZIP"],
-            answer: "B",
-            explanation: "Đổi tên phần mở rộng thủ công không làm biến đổi cấu trúc dữ liệu thực tế bên trong tệp."
-          },
-          {
-            q: "Câu 4: Lan xóa tệp bằng tổ hợp phím Shift + Delete. Có thể tìm lại tệp trong Recycle Bin không?",
-            options: ["A. Có", "B. Thông thường là KHÔNG, vì Shift+Delete xóa vĩnh viễn bỏ qua Recycle Bin", "C. Tệp tự lưu vào Google Drive", "D. Tệp tự chuyển sang ổ D:"],
-            answer: "B",
-            explanation: "Shift + Delete xóa vĩnh viễn khỏi bảng chỉ mục ổ đĩa, không đưa vào Thùng rác."
-          },
-          {
-            q: "Câu 5: Có 1.000 file trong một thư mục lộn xộn. Điều gì quan trọng hơn cả?",
-            options: ["A. Đổi tên tất cả tệp ngẫu nhiên", "B. Xóa bớt tất cả tệp", "C. Thiết kế hệ thống thư mục phân cấp và quy tắc đặt tên hợp lý", "D. Đổi tất cả đuôi tệp thành .zip"],
+            q: "Câu 2: Thao tác Copy file có tác dụng gì?",
+            options: ["A. Xóa file", "B. Đổi tên file", "C. Tạo bản sao", "D. Di chuyển file"],
             answer: "C",
-            explanation: "Tổ chức hệ thống thư mục phân cấp và quy tắc đặt tên rõ ràng là cốt lõi của quản lý dữ liệu."
+            explanation: "Copy (Ctrl+C) tạo thêm một bản sao độc lập ở thư mục đích."
+          },
+          {
+            q: "Câu 3: File bị xóa thông thường trên Windows thường được chuyển đến đâu?",
+            options: ["A. Downloads", "B. Desktop", "C. Recycle Bin", "D. Taskbar"],
+            answer: "C",
+            explanation: "File bị xóa thông thường được đưa vào Thùng rác (Recycle Bin) và có thể khôi phục lại (Restore)."
+          },
+          {
+            q: "Câu 4: Đổi tên file 'a.docx' thành 'a.pdf' bằng cách gõ lại tên có làm file trở thành PDF thực sự không?",
+            options: ["A. Có", "B. Không"],
+            answer: "B",
+            explanation: "Đổi tên phần mở rộng không làm thay đổi định dạng cấu trúc dữ liệu thực bên trong file."
+          },
+          {
+            q: "Câu 5: Mục đích chính của việc Backup dữ liệu là gì?",
+            options: ["A. Xóa dữ liệu", "B. Tăng tốc CPU", "C. Tạo bản sao dự phòng", "D. Đổi tên dữ liệu"],
+            answer: "C",
+            explanation: "Backup giúp tạo bản sao dự phòng để giảm nguy cơ mất mát dữ liệu khi gặp sự cố."
           }
         ]
       }
     },
     {
-      id: "practice-b2-7",
-      badge: "Đánh giá & BTVN",
-      title: "Tiêu chí Đánh giá Năng lực Sau Buổi học & Bài tập Về nhà",
+      id: "practice-b2-summary",
+      badge: "Chốt Kiến Thức & Đánh Giá",
+      title: "III & IV. Chốt Kiến Thức Trọng Tâm & Tiêu Chí Đánh Giá Năng Lực Học Sinh",
       duration: "Tổng kết",
       type: "exercise",
-      description: "Xem chi tiết bảng tiêu chí đánh giá mức độ hoàn thành bài học (Mức Đạt, Khá, Tốt) và dặn dò bài tập về nhà.",
+      description: "5 ý kiến thức 'Đinh' học sinh tự nói lại, Bảng phân bổ 90 phút buổi học và Bảng tiêu chí đánh giá Mức Đạt / Khá / Tốt.",
       content: {
-        objective: "Đánh giá mức độ đạt năng lực thực hành của học sinh và dặn dò bài tập về nhà.",
+        objective: "Khắc sâu 5 ý trọng tâm và tổng kết tiêu chí đánh giá năng lực học sinh sau buổi học.",
+        knowledgeNotice: "📌 III. CHỐT KIẾN THỨC CUỐI BUỔI (5 Ý HỌC SINH TỰ NÓI LẠI):\n1. File và Folder: File = dữ liệu | Folder = tổ chức dữ liệu.\n2. File Explorer: Công cụ quản lý file và folder trên Windows.\n3. Copy và Move: Copy → tạo bản sao | Move → chuyển vị trí.\n4. Delete và Restore: Delete → Recycle Bin → Restore.\n5. Backup: Dữ liệu gốc → Copy → Bản sao dự phòng.",
+        table: {
+          headers: ["Thời gian", "Nội dung hoạt động", "Mục tiêu đạt được"],
+          rows: [
+            ["0–10 phút", "Ôn Bài 1", "Kích hoạt kiến thức cũ"],
+            ["10–25 phút", "File, Folder, File Explorer", "Nắm vững kiến thức cốt lõi"],
+            ["25–35 phút", "Copy, Move, Rename, Delete, Search", "Thành thạo 6 thao tác cơ bản"],
+            ["35–45 phút", "Tiện ích hệ điều hành + Thiết bị di động", "Liên hệ kiến thức thực tế"],
+            ["45–82 phút", "10 Bài luyện tập thực hành", "Rèn luyện năng lực thao tác & tư duy"],
+            ["82–87 phút", "Mini Test 5 câu trắc nghiệm", "Đánh giá mức độ tiếp thu"],
+            ["87–90 phút", "Chốt kiến thức trọng tâm", "Khắc sâu 5 điểm cốt lõi"]
+          ]
+        },
         criteria: [
-          { level: "Mức Đạt", desc: "Tạo được Folder; tạo/đổi tên file; Copy/Move file; Delete/Restore; dùng ô Search tìm tệp." },
-          { level: "Mức Khá", desc: "Giải thích được sự khác nhau giữa Copy vs Move; biết tổ chức dữ liệu hợp lý; biết xử lý tình huống file bị mất; tìm kiếm dữ liệu tốt." },
-          { level: "Mức Tốt", desc: "Tự thiết kế cấu trúc thư mục tối ưu; lựa chọn thao tác chính xác và giải thích được lý do; xử lý được tình huống bộ nhớ đĩa đầy; biết cách sao lưu backup dữ liệu; có tư duy quản lý hệ thống." }
-        ],
-        homework: [
-          { title: "BTVN Bắt buộc", desc: "Tạo thư mục TIN_HOC_11 > BAI_HOC, BAI_TAP, DE_THI, HINH_ANH, BACKUP trên máy thật. Tạo 10 file mẫu, phân loại, đổi tên 3 file, Copy 2 file vào BACKUP, Move 2 file, Delete/Restore 1 file, dùng Search tìm file và chụp ảnh gửi GV." },
-          { title: "Bài tập Tư duy Backup", desc: "Trả lời bằng lời của em: 'Nếu máy tính của em bị hỏng ổ cứng ngày mai, những dữ liệu nào em có thể bị mất? Em sẽ làm gì ngay từ hôm nay để giảm thiểu rủi ro?'" }
+          { level: "Mức Đạt", desc: "Tạo được folder; đổi tên file/folder; Copy file; Move file; Delete file; Restore file; tìm kiếm file bằng Search." },
+          { level: "Mức Khá", desc: "Hiểu rõ Copy và Move; tự tổ chức thư mục; biết sử dụng Search hiệu quả; biết xử lý file bị xóa." },
+          { level: "Mức Tốt", desc: "Tự thiết kế cấu trúc thư mục tối ưu; chọn đúng thao tác cho từng tình huống và giải thích được lý do; hiểu vai trò của Backup; biết xử lý tình huống máy tính thiếu dung lượng; có tư duy tổ chức và bảo vệ dữ liệu." }
         ]
       }
     }

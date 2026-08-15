@@ -361,12 +361,69 @@ export function PracticeDetailPage() {
                   </div>
                 )}
 
+                {/* QA List */}
+                {practiceItem.content.qaList && (
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                      <HelpCircle className="h-6 w-6 text-amber-500" />
+                      Câu hỏi kiểm tra & Đáp án giải thích:
+                    </h3>
+                    <div className="space-y-3">
+                      {practiceItem.content.qaList.map((qa, idx) => (
+                        <div key={idx} className="p-5 rounded-2xl border border-amber-200 bg-amber-50/50 dark:border-amber-900/60 dark:bg-slate-900 space-y-2">
+                          <h4 className="font-bold text-slate-900 dark:text-white text-base md:text-lg">
+                            ❓ {qa.q}
+                          </h4>
+                          <div className="p-3 rounded-xl bg-white dark:bg-slate-800 border border-teal-200 dark:border-slate-700 text-teal-950 dark:text-teal-200 font-semibold text-sm md:text-base">
+                            {qa.a}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Knowledge Notice Callout */}
+                {practiceItem.content.knowledgeNotice && (
+                  <div className="rounded-2xl border border-indigo-200 bg-indigo-50/70 p-5 dark:border-indigo-900/60 dark:bg-indigo-950/40">
+                    <h4 className="font-bold text-indigo-950 dark:text-indigo-200 text-base md:text-lg mb-1 flex items-center gap-2">
+                      <Sparkles className="h-5 w-5 text-indigo-600" />
+                      Kiến thức cần nhớ:
+                    </h4>
+                    <p className="text-base md:text-lg text-slate-800 dark:text-slate-200 font-bold leading-relaxed whitespace-pre-wrap">
+                      {practiceItem.content.knowledgeNotice}
+                    </p>
+                  </div>
+                )}
+
+                {/* Scoring Levels (8/10, 9/10, 10/10) */}
+                {practiceItem.content.scoring && (
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                      <CheckCircle2 className="h-6 w-6 text-emerald-600" />
+                      Thang điểm & Tiêu chí đánh giá bài tập:
+                    </h3>
+                    <div className="grid gap-3 md:grid-cols-3">
+                      {practiceItem.content.scoring.map((sc, idx) => (
+                        <div key={idx} className="p-5 rounded-2xl border border-emerald-200 bg-emerald-50/60 dark:border-emerald-900/60 dark:bg-slate-900 space-y-2">
+                          <span className="px-3 py-1 rounded-full text-xs font-black bg-emerald-600 text-white">
+                            {sc.level}
+                          </span>
+                          <p className="text-sm md:text-base font-medium text-slate-800 dark:text-slate-200 leading-relaxed">
+                            {sc.desc}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 {/* Time Allocation Table */}
                 {practiceItem.content.table && (
                   <div className="space-y-4">
                     <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
                       <Clock className="h-6 w-6 text-indigo-600" />
-                      Bảng phân bổ thời lượng buổi học:
+                      Bảng phân bổ thời lượng buổi học (90 phút):
                     </h3>
                     <div className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs">
                       <table className="w-full text-left text-sm md:text-base">
