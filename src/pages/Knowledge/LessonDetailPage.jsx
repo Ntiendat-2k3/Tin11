@@ -615,7 +615,7 @@ export function LessonDetailPage() {
               Dạng Câu Hỏi Hay Gặp Trong Đề Thi
             </h2>
             <p className="mb-4 text-xs md:text-sm text-slate-600 dark:text-slate-400 font-medium">
-              Bấm vào từng dạng câu hỏi bên dưới để mở dropdown xem đáp án và phân tích phương pháp giải chi tiết.
+              Bấm vào từng dạng bài bên dưới để xem câu hỏi thi thực tế, phương pháp tư duy giải nhanh và phân tích đáp án chi tiết.
             </p>
             <div className="space-y-3">
               {lecture.examTypes.map((item, idx) => (
@@ -658,7 +658,7 @@ export function LessonDetailPage() {
             </div>
 
             <p className="mb-4 text-xs md:text-sm text-slate-600 dark:text-slate-400 font-medium">
-              Bấm vào từng bài tập để xổ xuống đáp án bài làm mẫu và hướng dẫn các bước thao tác thực hiện (cần mật khẩu 6 số từ Terminal để xem).
+              Đề bài, tình huống thực tế và nhiệm vụ cụ thể được hiển thị đầy đủ bên dưới. Bấm vào nút xem đáp án (hoặc nhập mật khẩu 6 số) để xem gợi ý và lời giải mẫu chi tiết.
             </p>
             <div className="space-y-3">
               {lecture.homework.map((hw, idx) => (
