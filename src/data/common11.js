@@ -79,24 +79,27 @@ export const common11 = [
     priority: "medium",
     hours: 1.5,
     mustKnow: [
-      "Khái niệm phần mềm nguồn mở (Open Source) và bản quyền phần mềm (GPL, MIT)",
-      "So sánh phần mềm nguồn mở với phần mềm thương mại đóng mã nguồn (Proprietary)",
-      "Dịch vụ và phần mềm chạy trực tuyến trên Internet (SaaS / Web-based App)",
-      "Ưu điểm và hạn chế của ứng dụng đám mây (Google Docs, Office 365, Canva)",
-      "Xu hướng phát triển và vai trò của cộng đồng nguồn mở toàn cầu"
+      "Bản chất mã nguồn (Source Code), vai trò biên dịch/thông dịch và định nghĩa phần mềm nguồn mở",
+      "Phân biệt 3 loại: Phần mềm thương mại (Commercial), Miễn phí (Freeware) và Nguồn mở (Open Source)",
+      "3 Khắc cốt ghi tâm: Free ≠ Open Source | Open Source ≠ No Copyright | Online ≠ Open Source",
+      "Vai trò của phần mềm nguồn mở (Linux, React, Node.js, Next.js, PostgreSQL) vs phần mềm thương mại",
+      "Khái niệm, mô hình vận hành, ưu điểm & hạn chế của phần mềm chạy trên Internet (Web App / SaaS)",
+      "Quản trị rủi ro: Giấy phép, tài khoản, an toàn dữ liệu và phân quyền liên kết (Anyone with the link)"
     ],
     codeSkills: [
-      "Sử dụng công cụ trực tuyến hợp tác thời gian thực (Real-time Collaboration)",
-      "Xuất dữ liệu giữa các định dạng phần mềm thương mại và nguồn mở (.docx vs .odt)"
+      "Nhận diện và tra cứu giấy phép phần mềm (GPL, MIT, Commercial, Freeware)",
+      "Thành thạo công cụ cộng tác trực tuyến thời gian thực (Google Docs, Google Sheets, Canva, Figma)",
+      "Thiết lập phân quyền bảo mật dữ liệu đám mây (Restricted vs Anyone with the link)"
     ],
     examSkills: [
-      "Phân loại chính xác các phần mềm thông dụng theo giấy phép bản quyền",
-      "Đánh giá và đề xuất giải pháp phần mềm tối ưu chi phí cho nhà trường/doanh nghiệp"
+      "Giải quyết 5 dạng câu hỏi thi: Free vs Open Source, Bản quyền nguồn mở, Desktop vs Web App, Tình huống doanh nghiệp, Phân tích rủi ro dữ liệu",
+      "Phản biện 5 lỗi tư duy sai lầm hay gặp về bản quyền phần mềm và dịch vụ trực tuyến",
+      "Trình bày 7 ý kiến thức chốt chuẩn đầu ra cuối buổi học"
     ],
     practice: [
-      "Bảng phân loại 15 phần mềm phổ biến (Open Source vs Closed Source vs Web App)",
-      "8 câu nhận diện + 2 câu giải thích về bản quyền phần mềm",
-      "Case study: Lựa chọn phần mềm văn phòng cho dự án khởi nghiệp"
+      "10 bài tập tình huống thực hành trực tiếp trong buổi học (3-6 phút/bài)",
+      "Mini Test 5 câu trắc nghiệm tương tác đánh giá chuẩn đầu ra cuối buổi",
+      "Bài tập về nhà: 6 câu tự luận lý thuyết + Bảng phân loại 6 phần mềm thực tế + Tình huống chuyển đổi số trường học"
     ],
     sourceIds: ["kgv-cs11", "kgv-focus11"],
     lectureContent: b3Content

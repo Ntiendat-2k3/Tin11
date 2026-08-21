@@ -10,12 +10,17 @@ export { sources } from "./sources.js"
 export { kpis } from "./kpis.js"
 export { appConfig } from "./appConfig.js"
 
+export { b1Content } from "./b1Content.js"
+export { b2Content } from "./b2Content.js"
+export { b3Content } from "./b3Content.js"
+
 import { common11 } from "./common11.js"
 import { database11 } from "./database11.js"
 import { cs11 } from "./cs11.js"
 import { advanced11 } from "./advanced11.js"
 import { b1Content } from "./b1Content.js"
 import { b2Content } from "./b2Content.js"
+import { b3Content } from "./b3Content.js"
 
 export function getLessonById(id) {
   const allLessons = [...common11, ...database11, ...cs11, ...advanced11]
