@@ -112,24 +112,27 @@ export const common11 = [
     priority: "medium",
     hours: 1.5,
     mustKnow: [
-      "Mô hình kiến trúc Von Neumann cơ bản của máy tính",
-      "Bộ xử lí trung tâm (CPU): ALU, CU, Các thanh ghi (Registers), Tốc độ xung nhịp (GHz)",
-      "Bộ nhớ trong: Bộ nhớ truy cập ngẫu nhiên (RAM) và Bộ nhớ chỉ đọc (ROM)",
-      "Bộ nhớ ngoài: Ổ cứng SSD (NVMe/SATA), HDD, Thẻ nhớ, USB",
-      "Bo mạch chủ (Mainboard), Bus hệ thống và các thông số hiệu năng phần cứng"
+      "Chức năng và vai trò của các thành phần bên trong: Mainboard, CPU (ALU + CU), RAM, ROM, Bộ nhớ ngoài",
+      "Phân biệt 4 cặp: RAM vs ROM; RAM vs Bộ nhớ ngoài (SSD/HDD); HDD vs SSD; CPU vs GPU",
+      "Thông số hiệu năng (GHz, Cores/Threads, Cache, DDR4/DDR5, MB/s) & Tránh hiểu lầm 'GHz cao luôn nhanh hơn'",
+      "Mô hình phối hợp 3 tầng: Storage (Tủ hồ sơ) ➜ RAM (Bàn làm việc) ➜ CPU (Nhân viên xử lý)",
+      "Mạch logic số: Cổng AND (Tất cả đúng), OR (Ít nhất một đúng), NOT (Đảo ngược) và bảng chân trị",
+      "Phép cộng nhị phân (0+0=0, 0+1=1, 1+0=1, 1+1=10₂), xử lý bit nhớ (Carry) & Mạch cộng 2 bit"
     ],
     codeSkills: [
-      "Đọc hiểu cấu hình chi tiết phần cứng máy tính (CPU Core/Threads, RAM MHz, SSD Read/Write)",
-      "Phân tích hiện tượng chai bộ nhớ / nghẽn cổ chai (Bottleneck) hệ thống"
+      "Đọc hiểu bảng thông số cấu hình máy tính thực tế (CPU, RAM, SSD/HDD, GPU)",
+      "Tính toán giá trị biểu thức logic và lập bảng chân trị cho mạch logic kết hợp",
+      "Thực hiện phép cộng các chuỗi số nhị phân nhiều bit có nhớ và kiểm tra bằng hệ thập phân"
     ],
     examSkills: [
-      "Lựa chọn cấu hình máy tính tối ưu theo nhu cầu (Lập trình, Đồ họa, Văn phòng)",
-      "Đọc hiểu bài toán nâng cấp phần cứng và dự đoán sự cải thiện hiệu năng"
+      "Giải quyết 5 dạng câu hỏi thi: Cơ chế lưu trữ RAM vs ROM vs Storage, Phân tích hiệu năng CPU, Biểu thức Logic, Cộng nhị phân có nhớ, Phân tích điểm nghẽn (Bottleneck)",
+      "Phản biện các nhận định sai lầm về xung nhịp GHz và dung lượng lưu trữ",
+      "Trình bày 8 ý kiến thức chốt chuẩn đầu ra cuối buổi học"
     ],
     practice: [
-      "Sơ đồ tư duy kiến trúc các thành phần bên trong máy tính",
-      "Case study: Tư vấn nâng cấp máy tính cho học sinh chuyên Tin",
-      "10 câu trắc nghiệm so sánh RAM vs SSD vs CPU Cache"
+      "10 bài tập tình huống thực hành trực tiếp trong buổi học (2-6 phút/bài)",
+      "Mini Test 7 câu trắc nghiệm tương tác kiểm tra chuẩn đầu ra cuối buổi",
+      "Bài tập về nhà: 10 câu tự luận lý thuyết + Phân tích cấu hình máy tính cá nhân + 10 phép toán logic + 5 phép cộng nhị phân"
     ],
     sourceIds: ["kgv-cs11", "nxbgd-training"],
     lectureContent: b4Content
