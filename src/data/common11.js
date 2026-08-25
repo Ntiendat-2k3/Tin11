@@ -145,24 +145,26 @@ export const common11 = [
     priority: "medium",
     hours: 1.5,
     mustKnow: [
-      "Các chuẩn cổng kết nối có dây thông dụng (USB-A, USB-C, HDMI, DisplayPort, LAN RJ45)",
-      "Kết nối không dây: Bluetooth, Wi-Fi, NFC, Infrared",
-      "Thiết bị vào-ra số thông minh: Máy in, máy quét, webcam, micro, bảng vẽ điện tử",
-      "Khái niệm driver thiết bị và cơ chế Plug and Play (PnP)",
-      "An toàn khi kết nối và rút thiết bị số ngoại vi"
+      "Phân biệt Thiết bị vào (Input), Thiết bị ra (Output) và Thiết bị vào-ra (Input/Output)",
+      "Nhận biết các cổng kết nối có dây: USB-A, USB-C, HDMI, DisplayPort, Ethernet RJ45",
+      "Đặc tính các chuẩn không dây: Bluetooth (gần ~10m), Wi-Fi (mạng), NFC (chạm <10cm), Hồng ngoại (remote)",
+      "Bản chất và vai trò của Driver (Trình điều khiển thiết bị) trong giao tiếp phần cứng",
+      "Quy trình 6 bước xử lý sự cố kết nối phần cứng từ vật lý đến phần mềm"
     ],
     codeSkills: [
-      "Kiểm tra trạng thái kết nối thiết bị trong Device Manager",
-      "Cài đặt và cập nhật Driver thủ công cho thiết bị ngoại vi"
+      "Đọc và phân biệt các chuẩn cổng kết nối vật lý trên laptop, PC và điện thoại",
+      "Thao tác kiểm tra trạng thái thiết bị ngoại vi và Driver trong Device Manager",
+      "Thiết lập xuất hình ảnh đa màn hình (Win + P) và chuyển nguồn tín hiệu máy chiếu"
     ],
     examSkills: [
-      "Chọn chuẩn kết nối phù hợp nhất cho từng thiết bị và băng thông dữ liệu",
-      "Chẩn đoán và giải thích nguyên nhân lỗi mất kết nối phần cứng cơ bản"
+      "Giải quyết 5 dạng câu hỏi thi: Phân loại thiết bị I/O, Cổng có dây, Chuẩn không dây, Driver & Device Manager, Giải pháp mở rộng cổng Hub/Dock",
+      "Chẩn đoán và cô lập nguyên nhân sự cố mất kết nối phần cứng thực tế",
+      "Trình bày 8 ý kiến thức chốt chuẩn đầu ra cuối buổi học"
     ],
     practice: [
-      "Nhận diện 8 loại cổng kết nối thực tế trên laptop/PC",
-      "10 tình huống ghép nối thiết bị trong phòng máy thực hành",
-      "Bài tập chẩn đoán lỗi thiếu Driver / sai chuẩn cáp tín hiệu"
+      "10 bài tập tình huống thực hành trực tiếp trong buổi học (2-6 phút/bài)",
+      "Mini Test 5 câu trắc nghiệm tương tác đánh giá chuẩn đầu ra cuối buổi",
+      "Bài tập về nhà: Khảo sát cổng kết nối thiết bị cá nhân + Quy trình 5 bước xử lý lỗi USB + 3 câu hỏi phân tích bản chất công nghệ"
     ],
     sourceIds: ["kgv-cs11", "kgv-app11"],
     lectureContent: b5Content
@@ -175,24 +177,26 @@ export const common11 = [
     priority: "medium",
     hours: 1.5,
     mustKnow: [
-      "Khái niệm lưu trữ đám mây (Cloud Storage) và cơ chế đồng bộ dữ liệu",
-      "Các mức phân quyền chia sẻ tệp: Xem (Viewer), Nhận xét (Commenter), Chỉnh sửa (Editor)",
-      "Quản lí đường liên kết (Link sharing) và kiểm soát truy cập theo email",
-      "Đồng bộ hóa thư mục tự động giữa máy tính cục bộ và dịch vụ đám mây",
-      "Các rủi ro an toàn thông tin khi chia sẻ dữ liệu công khai"
+      "Bản chất Cloud Storage (Lưu trữ đám mây), Ưu điểm đa thiết bị & Các rủi ro bảo mật",
+      "Thao tác cốt lõi: Upload (tải lên), Download (tải về), Quản lý cây thư mục trực tuyến",
+      "3 Mức quyền chia sẻ: Viewer (Chỉ xem), Commenter (Xem + Góp ý), Editor (Chỉnh sửa toàn quyền)",
+      "Phương thức chia sẻ: Chỉ định tài khoản Email (Restricted) vs Liên kết công khai (Anyone with the link)",
+      "Nguyên tắc cốt lõi: SYNC ≠ BACKUP (Đồng bộ 2 chiều khác với Sao lưu dự phòng độc lập)"
     ],
     codeSkills: [
-      "Tạo thư mục làm việc nhóm trên Google Drive / OneDrive với đúng quyền hạn",
-      "Thiết lập lịch sử phiên bản (Version History) để khôi phục tệp bị đè dữ liệu"
+      "Thiết kế và quản trị cây thư mục dự án chuẩn trên Google Drive / OneDrive",
+      "Cài đặt phân quyền chia sẻ và thu hồi quyền truy cập (Remove access) trên đám mây",
+      "Sử dụng Lịch sử phiên bản (Version History) để khôi phục tệp khi bị xóa/ghi đè"
     ],
     examSkills: [
-      "Chọn đúng phân quyền và chính sách chia sẻ tệp trong bối cảnh cụ thể",
-      "Phân tích tình huống rò rỉ dữ liệu do cài đặt quyền công khai sai"
+      "Giải quyết 5 dạng câu hỏi thi: Local vs Cloud, 3 Mức quyền chia sẻ, Rủi ro Link công khai, Phân biệt Sync vs Backup, Thiết kế hệ thống dữ liệu nhóm",
+      "Áp dụng 5 nguyên tắc vàng tự vấn trước khi bấm nút Chia sẻ tài liệu",
+      "Trình bày 7 ý kiến thức chốt chuẩn đầu ra cuối buổi học"
     ],
     practice: [
-      "Thực hành tạo và phân quyền cây thư mục dự án lớp 11",
-      "Case study 4 tình huống chia sẻ dữ liệu nhạy cảm",
-      "Cụm 4 câu hỏi Đúng/Sai về nguyên tắc lưu trữ đám mây an toàn"
+      "10 bài tập tình huống thực hành trực tiếp trong buổi học (2-6 phút/bài)",
+      "Mini Test 6 câu trắc nghiệm tương tác đánh giá chuẩn đầu ra cuối buổi",
+      "Bài tập về nhà: Tạo cây thư mục TIN_HOC_11 + Thực nghiệm phân quyền 3 mức + Phân tích rủi ro Link công khai"
     ],
     sourceIds: ["kgv-cs11", "kgv-focus11"],
     lectureContent: b6Content
