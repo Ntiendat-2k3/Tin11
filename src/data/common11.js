@@ -209,24 +209,26 @@ export const common11 = [
     priority: "medium",
     hours: 1.5,
     mustKnow: [
-      "Kỹ thuật lựa chọn từ khóa tìm kiếm chính xác và cô đọng",
-      "Cú pháp tìm kiếm nâng cao trên Google: ngoặc kép \"\", site:, filetype:, minus -",
-      "Các tiêu chí đánh giá độ tin cậy của thông tin: tác giả, cơ quan xuất bản, thời gian, bằng chứng",
-      "Phân biệt nguồn tin chính thống, tài liệu khoa học và tin đồn/tin giả (Fake news)",
-      "Bản quyền nội dung và quy tắc trích dẫn nguồn Internet"
+      "Kỹ thuật chọn từ khóa cốt lõi (Keywords) cô đọng, loại bỏ hư từ giao tiếp",
+      "5 Toán tử tìm kiếm nâng cao trên Google: Ngoặc kép \"\", site:, filetype:, dấu trừ -, OR",
+      "5 Tiêu chí thẩm định độ tin cậy thông tin: Tác giả, Tên miền (.gov/.edu), Tính thời sự, Bằng chứng, Mục đích",
+      "Sử dụng công cụ lọc kết quả (Search Tools: thời gian 24h/1 tuần/1 năm, vị trí, Google Scholar)",
+      "Quy tắc trích dẫn nguồn chuẩn mực & Tôn trọng bản quyền tác giả (chống đạo văn)"
     ],
     codeSkills: [
-      "Viết truy vấn tìm kiếm phức tạp sử dụng kết hợp toán tử boolean",
-      "Tự động tra cứu tài liệu học thuật định dạng PDF từ các tên miền edu.vn / gov.vn"
+      "Xây dựng truy vấn tìm kiếm phức hợp kết hợp đa toán tử logic",
+      "Tra cứu và tải tài liệu PDF/Word học thuật chuẩn từ các tên miền edu.vn / gov.vn",
+      "Thực hiện quy trình 4 bước kiểm chứng chéo (Fact-check) để nhận diện tin giả (Fake News)"
     ],
     examSkills: [
-      "Xác định cú pháp tìm kiếm tối ưu nhất cho bài toán tìm tài liệu chuẩn",
-      "Đánh giá và so sánh mức độ tin cậy của các trang thông tin trong đề thi"
+      "Giải quyết 5 dạng câu hỏi thi: Cú pháp tìm kiếm nâng cao, Phân tích kết quả truy vấn, Thẩm định nguồn tin, Fact-check tin giả, Kế hoạch thu thập & Trích dẫn nguồn",
+      "Nhận diện bẫy viết hoa toán tử OR và viết liền sau dấu trừ (-)",
+      "Trình bày 8 ý kiến thức chốt chuẩn đầu ra cuối buổi học"
     ],
     practice: [
-      "3 bài tập thực hành truy vấn tài liệu SGK KNTT bằng cú pháp nâng cao",
-      "Bảng đối chiếu đánh giá 3 website có thông tin trái ngược nhau",
-      "Bài tập trích dẫn nguồn tài liệu chuẩn APA đơn giản"
+      "10 bài tập tình huống thực hành trực tiếp trong buổi học (2-6 phút/bài)",
+      "Mini Test 6 câu trắc nghiệm tương tác đánh giá chuẩn đầu ra cuối buổi",
+      "Bài tập về nhà: Thực hành 4 truy vấn nâng cao chụp màn hình + Thẩm định 2 nguồn tin đối chiếu + Viết đoạn văn Paraphrase kèm trích dẫn nguồn"
     ],
     sourceIds: ["kgv-cs11", "nxbgd-training"],
     lectureContent: b7Content
