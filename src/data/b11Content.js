@@ -812,21 +812,61 @@ export const b11Content = {
     }
   ],
 
-  homework: {
-    title: "Bài Tập Về Nhà Bài 11 (Chuẩn Bị Cho Bài 12)",
-    part1: {
-      title: "Phần 1: Trắc nghiệm củng cố (Tự làm lại Mini Test 8 câu)",
-      description: "Làm lại 8 câu hỏi trắc nghiệm trong bài học, giải thích rõ vì sao chọn đáp án đó mà không chọn các phương án còn lại."
+  homework: [
+    {
+      title: "Bài tập 1: Củng Cố Lý Thuyết & Giải Thích Chi Tiết 8 Câu Mini Test",
+      tag: "Trắc nghiệm Bắt buộc",
+      problem: "Làm lại toàn bộ 8 câu hỏi trắc nghiệm của Bài 11:",
+      tasks: [
+        "Nhiệm vụ 1: Ghi lại đáp án đúng của từng câu hỏi từ 1 đến 8.",
+        "Nhiệm vụ 2: Viết câu giải thích ngắn gọn (1–2 dòng) chỉ rõ vì sao chọn đáp án đó và vì sao các đáp án còn lại chưa chính xác."
+      ],
+      requirements: "Trình bày rõ ràng vào vở bài tập hoặc file tài liệu học tập.",
+      hint: "Bám sát định nghĩa CSDL, 6 thuộc tính vàng và bảng đối chiếu Chuyên môn ↔ Đời thường.",
+      solution: `Checklist đánh giá bài tập 1 (10/10 Điểm):
+✓ Câu 1 (B): CSDL là tập hợp dữ liệu có liên quan, lưu có tổ chức trên máy tính.
+✓ Câu 2 (B): Sao chép lưu lặp ở 4 nơi là Dư thừa dữ liệu.
+✓ Câu 3 (B): Hai nơi ghi 2 ngày sinh khác nhau là vi phạm Tính nhất quán.
+✓ Câu 4 (B): Điểm = 15 vượt quá quy định 0-10 là vi phạm Tính toàn vẹn.
+✓ Câu 5 (A): Đổi cấu trúc lưu làm 10 app sập là thiếu Tính độc lập dữ liệu.
+✓ Câu 6 (B): Người không có quyền xem được dữ liệu là vi phạm Tính bảo mật.
+✓ Câu 7 (A): Hỏng ổ cứng mất sạch do không có backup là vi phạm Tính an toàn.
+✓ Câu 8 (B): Trừ tiền gửi chưa cộng nhận sau sự cố là vi phạm Tính nhất quán.`
     },
-    part2: {
-      title: "Phần 2: Bài tập tình huống thực tế – Quán cà phê",
-      description: "Một quán cà phê có menu gồm 20 món nước, 5 nhân viên phục vụ và hàng trăm khách hàng mỗi ngày. Hãy liệt kê: 1. Các thông tin cần quản lý trong CSDL quán cà phê. 2. Cho 1 ví dụ cụ thể về vi phạm tính toàn vẹn và 1 ví dụ vi phạm tính nhất quán tại quán."
+    {
+      title: "Bài tập 2: Phân Tích Thực Tế – Ý Tưởng CSDL Quán Cà Phê",
+      tag: "Tình huống Thực tế",
+      problem: "Một quán cà phê có menu gồm 20 món nước, 5 nhân viên phục vụ và hàng trăm khách hàng mỗi ngày:",
+      tasks: [
+        "Nhiệm vụ 1: Liệt kê các thông tin cần quản lý trong CSDL quán cà phê (phân theo các nhóm đối tượng: Món nước, Nhân viên, Đơn hàng).",
+        "Nhiệm vụ 2: Cho 1 ví dụ cụ thể về vi phạm Tính toàn vẹn và 1 ví dụ cụ thể về vi phạm Tính nhất quán có thể xảy ra tại quán."
+      ],
+      requirements: "Nêu ví dụ thực tế rõ ràng, có số liệu minh họa.",
+      hint: "Liên hệ bài toán quản lý cửa hàng và trà sữa trong bài học.",
+      solution: `Gợi ý lời giải bài tập 2:
+1. Các nhóm thông tin cần quản lý:
+• Nhóm Món nước: Mã món, Tên món, Đơn giá, Thể loại (Cà phê, Trà, Nước ép), Tình trạng (Còn / Hết).
+• Nhóm Nhân viên: Mã NV, Họ tên, Ca làm việc, Số điện thoại.
+• Nhóm Đơn hàng: Mã đơn, Thời gian, Mã NV lập đơn, Mã món, Số lượng.
+2. Ví dụ vi phạm:
+• Vi phạm Toàn vẹn: Nhập Số lượng ly nước = -3 hoặc Đơn giá = 0đ (không hợp lệ theo quy tắc nghiệp vụ).
+• Vi phạm Nhất quán: Trên phần mềm thu ngân báo món 'Trà đào' đã hết hàng nhưng máy in tại quầy pha chế vẫn nhận lệnh làm 2 ly trà đào.`
     },
-    part3: {
-      title: "Phần 3: Câu hỏi chuẩn bị bài mới (Mạch nối Bài 12)",
-      description: "Suy nghĩ và trả lời: 'Sau khi dữ liệu đã được tổ chức thành CSDL, con người và các phần mềm ứng dụng cần một công cụ phần mềm trung gian nào để tạo lập bảng, nhập dữ liệu, tìm kiếm và bảo vệ CSDL đó?' ➜ Tìm hiểu trước về Hệ quản trị cơ sở dữ liệu (DBMS)."
+    {
+      title: "Bài tập 3: Câu Hỏi Chuẩn Bị Bài 12 – Hệ Quản Trị CSDL",
+      tag: "Chuẩn bị Bài mới",
+      problem: "Sau khi dữ liệu đã được tổ chức thành CSDL khoa học, làm sao con người và phần mềm ứng dụng có thể tạo lập, nhập dữ liệu, tìm kiếm và bảo vệ CSDL đó?",
+      tasks: [
+        "Nhiệm vụ: Tìm hiểu trước khái niệm Hệ quản trị cơ sở dữ liệu (DBMS) và kể tên 3 phần mềm DBMS phổ biến trên thế giới."
+      ],
+      requirements: "Ghi ngắn gọn định nghĩa và tên các phần mềm.",
+      hint: "Xem mục tóm tắt cuối bài và chuẩn bị cho Bài 12.",
+      solution: `Gợi ý lời giải bài tập 3:
+• Cần một lớp phần mềm trung gian chuyên dụng gọi là Hệ quản trị cơ sở dữ liệu (DBMS - Database Management System).
+• DBMS cung cấp môi trường để tạo bảng, thêm/sửa/xóa, tìm kiếm dữ liệu và phân quyền bảo mật.
+• Ba phần mềm DBMS phổ biến: MySQL, PostgreSQL, Microsoft Access (hoặc Microsoft SQL Server, Oracle, SQLite).`
     }
-  },
+  ],
 
   pedagogyTips: {
     questionGuide: [

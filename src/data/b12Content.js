@@ -751,21 +751,67 @@ export const b12Content = {
     }
   ],
 
-  homework: {
-    title: "Bài Tập Về Nhà Bài 12 (Chuẩn Bị Cho Bài 13: CSDL Quan Hệ)",
-    part1: {
-      title: "Phần 1: Trắc nghiệm củng cố (Tự làm lại Mini Test 10 câu)",
-      description: "Làm lại toàn bộ 10 câu trắc nghiệm của Bài 12, giải thích rõ căn cứ chọn đáp án đúng cho từng câu."
+  homework: [
+    {
+      title: "Bài tập 1: Củng Cố Lý Thuyết & Giải Thích Chi Tiết 10 Câu Mini Test",
+      tag: "Trắc nghiệm Bắt buộc",
+      problem: "Làm lại toàn bộ 10 câu trắc nghiệm của Bài 12 trong giáo trình:",
+      tasks: [
+        "Nhiệm vụ 1: Ghi lại đáp án đúng cho từng câu từ 1 đến 10.",
+        "Nhiệm vụ 2: Viết câu giải thích ngắn gọn (1–2 dòng) chỉ rõ căn cứ chuyên môn vì sao chọn phương án đó."
+      ],
+      requirements: "Trình bày rõ ràng vào vở bài tập hoặc file tài liệu học tập.",
+      hint: "Bám sát khái niệm DBMS, 4 nhóm chức năng, sơ đồ 4 tầng và phân biệt Tập trung vs Phân tán.",
+      solution: `Checklist đánh giá bài tập 1 (10/10 Điểm):
+✓ Câu 1 (B): Hệ QTCSDL là phần mềm quản lý, cập nhật, truy xuất và bảo vệ CSDL.
+✓ Câu 2 (A): Thêm cấu trúc cột EmailPhuHuynh là chức năng Định nghĩa dữ liệu.
+✓ Câu 3 (B): Thêm khách hàng mới là chức năng Cập nhật dữ liệu (Thêm).
+✓ Câu 4 (A): Quy định chỉ giáo viên được sửa điểm là chức năng Bảo mật CSDL.
+✓ Câu 5 (A): Sao lưu dự phòng Backup nhằm bảo đảm An toàn dữ liệu và phục hồi sự cố.
+✓ Câu 6 (C): Website tra cứu điểm thi là Phần mềm ứng dụng CSDL.
+✓ Câu 7 (B): Hệ CSDL gồm: CSDL + Hệ QTCSDL + Phần mềm ứng dụng CSDL (+ con người).
+✓ Câu 8 (B): CSDL lưu trên 1 máy tính duy nhất nên là Hệ CSDL tập trung.
+✓ Câu 9 (A): CSDL phân tán có dữ liệu phân bố trên nhiều trạm của mạng máy tính.
+✓ Câu 10 (B): Ứng dụng tính doanh thu từ cả trạm HN và TP.HCM là Ứng dụng toàn cục / phân tán.`
     },
-    part2: {
-      title: "Phần 2: Phân tích Hệ CSDL thực tế – Cửa hàng tiện lợi",
-      description: "Một cửa hàng tiện lợi gồm: Máy tính thu ngân quét mã vạch, CSDL hàng hóa và hóa đơn, Hệ QTCSDL SQLite và phần mềm bán hàng. Hãy: 1. Chỉ rõ 4 thành phần của Hệ CSDL này. 2. Cho ví dụ về một thao tác cập nhật và một thao tác truy xuất dữ liệu tại quầy thu ngân."
+    {
+      title: "Bài tập 2: Phân Tích Thực Tế – Hệ CSDL Cửa Hàng Tiện Lợi",
+      tag: "Tình huống Thực tế",
+      problem: "Một cửa hàng tiện lợi gồm: Máy tính thu ngân quét mã vạch, CSDL hàng hóa và hóa đơn, Hệ QTCSDL SQLite và phần mềm bán hàng POS:",
+      tasks: [
+        "Nhiệm vụ 1: Chỉ rõ 4 thành phần của Hệ CSDL này theo kiến trúc 4 tầng chuẩn mực.",
+        "Nhiệm vụ 2: Cho ví dụ về một thao tác Cập nhật dữ liệu và một thao tác Truy xuất dữ liệu diễn ra tại quầy thu ngân."
+      ],
+      requirements: "Nêu ví dụ thực tế rõ ràng, có phân tích cụ thể.",
+      hint: "Xem lại mục 60-75 trong bài học về kiến trúc Hệ CSDL.",
+      solution: `Gợi ý lời giải bài tập 2:
+1. Bốn thành phần theo kiến trúc 4 tầng:
+• Người dùng: Nhân viên thu ngân và quản lý cửa hàng.
+• Phần mềm ứng dụng CSDL: Phần mềm bán hàng POS hiển thị trên màn hình thu ngân.
+• Hệ QTCSDL: Phần mềm SQLite chạy ngầm quản trị dữ liệu.
+• CSDL: Tệp lưu trữ danh mục sản phẩm, giá bán, tồn kho và các hóa đơn trên đĩa cứng.
+2. Ví dụ thao tác:
+• Thao tác Cập nhật: Khi khách thanh toán xong 2 lon nước ngọt, phần mềm trừ số lượng tồn kho đi 2 và thêm 1 hóa đơn mới vào CSDL.
+• Thao tác Truy xuất: Nhân viên quét mã vạch trên lon nước, phần mềm tìm kiếm và hiển thị tên sản phẩm cùng giá bán lên màn hình.`
     },
-    part3: {
-      title: "Phần 3: Câu hỏi mở đầu Bài 13",
-      description: "Suy nghĩ và tìm hiểu trước: 'Trong các CSDL hiện đại ngày nay, dữ liệu thường được tổ chức dưới dạng các BẢNG gồm các hàng và cột có liên kết chặt chẽ với nhau. Mô hình tổ chức này được gọi là gì?' ➜ Tìm hiểu về CƠ SỞ DỮ LIỆU QUAN HỆ (Relational Database)."
+    {
+      title: "Bài tập 3: Câu Hỏi Chuẩn Bị Bài 13 – Cơ Sở Dữ Liệu Quan Hệ",
+      tag: "Chuẩn bị Bài mới",
+      problem: "Trong hầu hết các hệ thống CSDL hiện đại (như MySQL, PostgreSQL), dữ liệu không lưu tùy tiện mà được tổ chức dưới dạng các BẢNG gồm các HÀNG và CỘT có liên kết với nhau.",
+      tasks: [
+        "Nhiệm vụ: Tìm hiểu trước xem mô hình tổ chức này được gọi là gì? Bảng dữ liệu có những thành phần cốt lõi nào (Hàng, Cột, Khóa chính)?"
+      ],
+      requirements: "Ghi ngắn gọn các khái niệm tìm hiểu được.",
+      hint: "Tìm kiếm từ khóa 'Mô hình dữ liệu quan hệ' (Relational Model).",
+      solution: `Gợi ý lời giải bài tập 3:
+• Mô hình tổ chức này được gọi là CƠ SỞ DỮ LIỆU QUAN HỆ (Relational Database - RDBMS).
+• Trong CSDL quan hệ:
+  - Bảng (Table / Relation): Cấu trúc tổ chức dữ liệu chính.
+  - Hàng (Row / Bản ghi / Record): Biểu diễn một đối tượng cụ thể (1 học sinh, 1 sản phẩm).
+  - Cột (Column / Thuộc tính / Field): Biểu diễn một đặc trưng của đối tượng (Mã, Tên, Giá).
+  - Khóa chính (Primary Key): Thuộc tính dùng để phân biệt duy nhất từng hàng trong bảng.`
     }
-  },
+  ],
 
   pedagogyTips: {
     teachingSteps: [

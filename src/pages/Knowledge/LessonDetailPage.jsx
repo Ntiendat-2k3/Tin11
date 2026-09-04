@@ -174,7 +174,7 @@ export function LessonDetailPage() {
                 🎯 Dạng thi
               </button>
             )}
-            {lecture.homework && (
+            {Array.isArray(lecture.homework) && lecture.homework.length > 0 && (
               <button
                 onClick={() => scrollToSection("homework")}
                 className="shrink-0 text-xs font-bold px-3 py-1 rounded-lg bg-purple-100 text-purple-900 hover:bg-purple-600 hover:text-white dark:bg-purple-950 dark:text-purple-200 transition-all cursor-pointer"
@@ -626,7 +626,7 @@ export function LessonDetailPage() {
         )}
 
         {/* HOMEWORK SECTION */}
-        {lecture?.homework && (
+        {Array.isArray(lecture?.homework) && lecture.homework.length > 0 && (
           <section id="homework" className="scroll-mt-24 pt-8 border-t-2 border-teal-500/30">
             <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
               <h2 className="flex items-center gap-2.5 text-lg md:text-2xl font-black text-slate-900 dark:text-white">
