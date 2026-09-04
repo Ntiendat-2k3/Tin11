@@ -45,25 +45,26 @@ export const database11 = [
     priority: "high",
     hours: 2,
     mustKnow: [
-      "Khái niệm Cơ sở dữ liệu (CSDL - Database)",
-      "Các tính chất đặc trưng của CSDL: Tính có cấu trúc, tính giảm thiểu dư thừa, tính nhất quán, tính độc lập dữ liệu, tính an toàn và bảo mật",
-      "Phân biệt CSDL với các tệp dữ liệu thông thường (Word, Excel, Text file)",
-      "Tầm quan trọng của CSDL trong các hệ thống thông tin hiện đại",
-      "Mối quan hệ giữa bài toán quản lí thực tế và việc xây dựng CSDL"
+      "Lưu trữ dữ liệu khoa học: Khắc phục dư thừa dữ liệu (Data redundancy) và mâu thuẫn không nhất quán (Data inconsistency)",
+      "Sự phụ thuộc giữa phần mềm và dữ liệu & Khái niệm Tính độc lập dữ liệu (Data independence)",
+      "Khái niệm Cơ sở dữ liệu (CSDL): Tập hợp dữ liệu có liên quan, có cấu trúc, lưu trên máy tính",
+      "Sáu thuộc tính cơ bản của CSDL: Cấu trúc, Không dư thừa, Độc lập dữ liệu, Toàn vẹn, Nhất quán, Bảo mật & An toàn",
+      "Phân biệt sâu sắc cặp khái niệm: Toàn vẹn (Hợp lệ) vs Nhất quán (Ăn khớp); Bảo mật (Đúng người) vs An toàn (Sao lưu dự phòng)"
     ],
     codeSkills: [
-      "Phân tích cấu trúc dữ liệu của một CSDL mẫu",
-      "Phát hiện các lỗi dữ liệu không nhất quán hoặc trùng thừa trong danh sách"
+      "Phân tích và phát hiện các trường dữ liệu dư thừa, dữ liệu suy diễn trong bài toán quản lý",
+      "Chẩn đoán các lỗi vi phạm tính toàn vẹn (giá trị ngoài phạm vi) và tính nhất quán (dữ liệu mâu thuẫn)",
+      "Thiết kế danh mục nhóm dữ liệu có cấu trúc cho bài toán quản lý trường học, thư viện, cửa hàng"
     ],
     examSkills: [
-      "Phân biệt chính xác khái niệm CSDL với tệp bảng tính đơn lẻ",
-      "Đánh giá tính hợp lí của phương án tổ chức CSDL trong bối cảnh đề thi",
-      "Giải quyết bài tập Đúng/Sai về các đặc tính bắt buộc của một CSDL chuẩn"
+      "Giải quyết 5 dạng câu hỏi thi: Khái niệm CSDL vs Bảng tính rời rạc, Phát hiện dư thừa dữ liệu, Toàn vẹn vs Nhất quán, Tính độc lập dữ liệu, Bảo mật vs An toàn",
+      "Phản biện nhận định sai lầm 'Dư thừa là cấm giá trị trùng lặp' và 'Lưu càng nhiều file càng tốt'",
+      "Trả lời xuất sắc 6 câu hỏi cốt lõi chuẩn đầu ra Bài 11"
     ],
     practice: [
-      "10 câu trắc nghiệm khái niệm CSDL và các tính chất cơ bản",
-      "2 bài tập phân tích tình huống: So sánh file Excel quản lí bán hàng vs CSDL chuyên nghiệp",
-      "Bài tập nhận diện các nguy cơ dữ liệu bất hợp lí khi không dùng CSDL"
+      "10 bài tập tình huống thực hành trực tiếp trong buổi học (2-6 phút/bài)",
+      "Mini Test 7 câu trắc nghiệm tương tác đánh giá chuẩn đầu ra cuối buổi",
+      "Bài tập về nhà: Đề xuất dữ liệu quản lý lớp học + Phân tích dư thừa hóa đơn + Phân loại 4 tình huống Toàn vẹn vs Nhất quán"
     ],
     sourceIds: ["kgv-cs11", "vietjack-mock2026", "kgv-app11"],
     lectureContent: b11Content
@@ -75,25 +76,27 @@ export const database11 = [
     priority: "high",
     hours: 2,
     mustKnow: [
-      "Khái niệm Hệ quản trị cơ sở dữ liệu (DBMS - Database Management System)",
-      "Các chức năng cốt lõi của DBMS: Tạo lập CSDL (DDL), Cập nhật & Truy vấn (DML/DQL), Kiểm soát & Bảo mật (DCL)",
-      "Khái niệm Hệ cơ sở dữ liệu (Database System = CSDL + DBMS + Phần mềm ứng dụng + Người dùng)",
-      "Các vai trò người dùng trong hệ CSDL: Người quản trị (DBA), Người lập trình ứng dụng, Người dùng cuối (End-user)",
-      "Giới thiệu các Hệ quản trị CSDL thông dụng (MySQL, Access, PostgreSQL, SQLite, MS SQL Server)"
+      "Khái niệm Hệ quản trị cơ sở dữ liệu (DBMS): phần mềm cung cấp môi trường tạo lập, lưu trữ, cập nhật và khai thác CSDL",
+      "4 nhóm chức năng cốt lõi của DBMS: Định nghĩa dữ liệu (DDL), Cập nhật dữ liệu (DML), Truy xuất dữ liệu (DQL), Bảo mật & An toàn CSDL (DCL/Admin)",
+      "Kiến trúc 4 tầng của Hệ cơ sở dữ liệu: Người dùng -> Phần mềm ứng dụng -> Hệ QTCSDL (DBMS) -> CSDL lưu trữ vật lý",
+      "Ba nhóm vai trò người dùng trong hệ CSDL: Quản trị CSDL (DBA), Lập trình viên ứng dụng, Người dùng cuối (End-user)",
+      "Hai mô hình tổ chức hệ CSDL: Hệ CSDL tập trung (Centralized) vs Hệ CSDL phân tán (Distributed), ưu nhược điểm qua ca thực tế (chuỗi siêu thị)",
+      "Phân biệt chính xác bộ tứ: Dữ liệu -> CSDL -> Hệ QTCSDL (DBMS) -> Hệ CSDL"
     ],
     codeSkills: [
-      "Khởi động và thao tác cơ bản trên một phần mềm DBMS (MySQL Workbench / MS Access / SQLite Studio)",
-      "Xem sơ đồ cấu trúc CSDL và các bảng dữ liệu bằng phần mềm DBMS"
+      "Trải nghiệm tương tác với mô hình Hệ QTCSDL: tạo bảng, chèn bản ghi, truy xuất và phân quyền truy cập",
+      "Phân tích luồng truyền nhận dữ liệu qua 4 tầng kiến trúc của một hệ CSDL thực tế"
     ],
     examSkills: [
-      "Phân biệt chính xác các khái niệm: CSDL, Hệ quản trị CSDL (DBMS), và Hệ CSDL",
-      "Ghép đúng chức năng của DBMS với các thao tác người dùng thực hiện",
-      "Nhận diện vai trò của các nhóm người dùng trong hệ thống"
+      "Phân biệt chính xác giữa CSDL, Hệ quản trị CSDL (DBMS) và Hệ CSDL hoàn chỉnh",
+      "Nhận diện đúng 4 nhóm chức năng của DBMS trong các thao tác nghiệp vụ",
+      "Phân loại chuẩn xác quyền hạn và trách nhiệm của 3 nhóm người dùng (DBA, Lập trình viên, Người dùng cuối)",
+      "Phân tích ưu - nhược điểm và lựa chọn mô hình CSDL Tập trung vs Phân tán phù hợp bài toán nghiệp vụ"
     ],
     practice: [
-      "Sơ đồ tư duy các thành phần cấu thành Hệ cơ sở dữ liệu",
-      "8 câu trắc nghiệm phân biệt chức năng Tạo lập vs Cập nhật vs Khai thác CSDL",
-      "Bài tập ghép nối 5 nhiệm vụ thực tế với 3 nhóm người dùng hệ CSDL"
+      "10 bài tập tình huống thực tế chuyên sâu (bàn giao CSDL, lỗi kiến trúc 4 tầng, phân quyền DBA, chuỗi siêu thị phân tán...)",
+      "Mini Test 10 câu trắc nghiệm 4 lựa chọn có đáp án và giải thích chi tiết",
+      "5 Dạng bài thi trọng tâm: Nhận diện định nghĩa, Phân loại chức năng DBMS, Sơ đồ 4 tầng, Phân quyền người dùng, Bài toán Tập trung vs Phân tán"
     ],
     sourceIds: ["kgv-cs11", "kgv-focus11"],
     lectureContent: b12Content
