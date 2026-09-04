@@ -2,519 +2,477 @@
  * Dữ liệu bài giảng Bài 12: Hệ quản trị cơ sở dữ liệu và hệ cơ sở dữ liệu
  * Giáo trình gia sư Tin học 11 – Kết nối tri thức (Thời lượng: khoảng 100 phút)
  * Chủ đề 4: Giới thiệu các hệ cơ sở dữ liệu
- * Định hướng: Kiến thức cốt lõi chung (CS & ICT)
+ * Định hướng: Kiến thức cốt lõi chung (Khoa học máy tính CS & Tin học ứng dụng ICT)
+ * Biên soạn bám sát 185 mục của giáo trình gia sư chuyên sâu
  */
+
 export const b12Content = {
   warmUp: {
-    question: "Em vào website tra cứu điểm thi, chỉ cần gõ Số báo danh rồi bấm 'Tra cứu', vài giây sau màn hình hiện ra đầy đủ Họ tên, Điểm các môn và Kết quả xét tuyển. Có phải trình duyệt đang trực tiếp mở một file chứa hàng trăm nghìn thí sinh để tự tìm kiếm không?",
-    description: "Câu trả lời là: KHÔNG! Trình duyệt hay ứng dụng người dùng không bao giờ can thiệp trực tiếp vào các tệp dữ liệu thô trên đĩa. Ở giữa chúng luôn có một lớp phần mềm trung gian cực kỳ thông minh gọi là Hệ quản trị cơ sở dữ liệu (DBMS). DBMS tiếp nhận yêu cầu, kiểm tra quyền hạn, tìm kiếm dữ liệu trong CSDL rồi trả kết quả về cho website hiển thị. Bài học này sẽ giúp em làm chủ vai trò của DBMS, cấu trúc của một Hệ CSDL hoàn chỉnh và phân biệt hệ CSDL tập trung với phân tán!"
+    question: "Nhà trường có tệp dữ liệu điểm của 2.000 học sinh lưu trên máy tính. Khi một học sinh muốn xem điểm của mình, vì sao nhà trường không mở thẳng tệp dữ liệu đó cho học sinh tự tìm mà lại xây dựng một Website tra cứu điểm thi?",
+    description: "Câu trả lời đời thường: Nếu mở thẳng tệp cho học sinh, các bạn có thể đọc nhầm, vô tình sửa điểm của mình thành 10, hoặc xóa mất điểm của bạn khác! Chưa kể người dùng bình thường đâu biết cách đọc các tệp dữ liệu thô nhị phân phức tạp. Sang ngôn ngữ chuyên môn: Không thể để người dùng hay ứng dụng can thiệp trực tiếp vào CSDL. Cần có một phần mềm trung gian chuyên nghiệp đứng ra quản lý, bảo vệ, thêm, xóa, sửa và tìm kiếm dữ liệu – đó chính là HỆ QUẢN TRỊ CƠ SỞ DỮ LIỆU (DBMS). Học sinh dùng Website (phần mềm ứng dụng), Website nói chuyện với DBMS, DBMS thao tác với CSDL rồi trả kết quả về!",
+    roles: [
+      { role: "Người dùng (Học sinh)", action: "Gõ Số báo danh trên Website ➜ Bấm 'Tra cứu'" },
+      { role: "Phần mềm ứng dụng (Website)", action: "Gửi yêu cầu tra cứu tới Hệ QTCSDL qua giao diện lập trình" },
+      { role: "Hệ QTCSDL (DBMS)", action: "Kiểm tra quyền, tìm đúng bản ghi trong CSDL và gửi trả lại cho Website" },
+      { role: "Cơ sở dữ liệu (CSDL)", action: "Nơi lưu trữ dữ liệu điểm số thực tế trên ổ đĩa máy tính" }
+    ]
   },
+
   sections: [
     {
       id: "sec-1",
-      title: "I & II. Mạch Kiến Thức Từ Bài 11 Sang Bài 12 & Khung Phân Bổ 100 Phút",
+      title: "1 & 2. Ba Câu Hỏi Lớn & Khung Phân Bổ Buổi Học 100 Phút",
       subsections: [
         {
-          heading: "1. Mạch kiến thức nối tiếp",
+          heading: "1. Ba câu hỏi lớn nối tiếp từ Bài 11 sang Bài 12",
           points: [
-            "Bài 11 đã giúp học sinh hiểu CSDL là gì (tập hợp dữ liệu có liên quan, có tổ chức, lưu trên máy tính) và 6 thuộc tính cơ bản cần đạt (Cấu trúc, Không dư thừa, Độc lập dữ liệu, Toàn vẹn, Nhất quán, Bảo mật & An toàn).",
-            "Vấn đề nảy sinh: Một CSDL thực tế chứa hàng nghìn, hàng triệu bản ghi. Người dùng bình thường và lập trình viên không thể tự mở từng tệp nhị phân trên ổ đĩa để tự tìm kiếm, phân quyền hay sao lưu.",
-            "Giải pháp: Cần một lớp phần mềm chuyên dụng đứng giữa người dùng/ứng dụng và CSDL, đó chính là Hệ quản trị cơ sở dữ liệu (DBMS).",
-            "Mô hình dòng chảy cốt lõi: NGƯỜI DÙNG / ỨNG DỤNG ➜ HỆ QTCSDL (DBMS) ➜ CƠ SỞ DỮ LIỆU (CSDL).",
-            "Trọng tâm Bài 12: Nắm vững 3 vấn đề: (1) Hệ QTCSDL là gì và có các nhóm chức năng nào? (2) Hệ CSDL gồm những thành phần nào? (3) Phân biệt Hệ CSDL tập trung và phân tán."
+            "Bài 11 đã trả lời: CSDL là gì? Dữ liệu nên được tổ chức như thế nào? CSDL tốt cần 6 thuộc tính gì?",
+            "Bài 12 trả lời tiếp 3 câu hỏi thực tế sống còn:",
+            "• Câu hỏi 1: Ai hoặc phần mềm nào sẽ đứng ra quản lí CSDL?",
+            "• Câu hỏi 2: Làm sao người dùng bình thường sử dụng được dữ liệu mà không cần biết cấu trúc tệp bên trong?",
+            "• Câu hỏi 3: Nếu dữ liệu nằm ở một nơi hoặc nhiều nơi thì hệ thống được tổ chức khác nhau ra sao?"
           ]
         },
         {
-          heading: "2. Khung phân bổ thời gian buổi học 100 phút",
+          heading: "2. Mạch tư duy sư phạm toàn bài",
           points: [
-            "0–8 phút: Khởi động bằng tình huống tra cứu điểm thi THPT quốc gia.",
-            "8–18 phút: Vì sao cần Hệ QTCSDL? (Hậu quả nếu để người dùng tự thao tác với tệp dữ liệu thô).",
-            "18–30 phút: Khái niệm Hệ QTCSDL (DBMS) & Phân biệt rõ CSDL vs Hệ QTCSDL.",
-            "30–54 phút: Bốn nhóm chức năng chính của Hệ QTCSDL (Định nghĩa, Cập nhật, Truy xuất, Bảo mật & An toàn, Giao diện lập trình).",
-            "54–68 phút: Khái niệm Hệ CSDL & Sơ đồ kiến trúc 4 tầng hoàn chỉnh.",
-            "68–85 phút: Hệ CSDL tập trung vs Hệ CSDL phân tán (Bản chất, ví dụ chuỗi siêu thị, so sánh ưu - nhược điểm).",
-            "85–95 phút: 10 bài tập tình huống thực hành trực tiếp.",
-            "95–100 phút: Mini Test 10 câu trắc nghiệm, 7 câu hỏi tự vấn và mạch nối sang Bài 13."
+            "CSDL ➜ Cần một phần mềm chuyên dụng để quản lí ➜ HỆ QUẢN TRỊ CSDL (DBMS) ➜ Ứng dụng CSDL giúp người dùng sử dụng thuận tiện ➜ CSDL + Hệ QTCSDL + Ứng dụng CSDL ➜ HỆ CƠ SỞ DỮ LIỆU ➜ TẬP TRUNG / PHÂN TÁN.",
+            "Bài 12 KHÔNG dạy sâu câu truy vấn/SQL. 'Truy xuất dữ liệu' chỉ cần hiểu là lấy thông tin từ CSDL theo nhu cầu."
+          ]
+        },
+        {
+          heading: "3. Khung phân bổ 100 phút chuẩn",
+          points: [
+            "0–8 phút: Khởi động: 'Có dữ liệu rồi tại sao vẫn cần phần mềm quản lý?' (Tình huống tra cứu điểm thi).",
+            "8–20 phút: Khái niệm Hệ quản trị cơ sở dữ liệu (DBMS) & Phân biệt Hệ QTCSDL vs CSDL.",
+            "20–48 phút: Bốn nhóm chức năng của Hệ QTCSDL (Định nghĩa, Cập nhật & truy xuất, Bảo mật & an toàn, Giao diện lập trình).",
+            "48–62 phút: Phần mềm khách, Phần mềm ứng dụng CSDL và Hệ cơ sở dữ liệu (Bộ tứ khái niệm).",
+            "62–74 phút: Hệ CSDL tập trung (Đặc điểm, Ưu điểm và Hạn chế).",
+            "74–90 phút: Hệ CSDL phân tán, Ứng dụng cục bộ vs Ứng dụng toàn cục/phân tán.",
+            "90–96 phút: So sánh chuẩn trọng tâm Tập trung vs Phân tán.",
+            "96–100 phút: Mini Test 10 câu + Chốt kiến thức toàn bài."
           ]
         }
       ],
       calloutBox: {
-        type: "quote",
-        title: "Tình huống Khởi động Đặt vấn đề",
-        text: "Gia sư đặt câu hỏi: 'Nếu trường ta có 1.000 học sinh, 20 môn học, hàng chục giáo viên. Nếu tất cả chỉ lưu trong các file thô trên ổ cứng, khi thầy cô muốn tìm 'học sinh lớp 11A có điểm Tin >= 8' thì sẽ khó khăn thế nào?' ➜ Người dùng phải tự biết file lưu ở đâu, tự đọc cấu trúc file, tự viết code tìm kiếm, tự xử lý lỗi, tự lo phân quyền và sao lưu ➜ Bất khả thi trong thực tế! Đó là lý do bắt buộc phải có Hệ QTCSDL làm thay toàn bộ những công việc phức tạp đó."
+        type: "tip",
+        title: "Lời khuyên sư phạm cho gia sư",
+        text: "Nếu học sinh tiếp thu chậm, ưu tiên 4 trọng tâm: (1) Hệ QTCSDL là gì ➜ (2) 4 nhóm chức năng ➜ (3) CSDL vs Hệ QTCSDL vs Ứng dụng vs Hệ CSDL ➜ (4) Tập trung vs Phân tán. Không cần sa đà vào tên các sản phẩm DBMS phức tạp."
       }
     },
+
     {
       id: "sec-2",
-      title: "III. Khái Niệm Hệ Quản Trị CSDL (DBMS) & Phân Biệt Tuyệt Đối Với CSDL",
+      title: "3–14. Khái Niệm Hệ Quản Trị Cơ Sở Dữ Liệu (DBMS)",
       subsections: [
         {
-          heading: "1. Hệ quản trị cơ sở dữ liệu (DBMS) là gì?",
-          text: "Hệ quản trị cơ sở dữ liệu (tiếng Anh: Database Management System, viết tắt: DBMS) là phần mềm cung cấp các phương tiện để tạo lập, lưu trữ, cập nhật, truy xuất, bảo mật và bảo đảm an toàn cho CSDL, đồng thời hỗ trợ các chương trình ứng dụng làm việc với dữ liệu.",
+          heading: "1. Khởi động: Tại sao không mở trực tiếp file dữ liệu?",
+          text: "Một tệp dữ liệu chứa điểm của hàng nghìn học sinh. Nếu để học sinh hay lập trình viên mở trực tiếp tệp trên đĩa:",
           points: [
-            "Vai trò trung gian: Làm 'người phục vụ' đứng giữa nhận lệnh từ ứng dụng/người dùng ➜ xử lý trên đĩa cứng ➜ trả kết quả.",
-            "Tự động hóa: Người dùng chỉ cần ra lệnh 'Tìm học sinh HS001', DBMS sẽ tự biết đọc đĩa thế nào, kiểm tra quyền truy cập ra sao và trả về kết quả chính xác."
+            "Người dùng bình thường không biết cấu trúc tệp nhị phân phức tạp.",
+            "Không thể phân quyền: mở tệp ra là xem được hết điểm của mọi người, thậm chí sửa xóa nhầm.",
+            "Nhiều người cùng mở tệp một lúc sẽ gây khóa tệp (file lock) hoặc xung đột làm hỏng dữ liệu."
           ]
         },
         {
-          heading: "2. Phân biệt tuyệt đối: CSDL vs Hệ QTCSDL (Lỗi kinh điển học sinh hay mắc)",
-          text: "Tuyệt đối không được nhầm lẫn giữa dữ liệu và phần mềm quản lý dữ liệu:",
+          heading: "2. Hệ quản trị CSDL là gì? (Đời thường vs Chuyên môn)",
+          text: "Để giải quyết vấn đề trên, máy tính cần một lớp phần mềm trung gian đứng ra cai quản CSDL:",
           points: [
-            "CƠ SỞ DỮ LIỆU (CSDL) là BẢN THÂN DỮ LIỆU được tổ chức (như: danh sách học sinh, điểm số, ngày sinh, đơn hàng, số dư tài khoản).",
-            "HỆ QUẢN TRỊ CSDL (DBMS) là PHẦN MỀM dùng để quản lý CSDL đó (như: MySQL, PostgreSQL, Microsoft SQL Server, Oracle Database, Microsoft Access, SQLite).",
-            "❌ SAI LẦM PHỔ BIẾN: Nói 'MySQL là dữ liệu điểm thi'.",
-            "✅ NÓI CHUẨN XÁC: 'Dữ liệu điểm thi là CSDL; còn MySQL là Hệ QTCSDL được dùng để quản lý CSDL điểm thi đó!'"
+            "Cách nói đời thường: HỆ QTCSDL là 'BỘ PHẦN MỀM QUẢN LÍ KHO DỮ LIỆU' – giống như người thủ kho tận tụy, ai muốn gửi đồ, lấy đồ, kiểm tra đồ đều phải nói qua thủ kho.",
+            "Định nghĩa chuyên môn SGK: HỆ QUẢN TRỊ CƠ SỞ DỮ LIỆU (Database Management System - DBMS) là phần mềm cung cấp môi trường tạo lập, lưu trữ, cập nhật, truy xuất và bảo đảm an toàn, bảo mật cho CSDL.",
+            "Mô hình giao tiếp: NGƯỜI DÙNG / ỨNG DỤNG ➜ HỆ QTCSDL ➜ CƠ SỞ DỮ LIỆU."
+          ]
+        },
+        {
+          heading: "3. Khắc sâu: Hệ QTCSDL KHÔNG PHẢI LÀ CSDL!",
+          text: "Học sinh rất hay nhầm lẫn giữa CSDL và Hệ QTCSDL. Cần dùng hình ảnh so sánh trực quan:",
+          points: [
+            "Ví dụ tủ hồ sơ: Tủ hồ sơ và chiếc chìa khóa = Hệ QTCSDL (công cụ chứa và quản lý); Giấy tờ hồ sơ học sinh bên trong = CSDL (dữ liệu thực tế).",
+            "Ví dụ phần mềm: Microsoft Word là phần mềm (giống DBMS), còn bài văn em gõ là nội dung (giống CSDL).",
+            "Một số Hệ QTCSDL phổ biến trong thực tế: MySQL, Microsoft Access, PostgreSQL, Microsoft SQL Server, Oracle, SQLite.",
+            "Lưu ý quan trọng: Một Hệ QTCSDL có thể quản lý CÙNG LÚC NHIỀU CSDL khác nhau (CSDL trường học, CSDL thư viện, CSDL căng-tin)!"
           ]
         }
       ],
       comparisonTable: {
-        headers: ["Tiêu chí so sánh", "Cơ sở dữ liệu (CSDL)", "Hệ quản trị CSDL (DBMS)"],
+        headers: ["Tiêu chí", "Cơ sở dữ liệu (CSDL)", "Hệ quản trị CSDL (DBMS)"],
         rows: [
-          ["Bản chất", "Là DỮ LIỆU được tổ chức lưu trữ", "Là PHẦN MỀM quản trị dữ liệu"],
-          ["Ví dụ cụ thể", "Danh sách 50.000 khách hàng, Bảng điểm học sinh lớp 11", "MySQL, PostgreSQL, Oracle, MS SQL Server, MS Access"],
-          ["Hình ảnh so sánh", "Kho sách và các tập tài liệu bên trong", "Người thủ thư và hệ thống công cụ quản lý thư viện"],
-          ["Mối quan hệ", "Nằm dưới sự điều khiển của DBMS", "Đứng ra quản lý, bảo vệ và thao tác trên CSDL"]
+          ["Bản chất", "DỮ LIỆU được tổ chức có cấu trúc", "PHẦN MỀM dùng để quản trị dữ liệu"],
+          ["Ví dụ đời thường", "Giấy tờ, tài liệu, điểm số trong sổ", "Chiếc tủ sắt và người thủ kho quản lý tủ"],
+          ["Ví dụ phần mềm", "Dữ liệu điểm thi tuyển sinh năm 2026", "MySQL, PostgreSQL, Microsoft Access, SQL Server"],
+          ["Mối quan hệ", "Được lưu trữ trên đĩa và được DBMS điều phối", "Đứng giữa ứng dụng và CSDL, quản lý một hoặc nhiều CSDL"]
         ]
       }
     },
+
     {
       id: "sec-3",
-      title: "IV. Bốn Nhóm Chức Năng Chính Của Hệ Quản Trị CSDL",
+      title: "15–59 & 180. Bốn Nhóm Chức Năng Của Hệ Quản Trị CSDL",
       subsections: [
         {
-          heading: "1. Nhóm 1: Định nghĩa dữ liệu (Data Definition)",
-          text: "Trước khi nhập dữ liệu, DBMS cho phép khai báo 'khung' của CSDL:",
+          heading: "1. Nhóm 1: Định nghĩa dữ liệu (Data Definition - DDL)",
+          text: "Đời thường: 'TẠO CÁI KHUNG' – Xây một chiếc tủ ngăn nắp trước khi bỏ đồ vào:",
           points: [
-            "Tạo lập CSDL mới, khai báo các bảng dữ liệu, đặt tên các cột và chỉ định kiểu dữ liệu (Số, Chuỗi văn bản, Ngày tháng...).",
-            "Thay đổi cấu trúc: Thêm cột mới (ví dụ thêm cột 'Email học sinh'), xóa bớt cột không dùng.",
-            "Thiết lập các ràng buộc toàn vẹn (Constraints): Ví dụ quy định Điểm phải từ 0 đến 10, Mã học sinh không được để trống. (Liên hệ DDL - Data Definition Language)."
+            "Khai báo tên CSDL mới (ví dụ: tạo CSDL QuanLyHocSinh).",
+            "Tạo kiến trúc bảng bên trong: đặt tên bảng (HocSinh), khai báo các cột (MaHS, HoTen, NgaySinh, DiemToan), chọn kiểu dữ liệu cho từng cột (chữ, số, ngày tháng).",
+            "Sửa đổi kiến trúc: thêm cột mới (EmailPhuHuynh), xóa cột không dùng, đổi tên bảng.",
+            "Thiết lập ràng buộc toàn vẹn (kết nối Bài 11): quy định 0 ≤ Điểm ≤ 10, quy định Mã HS không được để trống."
           ]
         },
         {
-          heading: "2. Nhóm 2: Cập nhật dữ liệu & Truy xuất dữ liệu",
-          text: "Hai thao tác làm việc hàng ngày với dữ liệu bên trong CSDL:",
+          heading: "2. Nhóm 2: Cập nhật và truy xuất dữ liệu (Data Manipulation & Retrieval - DML/DQL)",
+          text: "Đời thường: 'THAY ĐỔI VÀ LẤY DỮ LIỆU RA DÙNG':",
           points: [
-            "CẬP NHẬT DỮ LIỆU (Làm THAY ĐỔI dữ liệu): Gồm 3 thao tác cơ bản: THÊM (Insert - thêm học sinh mới chuyển đến), SỬA (Update - đổi số điện thoại học sinh), XÓA (Delete - xóa bản ghi bị nhập trùng).",
-            "TRUY XUẤT DỮ LIỆU (LẤY dữ liệu ra xem, KHÔNG làm thay đổi dữ liệu gốc): Tìm kiếm, lọc theo điều kiện (tìm học sinh lớp 11A có điểm Tin >= 8), sắp xếp và thống kê báo cáo (tính điểm trung bình). (Liên hệ DML/DQL)."
+            "CẬP NHẬT DỮ LIỆU (Thêm - Sửa - Xóa):\n• THÊM: Tiếp nhận học sinh mới chuyển đến trường ➜ Thêm một dòng bản ghi mới.\n• SỬA: Học sinh đổi số điện thoại hoặc giáo viên chấm phúc khảo nâng điểm ➜ Sửa giá trị trong bản ghi.\n• XÓA: Xóa một bản ghi nhập nhầm hoặc xóa tài khoản đã đóng.",
+            "TRUY XUẤT DỮ LIỆU (Xem, tìm kiếm, kết xuất thông tin):\n• Lấy thông tin từ CSDL theo nhu cầu (Ví dụ: Học sinh xem điểm thi; Hiệu trưởng in danh sách học sinh đạt giải quốc gia).\n• Lưu ý: Ở Bài 12 KHÔNG yêu cầu viết câu lệnh SQL/SELECT phức tạp, chỉ cần nhận biết hành động xem/tìm kiếm chính là chức năng truy xuất dữ liệu!"
           ]
         },
         {
-          heading: "3. Nhóm 3: Bảo mật và an toàn CSDL",
-          text: "Bảo vệ CSDL trước truy cập trái phép và sự cố phần cứng:",
+          heading: "3. Nhóm 3: Bảo mật và an toàn CSDL (Security & Safety)",
+          text: "Đời thường: 'ĐÚNG NGƯỜI + KHÔNG XUNG ĐỘT + CÓ BẢN DỰ PHÒNG':",
           points: [
-            "Bảo mật dữ liệu (Security): Kiểm soát quyền truy cập chi tiết (Xác định danh tính người dùng ➜ Kiểm tra quyền ➜ Cho phép/Từ chối). Ví dụ: Học sinh chỉ được xem điểm của mình; Giáo viên bộ môn được nhập điểm môn mình dạy; người ngoài không được truy cập.",
-            "Kiểm soát truy cập đồng thời: Điều phối khi nhiều người cùng thao tác cùng lúc để tránh tranh chấp (Ví dụ: 2 nhân viên cùng bán chiếc laptop cuối cùng trong kho; DBMS đảm bảo chỉ 1 người mua thành công, tránh mâu thuẫn).",
-            "An toàn dữ liệu (Safety / Backup & Recovery): Cung cấp công cụ sao lưu dự phòng (Backup) định kỳ và phục hồi (Restore) nguyên vẹn dữ liệu khi máy chủ bị cháy ổ cứng, sét đánh hoặc sập nguồn."
+            "Phần 1 – Kiểm soát quyền truy cập (Bảo mật): Phân quyền nghiêm ngặt theo vai trò. Học sinh chỉ được xem điểm của mình; Giáo viên bộ môn được nhập/sửa điểm môn phụ trách; Người quản trị hệ thống được cấp phát tài khoản.",
+            "Phần 2 – Kiểm soát giao dịch & Tranh chấp dữ liệu: Khi nhiều người cùng thao tác đồng thời trên một dữ liệu (ví dụ: nhân viên A sửa địa chỉ khách hàng trong khi nhân viên B bấm xóa khách hàng đó; hoặc 2 khách cùng bấm mua chiếc điện thoại cuối cùng). Hệ QTCSDL điều phối để dữ liệu không bị phá hỏng và giữ vững TÍNH NHẤT QUÁN.",
+            "Phần 3 – Sao lưu dự phòng và phục hồi (An toàn dữ liệu):\n• Backup (Sao lưu): Tự động tạo bản sao lưu dữ liệu ra nơi an toàn vào 23h mỗi đêm.\n• Restore (Khôi phục): Khi máy chủ bị sét đánh, cháy ổ cứng hay lỗi hệ thống, Hệ QTCSDL giúp phục hồi lại trạng thái dữ liệu nguyên vẹn từ bản sao lưu gần nhất."
           ]
         },
         {
-          heading: "4. Nhóm 4: Hỗ trợ giao diện lập trình ứng dụng (API)",
-          text: "Cung cấp cổng giao tiếp chuẩn mực để các phần mềm ứng dụng (Website tra cứu, App mobile, Phần mềm bán hàng POS) gửi câu lệnh truy vấn xuống DBMS và nhận dữ liệu trả về:",
+          heading: "4. Nhóm 4: Cung cấp giao diện lập trình ứng dụng (Application Programming Interface - API)",
+          text: "Đời thường: 'CHO PHẦN MỀM KHÁCH NÓI CHUYỆN VỚI HỆ QTCSDL':",
           points: [
-            "Lập trình viên không cần biết chi tiết file dữ liệu ghi ở đâu trong ổ cứng, chỉ cần gọi hàm qua giao diện lập trình của DBMS.",
-            "Phân biệt: Giao diện người dùng (UI - màn hình ô nhập, nút bấm cho con người) vs Giao diện lập trình (API - cổng kết nối cho phần mềm giao tiếp với DBMS)."
+            "Website tra cứu điểm thi không tự lưu dữ liệu. Nó cần một phương thức chuẩn mực để gửi câu hỏi: 'Hãy tìm cho tôi điểm của SBD 1102!' tới Hệ QTCSDL và nhận kết quả trả về.",
+            "Giao diện lập trình ứng dụng là cầu nối phần mềm giúp các lập trình viên viết code (Python, Java, PHP, JavaScript) tương tác thuận lợi với Hệ QTCSDL.",
+            "⚠️ LƯU Ý TRÁNH NHẦM: Đừng nhầm 'Giao diện lập trình' (cách hai phần mềm giao tiếp ngầm với nhau) với 'Giao diện người dùng' (các nút bấm, ô nhập màu sắc trên màn hình mà con người nhìn thấy)!"
           ]
         }
       ],
       comparisonTable: {
-        headers: ["Nhóm chức năng", "Nhiệm vụ cốt lõi", "Thao tác tiêu biểu", "Ví dụ trong trường học"],
+        headers: ["Nhóm chức năng", "Cách nói đời thường", "Thao tác tiêu biểu", "Ví dụ cụ thể"],
         rows: [
-          ["Định nghĩa dữ liệu", "Tạo và sửa 'khung/cấu trúc' CSDL", "Tạo bảng, thêm cột, đặt ràng buộc", "Thêm cột 'Email' vào hồ sơ học sinh"],
-          ["Cập nhật dữ liệu", "Làm THAY ĐỔI dữ liệu bên trong", "Thêm, Sửa, Xóa bản ghi", "Sửa số điện thoại phụ huynh học sinh"],
-          ["Truy xuất dữ liệu", "LẤY thông tin ra xem, không đổi dữ liệu", "Tìm kiếm, lọc, thống kê", "Lọc danh sách học sinh đạt điểm Giỏi"],
-          ["Bảo mật CSDL", "Đúng người, đúng quyền hạn", "Xác thực, phân quyền truy cập", "Học sinh không được tự sửa điểm thi"],
-          ["An toàn CSDL", "Chống mất mát, phục hồi sự cố", "Sao lưu (Backup), Phục hồi (Restore)", "Tự động sao lưu dữ liệu điểm mỗi đêm"],
-          ["Giao diện lập trình", "Cổng kết nối cho phần mềm khác", "Gửi nhận truy vấn qua API", "Website tra cứu điểm kết nối tới DBMS"]
+          ["1. Định nghĩa dữ liệu", "Tạo cái khung", "Tạo CSDL, tạo bảng, thêm cột, đặt ràng buộc", "Thêm cột EmailPhuHuynh, đặt điều kiện 0 ≤ Điểm ≤ 10"],
+          ["2. Cập nhật dữ liệu", "Thay đổi nội dung", "Thêm bản ghi, sửa thông tin, xóa dữ liệu nhầm", "Thêm học sinh mới chuyển trường, sửa số điện thoại"],
+          ["3. Truy xuất dữ liệu", "Lấy dữ liệu cần dùng", "Xem bảng điểm, tìm kiếm học sinh, xuất báo cáo", "Học sinh gõ SBD tra cứu điểm thi trên mạng"],
+          ["4. Bảo mật CSDL", "Đúng người đúng quyền", "Xác thực tài khoản, phân quyền xem/sửa", "Chỉ giáo viên dạy Toán mới được sửa điểm môn Toán"],
+          ["5. An toàn CSDL", "Không sợ mất dữ liệu", "Kiểm soát giao dịch đồng thời, sao lưu dự phòng", "Khóa dữ liệu khi 2 người mua cùng 1 vé; Backup 23h hàng ngày"],
+          ["6. Giao diện lập trình", "Cầu nối phần mềm", "Cung cấp thư viện/cơ chế cho app gửi yêu cầu", "Website tuyển sinh gửi lệnh lấy kết quả từ MySQL"]
         ]
       }
     },
+
     {
       id: "sec-4",
-      title: "V. Khái Niệm Hệ Cơ Sở Dữ Liệu (Database System) & Sơ Đồ 4 Tầng",
+      title: "60–75. Phần Mềm Ứng Dụng CSDL & Hệ Cơ Sở Dữ Liệu",
       subsections: [
         {
-          heading: "1. Hệ cơ sở dữ liệu là gì?",
-          text: "Một CSDL và một DBMS vẫn chưa đủ để người dùng thông thường sử dụng thuận tiện. Học sinh không thể gõ câu lệnh DBMS trực tiếp mà cần một phần mềm giao diện thân thiện (Website, App).",
+          heading: "1. Phần mềm khách và Phần mềm ứng dụng CSDL là gì?",
+          text: "Người dùng bình thường (học sinh, phụ huynh, thu ngân) không bao giờ gõ lệnh trực tiếp vào Hệ QTCSDL:",
           points: [
-            "HỆ CƠ SỞ DỮ LIỆU (Database System) là một hệ thống hoàn chỉnh gồm 3 thành phần kỹ thuật kết hợp chặt chẽ: CSDL + Hệ QTCSDL + Các phần mềm ứng dụng CSDL (cùng với Con người vận hành và sử dụng hệ thống).",
-            "Mối quan hệ: CSDL là 'dữ liệu'; DBMS là 'bộ máy điều khiển'; Phần mềm ứng dụng là 'giao diện trung gian' phục vụ người dùng cuối."
+            "Ví dụ nhà hàng: Khách hàng (người dùng) ngồi ở bàn ăn ➜ Bồi bàn (phần mềm ứng dụng) tiếp nhận món ăn và chuyển đơn xuống bếp ➜ Bếp trưởng (Hệ QTCSDL) lấy nguyên liệu trong kho lạnh (CSDL) nấu xong giao lại cho bồi bàn mang ra.",
+            "PHẦN MỀM ỨNG DỤNG CSDL là phần mềm được xây dựng để phục vụ nhu cầu nghiệp vụ cụ thể của người dùng, giao tiếp với Hệ QTCSDL để lấy và lưu dữ liệu.",
+            "Cùng MỘT CSDL có thể phục vụ NHIỀU PHẦN MỀM ỨNG DỤNG khác nhau: CSDL nhà trường phục vụ Website tra cứu cho học sinh, App chấm điểm cho giáo viên, và Cổng thông tin báo cáo cho Sở GD&ĐT!"
           ]
         },
         {
-          heading: "2. Sơ đồ kiến trúc 4 tầng kinh điển (Bắt buộc phải thuộc)",
-          text: "Dòng luồng tương tác từ người dùng xuống đĩa cứng:",
+          heading: "2. Khái niệm Hệ cơ sở dữ liệu (Database System)",
+          text: "Định nghĩa chuẩn SGK: HỆ CƠ SỞ DỮ LIỆU là một hệ thống gồm:",
           points: [
-            "Tầng 1 – NGƯỜI DÙNG: Học sinh, Giáo viên, Thu ngân, Khách hàng.",
-            "Tầng 2 – PHẦN MỀM ỨNG DỤNG: Website tra cứu điểm, App di động VnEdu, Web bán hàng Shopee.",
-            "Tầng 3 – HỆ QUẢN TRỊ CSDL (DBMS): MySQL, PostgreSQL, MS SQL Server, Oracle.",
-            "Tầng 4 – CƠ SỞ DỮ LIỆU (CSDL): Các bảng dữ liệu vật lý lưu trên ổ đĩa máy chủ.",
-            "💡 Nguyên tắc vàng: Nhiều phần mềm ứng dụng khác nhau (App học sinh, Web giáo viên, Ứng dụng phòng đào tạo) có thể cùng kết nối và khai thác CHUNG MỘT CSDL thông qua Hệ QTCSDL!"
+            "1. Cơ sở dữ liệu (CSDL) – Chứa nội dung dữ liệu.",
+            "2. Hệ quản trị CSDL (DBMS) – Phần mềm quản trị dữ liệu.",
+            "3. Các phần mềm ứng dụng CSDL – Phần mềm phục vụ người dùng.",
+            "4. Con người tham gia (Người quản trị CSDL, Người lập trình ứng dụng, Người dùng cuối).",
+            "Công thức ghi nhớ: HỆ CSDL = CSDL + HỆ QTCSDL + PHẦN MỀM ỨNG DỤNG CSDL (+ Con người)."
+          ]
+        },
+        {
+          heading: "3. Sơ đồ 4 tầng kiến trúc bắt buộc phải thuộc",
+          points: [
+            "Tầng 1 (Trên cùng): NGƯỜI DÙNG (Học sinh, giáo viên, khách hàng).",
+            "Tầng 2: PHẦN MỀM ỨNG DỤNG CSDL (Website, App di động, Phần mềm quản lý).",
+            "Tầng 3: HỆ QUẢN TRỊ CSDL (MySQL, PostgreSQL, SQL Server, Access).",
+            "Tầng 4 (Dưới cùng): CƠ SỞ DỮ LIỆU (Các tệp dữ liệu lưu trữ vật lý trên đĩa cứng).",
+            "Đọc bằng lời: 'Người dùng sử dụng ứng dụng; Ứng dụng gửi yêu cầu tới Hệ QTCSDL; Hệ QTCSDL trực tiếp quản lý và truy xuất CSDL'."
           ]
         }
       ],
-      osArchitecture: {
-        title: "Sơ Đồ Kiến Trúc 4 Tầng Của Hệ Cơ Sở Dữ Liệu",
-        layers: [
-          { name: "1. NGƯỜI DÙNG (Học sinh, Giáo viên, Nhân viên thu ngân, Quản trị viên)", color: "bg-indigo-100 border-indigo-300 text-indigo-800", icon: "user" },
-          { name: "2. PHẦN MỀM ỨNG DỤNG (Website tra cứu, App mobile VnEdu, Phần mềm POS)", color: "bg-sky-100 border-sky-300 text-sky-800", icon: "app" },
-          { name: "3. HỆ QUẢN TRỊ CSDL - DBMS (PostgreSQL, MySQL, MS SQL Server, Oracle)", color: "bg-emerald-100 border-emerald-400 text-emerald-900 font-bold", icon: "os" },
-          { name: "4. CƠ SỞ DỮ LIỆU - CSDL (Dữ liệu học sinh, điểm số, sách, tài khoản trên đĩa)", color: "bg-slate-200 border-slate-400 text-slate-800", icon: "hardware" }
+      comparisonTable: {
+        headers: ["Khái niệm", "Bản chất", "Ví dụ trong bài toán quản lý trường học", "Cách nhớ đời thường"],
+        rows: [
+          ["CSDL", "Dữ liệu được tổ chức", "Tệp lưu hồ sơ, điểm số của 2.000 học sinh", "Kho tài liệu"],
+          ["Hệ QTCSDL", "Phần mềm quản trị dữ liệu", "MySQL Server, PostgreSQL", "Người thủ kho"],
+          ["Phần mềm ứng dụng CSDL", "Phần mềm người dùng tương tác", "Website tra cứu điểm thi, App sổ liên lạc điện tử", "Bồi bàn / Cửa sổ giao dịch"],
+          ["Hệ CSDL", "Toàn bộ hệ thống hoàn chỉnh", "Toàn bộ hệ thống quản lý học sinh của trường", "Cả tòa nhà cơ quan"]
         ]
       }
     },
+
     {
       id: "sec-5",
-      title: "VI. Phân Biệt Hệ CSDL Tập Trung Và Hệ CSDL Phân Tán",
+      title: "76–116. Hệ CSDL Tập Trung Và Hệ CSDL Phân Tán",
       subsections: [
         {
           heading: "1. Hệ CSDL tập trung (Centralized Database System)",
-          text: "Bản chất: Toàn bộ CSDL được lưu trữ tại MỘT hệ thống máy tính trung tâm duy nhất (có thể là một máy chủ đơn lẻ hoặc một cụm máy chủ tập trung). Người dùng ở các máy khách kết nối qua mạng về máy chủ trung tâm để làm việc.",
+          text: "Định nghĩa chuẩn: Là hệ CSDL mà toàn bộ CSDL được lưu trữ TẬP TRUNG TRÊN MỘT MÁY TÍNH (hoặc một cụm máy chủ đặt tại một địa điểm duy nhất):",
           points: [
-            "Các dạng hệ tập trung: Hệ CSDL cá nhân (trên 1 laptop riêng); Hệ CSDL trung tâm; Hệ CSDL khách - chủ (Client - Server: Client gửi yêu cầu, Server xử lý CSDL và trả lời).",
-            "Ưu điểm: Dữ liệu tập trung một nơi dễ quản lý, dễ sao lưu dự phòng, phân quyền bảo mật thống nhất, dễ giữ tính nhất quán.",
-            "Hạn chế: Phụ thuộc hoàn toàn vào máy chủ trung tâm (nếu máy chủ bị sự cố sập nguồn thì toàn bộ hệ thống bị tê liệt); dễ trở thành 'điểm nghẽn' (bottleneck) khi có hàng trăm nghìn người cùng truy cập; người dùng ở chi nhánh xa phụ thuộc vào tốc độ đường truyền Internet."
+            "LƯU Ý CỰC KỲ QUAN TRỌNG: Nhiều người dùng truy cập từ xa qua mạng KHÔNG CÓ NGHĨA là phân tán! Điều quyết định là DỮ LIỆU ĐƯỢC LƯU Ở ĐÂU.",
+            "Ví dụ: 100 giáo viên ở 100 phòng khác nhau cùng truy cập vào 1 CSDL duy nhất đặt tại máy chủ trường ➜ Đây vẫn là HỆ CSDL TẬP TRUNG!",
+            "Ưu điểm: Dễ thiết kế, dễ bảo trì, dễ đảm bảo tính nhất quán (chỉ cần sửa tại 1 máy) và chi phí thấp cho quy mô nhỏ/vừa.",
+            "Hạn chế: Toàn bộ hệ thống phụ thuộc vào máy chủ trung tâm. Nếu máy chủ hỏng hoặc đứt cáp mạng kết nối tới máy chủ thì toàn bộ hệ thống tê liệt; Dễ quá tải khi lượng truy cập tăng vọt."
           ]
         },
         {
           heading: "2. Hệ CSDL phân tán (Distributed Database System)",
-          text: "Bản chất: Dữ liệu không lưu ở một nơi duy nhất mà được phân chia và lưu trữ trên NHIỀU máy tính khác nhau đặt tại nhiều vị trí địa lý, được tổ chức thành các CSDL thành phần (CSDL con) có liên kết phối hợp qua mạng.",
+          text: "Định nghĩa chuẩn: Là hệ CSDL mà dữ liệu không lưu tập trung tại một máy, mà được PHÂN BỐ LƯU TRỮ TRÊN NHIỀU MÁY TÍNH (gọi là các TRẠM / SITE) kết nối với nhau qua mạng máy tính:",
           points: [
-            "Ví dụ điển hình: Chuỗi siêu thị toàn quốc có 3 CSDL con đặt tại chi nhánh Hà Nội, Đà Nẵng, TP.HCM. Mỗi chi nhánh phục vụ bán hàng và quản lý kho tại chỗ, đồng thời kết nối mạng để tổng hợp doanh thu toàn quốc.",
-            "Hai loại phân tán: Phân tán thuần nhất (các chi nhánh dùng cùng loại DBMS như PostgreSQL) và Phân tán hỗn hợp (các chi nhánh dùng các DBMS khác nhau như PostgreSQL, Oracle, MS SQL Server).",
-            "Ưu điểm: Dữ liệu đặt gần người dùng địa phương nên truy xuất cực nhanh; dễ mở rộng khi công ty mở thêm chi nhánh mới; tăng độ sẵn sàng (chi nhánh này đứt cáp mạng thì các chi nhánh khác vẫn hoạt động bình thường với dữ liệu cục bộ).",
-            "Hạn chế: Quản lý cực kỳ phức tạp; rất khó duy trì tính nhất quán dữ liệu (đồng bộ giá bán giữa các chi nhánh); bảo mật phức tạp hơn do có nhiều máy chủ và đường truyền cần bảo vệ."
+            "Trạm (Site/Node): Là một máy tính trong mạng có cài Hệ QTCSDL và có thể chứa một phần dữ liệu.",
+            "CSDL cục bộ (Local Database): Phần CSDL được lưu trữ và quản lý trực tiếp tại một trạm cụ thể.",
+            "Ứng dụng cục bộ (Local Application): Ứng dụng CHỈ SỬ DỤNG DỮ LIỆU CỦA MỘT TRẠM duy nhất (Ví dụ: Chi nhánh Đà Nẵng in hóa đơn bán hàng cho khách tại Đà Nẵng).",
+            "Ứng dụng toàn cục / Phân tán (Global Application): Ứng dụng SỬ DỤNG DỮ LIỆU CỦA ÍT NHẤT HAI TRẠM để cho kết quả cuối cùng (Ví dụ: Tổng giám đốc tại Hà Nội xem báo cáo doanh thu toàn quốc bằng cách tổng hợp dữ liệu từ cả 3 trạm HN, ĐN và TP.HCM)."
           ]
         },
         {
-          heading: "3. Hai hiểu lầm kinh điển cần tránh tuyệt đối",
+          heading: "3. Ưu điểm và Khó khăn của Hệ CSDL phân tán",
           points: [
-            "⚠️ HIỂU LẦM 1: 'Nhiều người ở nhiều tỉnh truy cập thì chắc chắn là CSDL phân tán!' ➜ SAI! Người dùng ở Hà Nội, Đà Nẵng, TP.HCM cùng truy cập vào 1 máy chủ duy nhất đặt tại Hà Nội thì đó vẫn là HỆ CSDL TẬP TRUNG! Yếu tố quyết định là DỮ LIỆU ĐƯỢC LƯU Ở ĐÂU, không phải người dùng ở đâu.",
-            "⚠️ HIỂU LẦM 2: 'Hệ CSDL phân tán lúc nào cũng tốt và hiện đại hơn hệ tập trung!' ➜ SAI! Phân tán chỉ dùng khi quy mô địa lý bắt buộc. Với trường học hay doanh nghiệp vừa và nhỏ, hệ CSDL tập trung vẫn là lựa chọn tối ưu nhất vì chi phí rẻ, quản lý đơn giản và đảm bảo tính nhất quán tuyệt đối."
+            "ƯU ĐIỂM VƯỢT TRỘI:\n• Dễ dàng mở rộng: Mở thêm chi nhánh Cần Thơ chỉ cần lắp thêm một trạm mới vào mạng.\n• Tăng tính sẵn sàng và độ tin cậy: Trạm TP.HCM bị đứt mạng thì trạm Hà Nội và Đà Nẵng vẫn bán hàng bình thường cho khách địa phương!\n• Dữ liệu đặt gần người dùng: Giảm tải đường truyền mạng diện rộng, truy xuất cục bộ cực nhanh.",
+            "KHÓ KHĂN LỚN:\n• Thiết kế và cài đặt cực kỳ phức tạp.\n• Rất khó đảm bảo tính nhất quán: Khi một món hàng được mua, làm sao để mọi trạm cùng đồng bộ số tồn kho ngay lập tức?\n• Bảo mật khó khăn hơn vì có nhiều trạm và nhiều đường truyền mạng dễ bị tấn công.\n• Chi phí đầu tư phần cứng và duy trì đội ngũ kỹ thuật rất tốn kém."
+          ]
+        },
+        {
+          heading: "4. Phân biệt Dữ liệu phân tán vs Xử lý phân tán (Lưu ý SGK)",
+          points: [
+            "Dữ liệu phân tán: Bản thân các phần của CSDL được chia ra lưu ở nhiều trạm khác nhau.",
+            "Xử lý phân tán: CSDL có thể vẫn nằm trên một máy chủ trung tâm, nhưng việc tính toán, hiển thị được giao cho nhiều máy tính người dùng chia nhau xử lý.",
+            "Kết luận: Không có mô hình nào là 'tốt nhất cho mọi bài toán'. Trường học nhỏ, phòng khám ➜ Chọn Tập trung. Chuỗi 200 siêu thị toàn quốc ➜ Cân nhắc Phân tán!"
           ]
         }
       ],
       comparisonTable: {
-        headers: ["Tiêu chí đối chiếu", "Hệ CSDL Tập trung (Centralized)", "Hệ CSDL Phân tán (Distributed)"],
+        headers: ["Tiêu chí so sánh", "Hệ CSDL Tập Trung", "Hệ CSDL Phân Tán"],
         rows: [
-          ["Vị trí lưu trữ dữ liệu", "Chủ yếu tại MỘT hệ thống máy tính trung tâm", "Trên NHIỀU máy tính đặt tại các vị trí địa lý khác nhau"],
-          ["Mức độ quản lý", "Đơn giản, tập trung kiểm soát tại một điểm", "Phức tạp, đòi hỏi đồng bộ và phối hợp đa nút"],
-          ["Đảm bảo tính nhất quán", "Rất dễ kiểm soát và đảm bảo tính ăn khớp", "Khó khăn, dễ xảy ra độ trễ lệch pha dữ liệu giữa các nơi"],
-          ["Rủi ro sự cố trung tâm", "Cao (Máy chủ trung tâm lỗi ➜ toàn hệ thống dừng)", "Thấp hơn (Một nút gặp sự cố, các nút khác vẫn chạy cục bộ)"],
-          ["Khả năng mở rộng địa lý", "Khó khăn khi mở rộng ra quy mô toàn cầu", "Rất thuận lợi, chỉ cần bổ sung thêm nút CSDL con mới"],
-          ["Ví dụ thực tế", "Hệ thống CSDL điểm của một trường THPT", "Hệ thống quản lý chuỗi siêu thị VinMart / Ngân hàng toàn quốc"]
+          ["Vị trí lưu CSDL", "Toàn bộ CSDL lưu tại MỘT máy tính/máy chủ duy nhất", "Dữ liệu phân bố trên NHIỀU trạm khác nhau qua mạng"],
+          ["Bản chất ứng dụng", "Mọi người dùng gửi yêu cầu về 1 máy chủ", "Có Ứng dụng cục bộ (1 trạm) và Toàn cục (nhiều trạm)"],
+          ["Ưu điểm chính", "Dễ thiết kế, dễ bảo trì, dễ giữ nhất quán số liệu", "Dễ mở rộng thêm trạm, tính sẵn sàng cao, không lo sập toàn bộ"],
+          ["Nhược điểm lớn", "Nếu máy chủ hỏng hoặc nghẽn mạng thì toàn bộ sập", "Thiết kế rất phức tạp, khó giữ nhất quán, bảo mật khó, chi phí đắt"],
+          ["Ví dụ phù hợp", "Phòng khám tư nhân, trường học, thư viện tỉnh", "Chuỗi siêu thị toàn quốc, hệ thống ngân hàng thương mại"]
         ]
       }
     },
+
     {
       id: "sec-6",
-      title: "VII. Chốt 8 Kiến Thức Cốt Lõi Buổi Học",
+      title: "153–157 & 171–172. Tổng Kết Bài Học, 7 Câu Tự Vấn Bắt Buộc & Mạch Kiến Thức",
       checkpointCards: [
         {
-          title: "1. HỆ QTCSDL (DBMS) LÀ PHẦN MỀM",
-          detail: "Phần mềm cung cấp phương tiện tạo lập, cập nhật, truy xuất, bảo mật và an toàn cho CSDL (MySQL, PostgreSQL, Oracle)."
+          title: "1. HỆ QTCSDL LÀ GÌ?",
+          detail: "Phần mềm quản trị dữ liệu: tạo lập, cập nhật, truy xuất, bảo mật và an toàn cho CSDL."
         },
         {
-          title: "2. CSDL (DỮ LIỆU) ≠ HỆ QTCSDL (PHẦN MỀM)",
-          detail: "CSDL là bản thân dữ liệu lưu bên trong; DBMS là phần mềm quản trị dữ liệu đó. Không được gọi lẫn lộn!"
+          title: "2. BỐN NHÓM CHỨC NĂNG CỦA DBMS",
+          detail: "Định nghĩa dữ liệu; Cập nhật & truy xuất; Bảo mật & an toàn; Giao diện lập trình ứng dụng."
         },
         {
-          title: "3. CẬP NHẬT (THAY ĐỔI) vs TRUY XUẤT (LẤY RA)",
-          detail: "Cập nhật = Thêm / Sửa / Xóa dữ liệu (đổi nội dung); Truy xuất = Tìm kiếm / Lọc / Tra cứu / Thống kê (chỉ xem, không đổi dữ liệu)."
+          title: "3. HỆ CSDL GỒM NHỮNG GÌ?",
+          detail: "CSDL (Dữ liệu) + Hệ QTCSDL (Phần mềm quản trị) + Phần mềm ứng dụng CSDL (+ Con người)."
         },
         {
-          title: "4. BẢO MẬT (ĐÚNG NGƯỜI) & AN TOÀN (SAO LƯU)",
-          detail: "Bảo mật là kiểm soát quyền truy cập xem/sửa; An toàn là có bản sao lưu (Backup) để phục hồi (Restore) khi hỏng máy."
+          title: "4. SƠ ĐỒ 4 TẦNG CỐT LÕI",
+          detail: "Người dùng ➜ Phần mềm ứng dụng CSDL ➜ Hệ QTCSDL (DBMS) ➜ Cơ sở dữ liệu (CSDL)."
         },
         {
-          title: "5. HỆ CSDL = CSDL + DBMS + ỨNG DỤNG",
-          detail: "Hệ CSDL là tổng thể gồm dữ liệu + phần mềm quản trị + phần mềm ứng dụng phục vụ người dùng."
+          title: "5. TẬP TRUNG KHÁC PHÂN TÁN ĐIỂM NÀO?",
+          detail: "Tập trung: Dữ liệu ở 1 nơi. Phân tán: Dữ liệu phân bố ở nhiều trạm qua mạng máy tính."
         },
         {
-          title: "6. SƠ ĐỒ 4 TẦNG KINH ĐIỂN",
-          detail: "Người dùng ➜ Phần mềm ứng dụng ➜ Hệ QTCSDL ➜ CSDL (Nhiều ứng dụng cùng dùng chung 1 CSDL)."
+          title: "6. CỤC BỘ VS TOÀN CỤC",
+          detail: "Cục bộ: Dùng dữ liệu 1 trạm. Toàn cục: Lấy dữ liệu từ ít nhất 2 trạm để cho kết quả."
         },
         {
-          title: "7. TẬP TRUNG vs PHÂN TÁN",
-          detail: "Tập trung = Dữ liệu ở 1 hệ thống trung tâm; Phân tán = Dữ liệu chia thành các CSDL con trên nhiều máy qua mạng."
-        },
-        {
-          title: "8. YẾU TỐ QUYẾT ĐỊNH LÀ VỊ TRÍ DỮ LIỆU",
-          detail: "Người dùng ở nhiều tỉnh cùng truy cập vào 1 máy chủ thì vẫn là HỆ TẬP TRUNG. Phân tán không phải luôn tốt hơn."
+          title: "7. CÂU NÓI KHẮC CỐT GHI TÂM",
+          detail: "'Nhiều người cùng truy cập qua mạng KHÔNG CÓ NGHĨA là CSDL phân tán!' (Xem dữ liệu lưu ở đâu)."
         }
       ],
       mindmapText: `+-----------------------------------------------------------------------------------+
-|               BÀI 12: HỆ QUẢN TRỊ CƠ SỞ DỮ LIỆU VÀ HỆ CƠ SỞ DỮ LIỆU               |
+|                        BÀI 12: HỆ QTCSDL VÀ HỆ CSDL                               |
 +-----------------------------------------------------------------------------------+
                                          │
                                          ▼
-                      HỆ QUẢN TRỊ CƠ SỞ DỮ LIỆU (DBMS)
-             (Phần mềm trung gian: MySQL, PostgreSQL, Oracle, SQL Server)
+                             HỆ QUẢN TRỊ CSDL (DBMS)
                                          │
-         ┌──────────────────┬────────────┴───────┬──────────────────┐
-         ▼                  ▼                    ▼                  ▼
-   1. ĐỊNH NGHĨA     2. CẬP NHẬT           3. TRUY XUẤT       4. BẢO MẬT &
-      DỮ LIỆU           DỮ LIỆU               DỮ LIỆU            AN TOÀN
-   (Tạo khung bảng,  (Thêm, Sửa, Xóa     (Tìm kiếm, Lọc,    (Phân quyền +
-    đặt ràng buộc)    làm đổi dữ liệu)    thống kê xem dữ    Sao lưu Backup
-                                          liệu, không đổi)   khôi phục)
+         ┌──────────────────┬────────────┴────────────┬──────────────────┐
+         ▼                  ▼                         ▼                  ▼
+     Định nghĩa       Cập nhật & truy xuất        Bảo mật &         Giao diện lập
+       dữ liệu             dữ liệu                 an toàn          trình ứng dụng
+     (Tạo khung)      (Thêm/Sửa/Xóa/Xem)        (Phân quyền/          (Cầu nối
+                                               Giao dịch/Backup)     phần mềm)
                                          │
                                          ▼
-                                HỆ CƠ SỞ DỮ LIỆU
-              (CSDL + Hệ QTCSDL + Phần mềm ứng dụng + Con người)
+                             PHẦN MỀM ỨNG DỤNG CSDL
+                           (Website tra cứu, App bán hàng)
                                          │
-                      ┌──────────────────┴──────────────────┐
-                      ▼                                     ▼
-              HỆ CSDL TẬP TRUNG                     HỆ CSDL PHÂN TÁN
-         (Dữ liệu ở 1 máy chủ duy nhất,         (Dữ liệu chia nhỏ thành
-          quản lý đơn giản, dễ nhất quán,        các CSDL con ở nhiều nơi,
-          dễ nghẽn cổ chai khi đông)             truy xuất gần nhưng khó đồng bộ)`
+                                         ▼
+                                   HỆ CƠ SỞ DỮ LIỆU
+                                         │
+                     ┌───────────────────┴───────────────────┐
+                     ▼                                       ▼
+            HỆ CSDL TẬP TRUNG                       HỆ CSDL PHÂN TÁN
+            (CSDL trên 1 máy)                     (Dữ liệu trên nhiều trạm)
+                     │                                       │
+              Dễ nhất quán,                         ┌────────┴────────┐
+              nhưng dễ nghẽn                        ▼                 ▼
+                                               Ứng dụng cục bộ   Ứng dụng toàn cục
+                                                 (1 trạm)          (≥ 2 trạm)`
     }
   ],
+
   summaryQuiz: [
     {
-      question: "Hệ quản trị cơ sở dữ liệu (DBMS) được hiểu chuẩn xác là gì?",
+      question: "Câu 1: Hệ quản trị cơ sở dữ liệu (DBMS) được định nghĩa chuẩn xác là:",
       options: [
-        "A. Một tập hợp dữ liệu được ghi chép trên giấy.",
-        "B. Phần mềm cung cấp các phương tiện để tạo lập, lưu trữ, cập nhật, truy xuất và bảo đảm an toàn cho CSDL.",
-        "C. Một trang web tra cứu thông tin trên Internet.",
-        "D. Một máy tính để bàn có cấu hình mạnh."
+        "A. Một tập hợp dữ liệu được tổ chức có cấu trúc.",
+        "B. Phần mềm hỗ trợ quản lí, cập nhật, truy xuất và bảo vệ CSDL.",
+        "C. Một website tra cứu điểm thi trên mạng Internet.",
+        "D. Một mạng máy tính gồm nhiều trạm kết nối với nhau."
       ],
       answer: "B",
-      explanation: "Hệ QTCSDL (DBMS) là phần mềm chuyên dụng quản lý CSDL, làm cầu nối giữa người dùng/ứng dụng và dữ liệu vật lý trên đĩa."
+      explanation: "Theo định nghĩa chuẩn SGK, Hệ QTCSDL là phần mềm cung cấp môi trường tạo lập, lưu trữ, cập nhật, truy xuất và bảo đảm an toàn cho CSDL."
     },
     {
-      question: "Thao tác nào sau đây thuộc nhóm chức năng CẬP NHẬT dữ liệu của Hệ QTCSDL?",
+      question: "Câu 2: Thao tác người quản trị tạo thêm cấu trúc cột 'EmailPhuHuynh' vào bảng dữ liệu học sinh thuộc nhóm chức năng nào của Hệ QTCSDL?",
       options: [
-        "A. Tìm kiếm học sinh lớp 11A có điểm Tin >= 8.",
-        "B. Thống kê tổng doanh thu bán hàng trong tháng 8.",
-        "C. Sửa số điện thoại liên lạc của một khách hàng.",
-        "D. Lọc danh sách sản phẩm còn tồn kho dưới 5 chiếc."
-      ],
-      answer: "C",
-      explanation: "Cập nhật dữ liệu là thao tác làm thay đổi nội dung dữ liệu bên trong CSDL (gồm Thêm, Sửa, Xóa). Sửa số điện thoại là thao tác Cập nhật."
-    },
-    {
-      question: "Thao tác nào sau đây thuộc nhóm chức năng TRUY XUẤT dữ liệu của Hệ QTCSDL?",
-      options: [
-        "A. Xóa một học sinh đã chuyển trường khỏi danh sách lớp.",
-        "B. Thêm một mặt hàng mới vào danh mục sản phẩm.",
-        "C. Tìm kiếm các sản phẩm có giá bán dưới 100.000đ.",
-        "D. Sửa lại họ tên bị viết sai chính tả của học sinh."
-      ],
-      answer: "C",
-      explanation: "Truy xuất dữ liệu là việc lấy thông tin ra để xem, tìm kiếm, lọc hoặc thống kê mà KHÔNG làm thay đổi dữ liệu gốc trong CSDL."
-    },
-    {
-      question: "Chức năng phân quyền: 'Học sinh chỉ được xem điểm của mình, không được sửa điểm; chỉ có giáo viên bộ môn mới được nhập điểm' thuộc nhóm chức năng nào của Hệ QTCSDL?",
-      options: [
-        "A. Nhóm chức năng định nghĩa dữ liệu",
-        "B. Nhóm chức năng cập nhật dữ liệu",
-        "C. Nhóm chức năng bảo mật CSDL",
-        "D. Nhóm chức năng truy xuất dữ liệu"
-      ],
-      answer: "C",
-      explanation: "Kiểm soát quyền truy cập, đảm bảo đúng người đúng thẩm quyền thuộc nhóm chức năng Bảo mật (Security) của Hệ QTCSDL."
-    },
-    {
-      question: "Việc định kỳ mỗi đêm tự động tạo một bản sao lưu (Backup) toàn bộ CSDL của trường học nhằm mục đích chủ yếu gì?",
-      options: [
-        "A. Tăng tốc độ hiển thị của giao diện website.",
-        "B. Bảo đảm tính an toàn dữ liệu, sẵn sàng phục hồi khi máy chủ gặp sự cố.",
-        "C. Giảm dung lượng chiếm dụng của ổ đĩa cứng.",
-        "D. Thay thế hoàn toàn cho giáo viên nhập điểm."
-      ],
-      answer: "B",
-      explanation: "Sao lưu (Backup) là biện pháp cốt lõi bảo đảm tính An toàn dữ liệu, giúp khôi phục nguyên vẹn dữ liệu nếu máy tính bị lỗi, cháy nổ hay virus tấn công."
-    },
-    {
-      question: "Tên gọi nào sau đây là một Hệ quản trị cơ sở dữ liệu (DBMS) phổ biến trên thế giới?",
-      options: [
-        "A. Microsoft Word",
-        "B. PostgreSQL",
-        "C. Windows 11",
-        "D. Google Chrome"
-      ],
-      answer: "B",
-      explanation: "PostgreSQL (cùng với MySQL, Oracle, MS SQL Server, MS Access) là các Hệ quản trị cơ sở dữ liệu (DBMS) chuyên nghiệp."
-    },
-    {
-      question: "Một Hệ cơ sở dữ liệu (Database System) hoàn chỉnh được cấu thành từ những thành phần kỹ thuật nào?",
-      options: [
-        "A. Chỉ có duy nhất Cơ sở dữ liệu.",
-        "B. Chỉ có Hệ quản trị CSDL.",
-        "C. CSDL + Hệ QTCSDL + Các phần mềm ứng dụng CSDL.",
-        "D. Chỉ có màn hình máy tính và chuột."
-      ],
-      answer: "C",
-      explanation: "Hệ CSDL là hệ thống hoàn chỉnh gồm 3 thành phần: CSDL (dữ liệu) + Hệ QTCSDL (phần mềm quản trị) + Các phần mềm ứng dụng làm việc với CSDL (và người dùng vận hành)."
-    },
-    {
-      question: "Hệ thống quản lý điểm thi của một tỉnh đặt CSDL tại duy nhất một máy chủ ở Sở GD&ĐT, các thí sinh từ tất cả các huyện, thị xã đều truy cập vào máy chủ này qua mạng Internet để tra cứu. Đây là ví dụ của mô hình nào?",
-      options: [
-        "A. Hệ CSDL tập trung",
-        "B. Hệ CSDL phân tán",
-        "C. Hệ CSDL cá nhân",
-        "D. Hệ tệp văn bản thô"
+        "A. Định nghĩa dữ liệu (Data Definition)",
+        "B. Truy xuất dữ liệu",
+        "C. Sao lưu dự phòng",
+        "D. Ứng dụng cục bộ"
       ],
       answer: "A",
-      explanation: "Dữ liệu được lưu trữ tập trung tại một máy chủ duy nhất của Sở GD&ĐT, dù người dùng truy cập từ nhiều địa điểm khác nhau thì đây vẫn là Hệ CSDL tập trung."
+      explanation: "Tạo bảng, khai báo kiểu dữ liệu, thêm cột mới, sửa cấu trúc hoặc đặt ràng buộc toàn vẹn thuộc nhóm chức năng Định nghĩa dữ liệu."
     },
     {
-      question: "Hệ thống CSDL của một chuỗi siêu thị bán lẻ được chia thành các CSDL thành phần đặt tại 3 chi nhánh Hà Nội, Đà Nẵng và TP.HCM, các CSDL này kết nối và phối hợp dữ liệu với nhau qua mạng máy tính. Đây là:",
+      question: "Câu 3: Thao tác tiếp nhận và thêm thông tin một khách hàng mới vào hệ thống thuộc nhóm chức năng nào?",
       options: [
-        "A. Hệ CSDL tập trung",
-        "B. Hệ CSDL phân tán",
-        "C. Hệ CSDL cá nhân",
-        "D. Hệ thống bảng tính Excel"
+        "A. Định nghĩa dữ liệu",
+        "B. Cập nhật dữ liệu (Thêm - Sửa - Xóa)",
+        "C. Bảo mật CSDL",
+        "D. Phân tán dữ liệu"
       ],
       answer: "B",
-      explanation: "Dữ liệu được phân chia và lưu trữ trên nhiều máy tính ở các địa điểm địa lý khác nhau thành các CSDL con có liên kết qua mạng, đây chính là Hệ CSDL phân tán."
+      explanation: "Thêm một bản ghi mới, sửa đổi thông tin hoặc xóa bản ghi thuộc nhóm chức năng Cập nhật dữ liệu."
     },
     {
-      question: "Một trong những khó khăn, thách thức lớn nhất khi xây dựng và vận hành Hệ CSDL phân tán là gì?",
+      question: "Câu 4: Chức năng kiểm soát và quy định chỉ có giáo viên bộ môn mới có quyền sửa điểm môn học của mình thuộc về:",
       options: [
-        "A. Không thể có nhiều người cùng sử dụng.",
-        "B. Không thể tìm kiếm được dữ liệu.",
-        "C. Việc quản lý, bảo mật và duy trì tính nhất quán, đồng bộ dữ liệu giữa các địa điểm rất phức tạp.",
-        "D. Không thể kết nối được mạng Internet."
+        "A. Bảo mật CSDL (Kiểm soát quyền truy cập)",
+        "B. Định nghĩa dữ liệu",
+        "C. Hệ CSDL tập trung",
+        "D. Ứng dụng toàn cục"
+      ],
+      answer: "A",
+      explanation: "Phân quyền truy cập theo vai trò người dùng nhằm ngăn chặn hành vi sửa đổi trái phép thuộc chức năng Bảo mật của Hệ QTCSDL."
+    },
+    {
+      question: "Câu 5: Hoạt động tự động tạo bản sao lưu dữ liệu dự phòng (Backup) định kỳ nhằm mục đích chính nào sau đây?",
+      options: [
+        "A. Tăng cường tính an toàn dữ liệu và phục hồi khi xảy ra sự cố phần cứng",
+        "B. Tạo giao diện người dùng đẹp mắt cho website",
+        "C. Định nghĩa lại cấu trúc các bảng dữ liệu",
+        "D. Phân tán dữ liệu sang nhiều chi nhánh"
+      ],
+      answer: "A",
+      explanation: "Sao lưu dự phòng (Backup) là biện pháp bảo đảm An toàn dữ liệu, giúp khôi phục nguyên vẹn dữ liệu khi gặp sự cố."
+    },
+    {
+      question: "Câu 6: Website tra cứu điểm thi THPT quốc gia được học sinh truy cập trên trình duyệt web thường được xếp vào thành phần nào?",
+      options: [
+        "A. Cơ sở dữ liệu (CSDL)",
+        "B. Hệ quản trị CSDL (DBMS)",
+        "C. Phần mềm ứng dụng CSDL",
+        "D. Một bản sao lưu dự phòng"
       ],
       answer: "C",
-      explanation: "Khi dữ liệu nằm rải rác ở nhiều nơi, việc quản trị, bảo mật và đặc biệt là giữ cho dữ liệu luôn đồng bộ, nhất quán (ví dụ đồng bộ giá bán) là bài toán kỹ thuật rất phức tạp."
+      explanation: "Website tra cứu điểm thi là phần mềm ứng dụng CSDL phục vụ người dùng cuối, gửi yêu cầu qua DBMS để lấy dữ liệu hiển thị."
+    },
+    {
+      question: "Câu 7: Một Hệ cơ sở dữ liệu (Database System) hoàn chỉnh bao gồm các thành phần cốt lõi nào?",
+      options: [
+        "A. Chỉ gồm các tệp dữ liệu lưu trên máy tính.",
+        "B. Cơ sở dữ liệu + Hệ quản trị CSDL + Các phần mềm ứng dụng CSDL (và con người).",
+        "C. Chỉ gồm trang web giao diện và máy chủ web.",
+        "D. Chỉ gồm máy chủ phần cứng và mạng LAN."
+      ],
+      answer: "B",
+      explanation: "Hệ CSDL = CSDL + Hệ QTCSDL + Các phần mềm ứng dụng CSDL (+ Con người tham gia quản lý, lập trình, sử dụng)."
+    },
+    {
+      question: "Câu 8: Một hệ thống có CSDL lưu trữ trên một máy tính duy nhất, 50 nhân viên từ 50 máy tính khác nhau truy cập qua mạng để làm việc. Theo bài học, đây là:",
+      options: [
+        "A. Hệ CSDL phân tán",
+        "B. Hệ CSDL tập trung",
+        "C. Ứng dụng toàn cục",
+        "D. Không phải là Hệ CSDL"
+      ],
+      answer: "B",
+      explanation: "Điều quyết định hệ tập trung hay phân tán là VỊ TRÍ LƯU CSDL. Toàn bộ CSDL nằm trên 1 máy tính duy nhất nên đây vẫn là Hệ CSDL tập trung."
+    },
+    {
+      question: "Câu 9: Điểm đặc trưng cốt lõi của Hệ cơ sở dữ liệu phân tán là:",
+      options: [
+        "A. Dữ liệu được phân bố lưu trữ trên nhiều trạm của mạng máy tính",
+        "B. Chỉ có một người dùng duy nhất được phép sử dụng",
+        "C. Không cần cài đặt Hệ quản trị CSDL",
+        "D. Tuyệt đối không thể tạo bản sao lưu dữ liệu"
+      ],
+      answer: "A",
+      explanation: "Trong hệ CSDL phân tán, dữ liệu thực tế được chia thành các phần và phân bố lưu trữ trên nhiều trạm (máy tính) kết nối qua mạng."
+    },
+    {
+      question: "Câu 10: Ứng dụng tính toán doanh thu toàn quốc bằng cách tổng hợp dữ liệu từ cả hai trạm Hà Nội và TP.HCM được gọi là:",
+      options: [
+        "A. Ứng dụng cục bộ",
+        "B. Ứng dụng toàn cục / phân tán",
+        "C. Hệ quản trị CSDL",
+        "D. Sao lưu dự phòng"
+      ],
+      answer: "B",
+      explanation: "Ứng dụng toàn cục / phân tán là ứng dụng cần truy xuất dữ liệu từ ít nhất hai trạm khác nhau trong mạng để tạo ra kết quả cuối cùng."
     }
   ],
-  examTypes: [
-    {
-      title: "Dạng 1: Phân Biệt Ba Khái Niệm CSDL, Hệ QTCSDL (DBMS) và Hệ CSDL",
-      tag: "Trọng tâm Đề thi Học kỳ",
-      sampleQuestion: "Cho các mục sau: (1) Bảng điểm học sinh lớp 11; (2) Phần mềm MySQL; (3) Website VnEdu + Hệ QTCSDL MySQL + CSDL điểm học sinh toàn trường; (4) Danh sách 10.000 khách hàng mua vé máy bay; (5) Hệ QTCSDL PostgreSQL. Em hãy phân loại từng mục vào đúng 3 khái niệm: CSDL, Hệ QTCSDL hay Hệ CSDL và nêu sự khác nhau cốt lõi giữa CSDL và Hệ QTCSDL.",
-      method: "⚡ Phương pháp phân loại chuẩn xác:\n• CSDL = Bản thân dữ liệu lưu trữ.\n• Hệ QTCSDL = Phần mềm đứng ra quản lý dữ liệu đó.\n• Hệ CSDL = Toàn bộ hệ thống kết hợp (CSDL + DBMS + Ứng dụng).",
-      solution: "✅ Phân loại chính xác 100%:\n• Cơ sở dữ liệu (CSDL): (1) Bảng điểm học sinh lớp 11; (4) Danh sách 10.000 khách hàng mua vé máy bay.\n• Hệ quản trị CSDL (DBMS): (2) Phần mềm MySQL; (5) Hệ QTCSDL PostgreSQL.\n• Hệ cơ sở dữ liệu: (3) Website VnEdu + Hệ QTCSDL MySQL + CSDL điểm học sinh toàn trường.\n\nSự khác nhau cốt lõi giữa CSDL và Hệ QTCSDL:\n- CSDL là DỮ LIỆU (nội dung lưu trữ trên đĩa).\n- Hệ QTCSDL là PHẦN MỀM (công cụ điều khiển, thao tác, bảo vệ dữ liệu đó). Không có CSDL thì DBMS không có gì để quản lý; không có DBMS thì người dùng rất khó khai thác CSDL."
-    },
-    {
-      title: "Dạng 2: Phân Loại 4 Nhóm Chức Năng Cốt Lõi Của Hệ QTCSDL",
-      tag: "Nhận biết & Thông hiểu",
-      sampleQuestion: "Một quản trị viên CSDL thực hiện 5 thao tác sau. Hãy chỉ ra mỗi thao tác thuộc nhóm chức năng nào của Hệ QTCSDL:\n(a) Tạo bảng mới 'LopHoc' gồm 3 cột: MaLop, TenLop, GiaoVienChuNhiem.\n(b) Sửa địa chỉ nhà của học sinh Nguyễn Văn An từ 'Số 10 Hà Nội' thành 'Số 25 Đà Nẵng'.\n(c) Lập danh sách các học sinh có điểm trung bình học kỳ từ 9.0 trở lên để xét học bổng.\n(d) Thiết lập quy định: Chỉ giáo viên bộ môn mới có quyền nhập điểm thi, học sinh chỉ được xem.\n(e) Xuất bản sao lưu dữ liệu toàn trường vào ổ cứng ngoài vào lúc 23:00 hàng ngày.",
-      method: "⚡ Quy tắc phân loại 4 nhóm chức năng:\n• Thay đổi khung/cấu trúc/ràng buộc ➜ Định nghĩa dữ liệu.\n• Thay đổi dữ liệu bên trong (Thêm/Sửa/Xóa) ➜ Cập nhật dữ liệu.\n• Lấy dữ liệu ra xem (Tìm/Lọc/Thống kê) ➜ Truy xuất dữ liệu.\n• Phân quyền ➜ Bảo mật | Sao lưu phục hồi ➜ An toàn dữ liệu.",
-      solution: "✅ Đáp án chuẩn mực:\n• (a) Tạo bảng mới 'LopHoc' ➜ Nhóm chức năng ĐỊNH NGHĨA DỮ LIỆU (Data Definition).\n• (b) Sửa địa chỉ học sinh ➜ Nhóm chức năng CẬP NHẬT DỮ LIỆU (Data Update - làm thay đổi nội dung dữ liệu).\n• (c) Lập danh sách học sinh giỏi ➜ Nhóm chức năng TRUY XUẤT DỮ LIỆU (Data Retrieval - lọc thông tin theo điều kiện, không đổi dữ liệu gốc).\n• (d) Phân quyền giáo viên và học sinh ➜ Nhóm chức năng BẢO MẬT CSDL (Security - kiểm soát quyền truy cập).\n• (e) Xuất bản sao lưu 23:00 ➜ Nhóm chức năng AN TOÀN CSDL (Safety - sao lưu và phục hồi dữ liệu)."
-    },
-    {
-      title: "Dạng 3: Vẽ & Phân Tích Sơ Đồ Kiến Trúc 4 Tầng Của Hệ CSDL",
-      tag: "Vận dụng Lý thuyết Hệ thống",
-      sampleQuestion: "Trình bày sơ đồ kiến trúc 4 tầng của một Hệ CSDL hoàn chỉnh. Hãy mô tả dòng luồng dữ liệu khi một phụ huynh dùng điện thoại thông minh tra cứu kết quả học tập của con trên ứng dụng VnEdu.",
-      method: "⚡ Sơ đồ 4 tầng: Người dùng ➜ Phần mềm ứng dụng ➜ Hệ QTCSDL ➜ CSDL.",
-      solution: "✅ Sơ đồ 4 tầng & Dòng luồng xử lý chi tiết:\n1. Sơ đồ kiến trúc:\n   NGƯỜI DÙNG\n       │\n       ▼\n   PHẦN MỀM ỨNG DỤNG\n       │\n       ▼\n   HỆ QUẢN TRỊ CSDL (DBMS)\n       │\n       ▼\n   CƠ SỞ DỮ LIỆU (CSDL)\n\n2. Dòng luồng xử lý tra cứu điểm của phụ huynh:\n   • Bước 1: Phụ huynh (Người dùng) mở ứng dụng VnEdu trên điện thoại, nhập mã học sinh và bấm 'Xem bảng điểm'.\n   • Bước 2: Ứng dụng VnEdu (Phần mềm ứng dụng) tiếp nhận yêu cầu, đóng gói thành câu lệnh truy vấn gửi qua mạng đến Hệ QTCSDL (MySQL/PostgreSQL) đặt tại máy chủ trung tâm.\n   • Bước 3: Hệ QTCSDL kiểm tra tính hợp lệ và quyền hạn của tài khoản phụ huynh, sau đó tiến hành tìm kiếm và trích xuất dữ liệu điểm của học sinh đó từ Cơ sở dữ liệu (CSDL) lưu trên đĩa cứng.\n   • Bước 4: Hệ QTCSDL trả dữ liệu về cho ứng dụng VnEdu. Ứng dụng định dạng giao diện đẹp mắt và hiển thị bảng điểm ra màn hình cho phụ huynh xem."
-    },
-    {
-      title: "Dạng 4: So Sánh Hệ CSDL Tập Trung vs Hệ CSDL Phân Tán",
-      tag: "Thông hiểu & Đánh giá Kiến trúc",
-      sampleQuestion: "Một chuỗi cửa hàng tiện lợi ban đầu chỉ có 1 cửa hàng ở Hà Nội, sau 5 năm đã phát triển thành 50 cửa hàng trên 10 tỉnh thành. Ban giám đốc phân vân giữa việc giữ mô hình Hệ CSDL tập trung hay chuyển sang Hệ CSDL phân tán. Em hãy so sánh ưu - nhược điểm của 2 mô hình này để tư vấn cho công ty.",
-      method: "⚡ So sánh dựa trên: Vị trí dữ liệu, Quản lý, Nhất quán, Độ phụ thuộc trung tâm và Khả năng mở rộng.",
-      solution: "✅ Bảng tư vấn chuyên sâu cho doanh nghiệp:\n1. Phương án Hệ CSDL tập trung (Tất cả 50 cửa hàng kết nối về 1 máy chủ tại Hà Nội):\n   • Ưu điểm: Quản lý rất đơn giản; dữ liệu giá bán và tồn kho được cập nhật đồng bộ tức thời, không lo mâu thuẫn số liệu; chi phí đầu tư máy chủ rẻ hơn.\n   • Nhược điểm: Nếu đường truyền mạng Internet từ tỉnh về Hà Nội bị đứt hoặc máy chủ trung tâm gặp sự cố, các cửa hàng ở xa sẽ không thể quét mã thanh toán được; máy chủ dễ bị quá tải vào giờ cao điểm.\n2. Phương án Hệ CSDL phân tán (Mỗi tỉnh/cửa hàng có CSDL con riêng, phối hợp qua mạng):\n   • Ưu điểm: Tốc độ quét mã thanh toán tại quầy cực nhanh vì dữ liệu nằm ngay tại chỗ; dù mất mạng Internet với trụ sở Hà Nội thì cửa hàng vẫn bán hàng bình thường bằng CSDL cục bộ; mở thêm chi nhánh mới rất linh hoạt.\n   • Nhược điểm: Chi phí đầu tư thiết bị và kỹ thuật viên rất tốn kém; việc đồng bộ dữ liệu doanh thu và điều chỉnh giá bán giữa 50 cửa hàng cực kỳ phức tạp, dễ xảy ra chênh lệch số liệu nếu phần mềm xử lý không tốt.\n➜ Tư vấn: Giai đoạn đầu nên dùng Hệ CSDL tập trung chất lượng cao (thuê máy chủ đám mây Cloud). Khi quy mô quá lớn mới chuyển dần sang kiến trúc phân tán."
-    },
-    {
-      title: "Dạng 5: Phản Biện Hiểu Lầm Về Hệ CSDL Phân Tán & Tình Huống Thực Tế",
-      tag: "Vận dụng Cao & Tránh Bẫy Đề thi",
-      sampleQuestion: "Bạn Nam phát biểu: 'Hệ thống CSDL tuyển sinh lớp 10 của thành phố có hơn 100.000 học sinh từ hàng trăm trường THCS cùng truy cập để nộp hồ sơ, chứng tỏ đây bắt buộc phải là một Hệ CSDL phân tán, và mô hình phân tán lúc nào cũng tốt hơn mô hình tập trung'. Em hãy chỉ ra 2 điểm sai trong phát biểu của Nam và giải thích cặn kẽ.",
-      method: "⚡ Phản biện 2 sai lầm:\n1. Nhiều người truy cập từ xa ≠ CSDL phân tán (yếu tố quyết định là dữ liệu lưu ở đâu).\n2. Phân tán không phải luôn tốt hơn (tốn kém, phức tạp, khó giữ nhất quán).",
-      solution: "✅ Phản biện sắc bén 2 điểm sai của Nam:\n1. Điểm sai thứ nhất: 'Có 100.000 người từ nhiều nơi truy cập thì bắt buộc là CSDL phân tán'.\n   • Giải thích: Số lượng người dùng và vị trí của người dùng KHÔNG quyết định mô hình CSDL. Nếu toàn bộ dữ liệu hồ sơ tuyển sinh được đặt tập trung trên một cụm máy chủ tại Sở GD&ĐT thì đó hoàn toàn là HỆ CSDL TẬP TRUNG. Yếu tố quyết định phân tán hay tập trung là 'Dữ liệu được lưu trữ ở đâu' (tại 1 trung tâm hay chia nhỏ thành các CSDL con trên nhiều máy độc lập).\n2. Điểm sai thứ hai: 'Mô hình phân tán lúc nào cũng tốt hơn mô hình tập trung'.\n   • Giải thích: Trong bài toán tuyển sinh lớp 10, tính nhất quán và công bằng về chỉ tiêu xét tuyển là quan trọng nhất. Nếu dùng CSDL phân tán, dữ liệu bị phân mảnh ở nhiều nơi, việc đồng bộ điểm chuẩn và số lượng hồ sơ rất dễ bị trễ hoặc sai lệch. Mô hình tập trung giúp dữ liệu luôn thống nhất 100%, dễ sao lưu và bảo mật hơn rất nhiều."
-    }
-  ],
-  homework: [
-    {
-      title: "Bài tập 1: Phân Tích 4 Thành Phần Của Một Hệ CSDL Thực Tế",
-      tag: "Khảo sát Thực tiễn",
-      problem: "Chọn một trong các hệ thống quen thuộc sau: (1) Website bán hàng Shopee/Tiki, (2) Ứng dụng ngân hàng số (Mobile Banking), (3) Ứng dụng quản lý trường học VnEdu, (4) Website tra cứu điểm thi THPT.",
-      tasks: [
-        "Nhiệm vụ 1: Xác định CSDL của hệ thống đó lưu trữ những đối tượng dữ liệu cụ thể nào?",
-        "Nhiệm vụ 2: Phần mềm ứng dụng của hệ thống đó là gì và cung cấp giao diện cho ai?",
-        "Nhiệm vụ 3: Hệ QTCSDL (DBMS) đóng vai trò gì ở tầng giữa?",
-        "Nhiệm vụ 4: Kể tên ít nhất 2 nhóm người dùng tham gia vào hệ thống và nêu rõ quyền hạn của họ."
-      ],
-      requirements: "Trình bày mạch lạc theo đúng sơ đồ kiến trúc 4 tầng.",
-      hint: "Bám sát Mục 34, 35, 36, 37 trong bài học.",
-      solution: `Gợi ý giải mẫu cho Ứng dụng ngân hàng số (Mobile Banking):
-1. Cơ sở dữ liệu (CSDL): Lưu thông tin Khách hàng (Họ tên, CCCD, SĐT), Tài khoản (Số tài khoản, Số dư), Lịch sử giao dịch (Mã GD, Số tiền, Thời gian, Người nhận).
-2. Phần mềm ứng dụng: App ngân hàng (Vietcombank/MBBank...) cài trên smartphone, cung cấp giao diện nút bấm, nhập mã PIN, quét mã QR cho khách hàng.
-3. Hệ QTCSDL (DBMS - như Oracle Database): Tiếp nhận lệnh chuyển tiền từ App, kiểm tra số dư và mã OTP, thực hiện trừ tiền tài khoản gửi và cộng tiền tài khoản nhận, ghi nhật ký giao dịch và bảo vệ an toàn dữ liệu.
-4. 2 Nhóm người dùng:\n• Khách hàng (Người dùng cuối): Chỉ xem số dư và chuyển tiền trong tài khoản của mình.\n• Quản trị viên hệ thống (DBA): Cài đặt máy chủ, sao lưu dữ liệu toàn ngân hàng, cấp quyền truy cập.`
-    },
-    {
-      title: "Bài tập 2: Phân Loại 6 Thao Tác Vào Đúng Nhóm Chức Năng Của DBMS",
-      tag: "Nhận biết Chức năng",
-      problem: "Đọc kỹ 6 thao tác quản lý dữ liệu sau và chỉ rõ mỗi thao tác thuộc nhóm chức năng nào của Hệ QTCSDL:",
-      tasks: [
-        "1. Khai báo thêm trường 'DiemUuTien' (kiểu số thực) vào bảng ThiSinh.",
-        "2. Thêm một bản ghi học sinh mới trúng tuyển vào danh sách lớp 11A.",
-        "3. Xóa một đơn hàng bị đặt nhầm ra khỏi hệ thống.",
-        "4. Tìm kiếm các bạn đọc đang mượn sách quá hạn từ 7 ngày trở lên.",
-        "5. Cấu hình để nhân viên bán hàng chỉ được xem giá bán, không được xem giá nhập kho.",
-        "6. Cài đặt lịch tự động nén và sao lưu dữ liệu CSDL vào ổ cứng ngoài mỗi ngày lúc 24:00."
-      ],
-      requirements: "Gọi đúng tên nhóm chức năng kỹ thuật của DBMS.",
-      hint: "Bám sát Mục 30 và 86 trong bài học.",
-      solution: `Đáp án chi tiết bài tập 2:
-1. Khai báo thêm trường 'DiemUuTien' ➜ Nhóm chức năng ĐỊNH NGHĨA DỮ LIỆU (thay đổi cấu trúc khung bảng).
-2. Thêm bản ghi học sinh mới ➜ Nhóm chức năng CẬP NHẬT DỮ LIỆU (thao tác Thêm - Insert).
-3. Xóa đơn hàng bị đặt nhầm ➜ Nhóm chức năng CẬP NHẬT DỮ LIỆU (thao tác Xóa - Delete).
-4. Tìm bạn đọc mượn sách quá hạn ➜ Nhóm chức năng TRUY XUẤT DỮ LIỆU (tìm kiếm/lọc theo điều kiện).
-5. Phân quyền xem giá bán, giấu giá nhập ➜ Nhóm chức năng BẢO MẬT CSDL (kiểm soát quyền truy cập).
-6. Tự động sao lưu dữ liệu 24:00 ➜ Nhóm chức năng AN TOÀN CSDL (sao lưu Backup và phục hồi).`
-    },
-    {
-      title: "Bài tập 3: Phân Biệt Hệ CSDL Tập Trung Hay Phân Tán",
-      tag: "Vận dụng Mô hình",
-      problem: "Xác định mô hình (Hệ CSDL tập trung hay Hệ CSDL phân tán) cho 3 tình huống sau và giải thích ngắn gọn nguyên nhân:",
-      tasks: [
-        "Hệ thống A: Trường Đại học Bách Khoa có 500 máy tính tại các phòng máy thực hành cùng truy cập vào một CSDL duy nhất đặt tại Trung tâm Máy tính của trường.",
-        "Hệ thống B: Một công ty vận tải có 20 trạm điều hành xe tại 20 tỉnh thành; mỗi trạm sở hữu một CSDL thành phần quản lý xe tại địa phương, các CSDL này kết nối và chia sẻ lịch trình cho nhau qua Internet.",
-        "Hệ thống C: Người dân tại Hà Nội, Huế, TP.HCM và Cà Mau cùng ngồi tại nhà dùng điện thoại tra cứu thông tin Căn cước công dân trên Cổng Dịch vụ công Quốc gia (CSDL đặt tại Trung tâm dữ liệu Quốc gia ở Hà Nội)."
-      ],
-      requirements: "Chỉ rõ 'Dữ liệu được lưu ở đâu' để lập luận.",
-      hint: "Bám sát Mục 56, 57 và 87 trong bài học.",
-      solution: `Đáp án chi tiết bài tập 3:
-• Hệ thống A ➜ HỆ CSDL TẬP TRUNG. Vì toàn bộ dữ liệu chỉ nằm tại một hệ thống máy tính trung tâm duy nhất của trường, các máy phòng thực hành chỉ đóng vai trò là máy khách kết nối về.
-• Hệ thống B ➜ HỆ CSDL PHÂN TÁN. Vì dữ liệu được chia nhỏ thành các CSDL con độc lập đặt tại 20 tỉnh thành khác nhau và phối hợp với nhau qua mạng.
-• Hệ thống C ➜ HỆ CSDL TẬP TRUNG. Dù người dùng ở khắp mọi miền đất nước cùng tra cứu, nhưng toàn bộ dữ liệu gốc chỉ được lưu trữ tại một Trung tâm dữ liệu Quốc gia duy nhất ở Hà Nội. Nhớ kỹ: Người dùng ở nhiều nơi KHÔNG ĐỒNG NGHĨA dữ liệu bị phân tán!`
-    }
-  ],
+
   practiceExercises: [
     {
       id: "practice-b12-1",
       badge: "Bài 1 – 2 phút",
-      title: "Bài 1 – Phân Loại: CSDL Hay Hệ QTCSDL?",
+      title: "Bài 1 – Điền Đúng Bộ Tứ Khái Niệm Cốt Lõi (Mục 126)",
       duration: "2 phút",
       type: "exercise",
-      description: "Phân loại 4 mục vào đúng nhóm CSDL (dữ liệu) hoặc Hệ QTCSDL (phần mềm quản lý).",
+      description: "Phân biệt chính xác giữa CSDL, Hệ QTCSDL, Phần mềm ứng dụng CSDL và Hệ CSDL.",
       content: {
-        objective: "Mức độ: Cơ bản | Thời gian: 2 phút. Phân biệt chính xác giữa dữ liệu và phần mềm quản trị.",
+        objective: "Mức độ: Nhận biết | Thời gian: 2 phút. Phân biệt 4 khái niệm dễ nhầm lẫn nhất.",
         requirements: [
-          "Phân loại 4 đối tượng sau vào nhóm 'CSDL' hoặc 'Hệ QTCSDL':\n(A) Phần mềm MySQL.\n(B) Danh sách 50.000 khách hàng và hóa đơn của siêu thị.\n(C) Phần mềm PostgreSQL.\n(D) Dữ liệu điểm kiểm tra của học sinh toàn trường lưu trên đĩa cứng."
+          "Cho 4 khái niệm:\n[A] Cơ sở dữ liệu (CSDL)\n[B] Hệ quản trị CSDL (DBMS)\n[C] Phần mềm ứng dụng CSDL\n[D] Hệ cơ sở dữ liệu\n\nHãy ghép nối chính xác với 4 đối tượng thực tế sau:\n1. PostgreSQL\n2. Dữ liệu điểm thi học kì của 2.000 học sinh\n3. Website tra cứu điểm thi trực tuyến\n4. Toàn bộ hệ thống quản lý điểm gồm: CSDL điểm + PostgreSQL + Website tra cứu + Cán bộ quản lý"
         ],
         qaList: [
           {
-            q: "Kết quả phân loại 4 đối tượng?",
-            a: "Đáp án:\n• (A) MySQL ➜ Hệ QTCSDL (phần mềm quản trị dữ liệu).\n• (B) Danh sách khách hàng và hóa đơn ➜ CSDL (bản thân dữ liệu được tổ chức).\n• (C) PostgreSQL ➜ Hệ QTCSDL (phần mềm quản trị dữ liệu).\n• (D) Dữ liệu điểm kiểm tra ➜ CSDL (dữ liệu lưu trữ trên đĩa)."
+            q: "Kết quả ghép nối chuẩn xác:",
+            a: "Đáp án:\n• 1. PostgreSQL ➜ [B] Hệ quản trị CSDL (DBMS)\n• 2. Dữ liệu điểm thi ➜ [A] Cơ sở dữ liệu (CSDL)\n• 3. Website tra cứu điểm ➜ [C] Phần mềm ứng dụng CSDL\n• 4. Toàn bộ hệ thống ➜ [D] Hệ cơ sở dữ liệu"
           }
         ]
       }
     },
     {
       id: "practice-b12-2",
-      badge: "Bài 2 – 2 phút",
-      title: "Bài 2 – Xác Định Chức Năng: Thêm Cột Mới Vào CSDL",
-      duration: "2 phút",
+      badge: "Bài 2 – 3 phút",
+      title: "Bài 2 – Nhận Diện 4 Nhóm Chức Năng Của Hệ QTCSDL (Mục 127)",
+      duration: "3 phút",
       type: "exercise",
-      description: "Nhận diện nhóm chức năng khi quản trị viên khai báo thêm trường 'Email học sinh'.",
+      description: "Phân loại các thao tác quản trị vào đúng 4 nhóm chức năng của DBMS.",
       content: {
-        objective: "Mức độ: Cơ bản | Thời gian: 2 phút. Nắm vững chức năng định nghĩa dữ liệu.",
+        objective: "Mức độ: Thông hiểu | Thời gian: 3 phút. Nhận diện 4 nhóm chức năng DBMS.",
         requirements: [
-          "Tình huống: Người quản trị CSDL của nhà trường thực hiện thao tác: Tạo thêm một cột mới có tên 'Email' với kiểu dữ liệu chuỗi ký tự vào bảng HocSinh.",
-          "Câu hỏi: Thao tác này thuộc nhóm chức năng nào của Hệ QTCSDL?"
+          "Ghép 5 thao tác sau vào 4 nhóm chức năng của Hệ QTCSDL:\n1. Thêm một học sinh mới chuyển trường vào danh sách lớp.\n2. Tạo cấu trúc bảng mới gồm các cột: Mã sách, Tên sách, Tác giả, Năm xuất bản.\n3. Thiết lập mật khẩu và quyền chỉ cho giáo viên sửa điểm.\n4. Tạo bản sao lưu dự phòng CSDL vào lúc 23h hàng đêm.\n5. Cung cấp phương thức cho Website bán hàng gửi lệnh tìm sản phẩm."
         ],
         qaList: [
           {
-            q: "Thao tác thuộc nhóm chức năng nào?",
-            a: "Đáp án: Nhóm chức năng ĐỊNH NGHĨA DỮ LIỆU (Data Definition) — vì thao tác này làm thay đổi 'khung/cấu trúc' của bảng dữ liệu, chưa tác động đến nội dung dữ liệu của từng học sinh."
+            q: "Đáp án phân loại chức năng:",
+            a: "1. Thêm học sinh mới ➜ Nhóm CẬP NHẬT DỮ LIỆU.\n2. Tạo cấu trúc bảng mới ➜ Nhóm ĐỊNH NGHĨA DỮ LIỆU.\n3. Thiết lập quyền sửa điểm ➜ Nhóm BẢO MẬT CSDL.\n4. Sao lưu dự phòng lúc 23h ➜ Nhóm AN TOÀN CSDL.\n5. Cho Website kết nối gửi lệnh ➜ Nhóm GIAO DIỆN LẬP TRÌNH ỨNG DỤNG."
           }
         ]
       }
@@ -522,20 +480,19 @@ export const b12Content = {
     {
       id: "practice-b12-3",
       badge: "Bài 3 – 2 phút",
-      title: "Bài 3 – Xác Định Chức Năng: Sửa Số Điện Thoại Học Sinh",
+      title: "Bài 3 – Phân Biệt: Tập Trung Hay Phân Tán? (Mục 128)",
       duration: "2 phút",
       type: "exercise",
-      description: "Nhận diện nhóm chức năng khi sửa đổi thông tin của một bản ghi cụ thể.",
+      description: "Xác định mô hình tổ chức hệ CSDL dựa trên vị trí lưu trữ dữ liệu thực tế.",
       content: {
-        objective: "Mức độ: Cơ bản | Thời gian: 2 phút. Phân biệt thao tác cập nhật dữ liệu.",
+        objective: "Mức độ: Thông hiểu | Thời gian: 2 phút. Nhận diện Hệ CSDL tập trung vs phân tán.",
         requirements: [
-          "Tình huống: Giáo viên chủ nhiệm vào hệ thống để cập nhật lại số điện thoại mới của phụ huynh bạn Nguyễn Văn An.",
-          "Câu hỏi: Thao tác này thuộc nhóm chức năng nào của Hệ QTCSDL?"
+          "Xác định hai hệ thống sau thuộc mô hình Tập trung hay Phân tán:\n• Hệ thống A: Có 10 máy tính của nhân viên đặt ở 10 phòng ban khác nhau, tất cả cùng gửi yêu cầu truy cập về 1 CSDL duy nhất lưu trên 1 máy chủ trung tâm.\n• Hệ thống B: Một công ty có 3 chi nhánh tại Hà Nội, Đà Nẵng, TP.HCM; mỗi chi nhánh có một máy chủ lưu trữ CSDL cục bộ của riêng chi nhánh đó và các trạm kết nối với nhau qua mạng."
         ],
         qaList: [
           {
-            q: "Thao tác thuộc nhóm chức năng nào?",
-            a: "Đáp án: Nhóm chức năng CẬP NHẬT DỮ LIỆU (Data Update - cụ thể là thao tác Sửa/Update) — vì hành động này làm THAY ĐỔI nội dung dữ liệu bên trong CSDL."
+            q: "Đáp án phân tích mô hình:",
+            a: "• Hệ thống A ➜ HỆ CSDL TẬP TRUNG (Vì toàn bộ CSDL chỉ lưu trên 1 máy chủ duy nhất, dù có nhiều máy trạm truy cập từ xa).\n• Hệ thống B ➜ HỆ CSDL PHÂN TÁN (Vì dữ liệu thực tế được phân bố lưu trữ trên nhiều trạm máy tính khác nhau trong mạng)."
           }
         ]
       }
@@ -543,41 +500,39 @@ export const b12Content = {
     {
       id: "practice-b12-4",
       badge: "Bài 4 – 2 phút",
-      title: "Bài 4 – Xác Định Chức Năng: Lọc Học Sinh Có Điểm Tin > 9",
+      title: "Bài 4 – Ứng Dụng Cục Bộ Hay Ứng Dụng Toàn Cục? (Mục 129)",
       duration: "2 phút",
       type: "exercise",
-      description: "Nhận diện nhóm chức năng khi tìm kiếm và trích xuất dữ liệu theo điều kiện.",
+      description: "Phân biệt phạm vi truy xuất dữ liệu giữa ứng dụng cục bộ và ứng dụng phân tán.",
       content: {
-        objective: "Mức độ: Cơ bản | Thời gian: 2 phút. Nắm vững thao tác truy xuất dữ liệu.",
+        objective: "Mức độ: Thông hiểu | Thời gian: 2 phút. Nhận thức rõ phạm vi trạm dữ liệu.",
         requirements: [
-          "Tình huống: Thầy giáo dạy Tin học mở phần mềm để tìm kiếm tất cả các học sinh khối 11 có điểm Tin học lớn hơn 9.0 để chọn vào đội tuyển thi học sinh giỏi.",
-          "Câu hỏi: Thao tác này thuộc nhóm chức năng nào của Hệ QTCSDL?"
+          "Một chuỗi bán lẻ có 3 trạm CSDL tại Hà Nội, Đà Nẵng và TP.HCM. Hãy cho biết 2 thao tác sau thuộc loại ứng dụng nào:\n• Thao tác 1: Thu ngân tại chi nhánh Đà Nẵng mở phần mềm in danh sách các đơn hàng đã bán trong ngày của riêng chi nhánh Đà Nẵng.\n• Thao tác 2: Giám đốc kinh doanh tại trụ sở mở phần mềm xem biểu đồ tổng doanh thu toàn quốc bằng cách tổng hợp dữ liệu từ cả 3 chi nhánh Hà Nội, Đà Nẵng và TP.HCM."
         ],
         qaList: [
           {
-            q: "Thao tác thuộc nhóm chức năng nào?",
-            a: "Đáp án: Nhóm chức năng TRUY XUẤT DỮ LIỆU (Data Retrieval) — vì thao tác này chỉ LẤY dữ liệu ra để xem và lọc theo điều kiện, hoàn toàn không làm thay đổi hay xóa dữ liệu gốc trong CSDL."
+            q: "Đáp án phân loại ứng dụng:",
+            a: "• Thao tác 1 ➜ ỨNG DỤNG CỤC BỘ (Vì ứng dụng chỉ cần truy xuất dữ liệu từ MỘT trạm duy nhất là Đà Nẵng).\n• Thao tác 2 ➜ ỨNG DỤNG TOÀN CỤC / PHÂN TÁN (Vì ứng dụng phải truy xuất và kết hợp dữ liệu từ ÍT NHẤT HAI TRẠM trở lên để cho kết quả cuối cùng)."
           }
         ]
       }
     },
     {
       id: "practice-b12-5",
-      badge: "Bài 5 – 2 phút",
-      title: "Bài 5 – Xác Định Chức Năng: Phân Quyền Xem Thông Tin",
-      duration: "2 phút",
+      badge: "Bài 5 – 4 phút",
+      title: "Bài 5 – Phân Tích Ưu Nhược Điểm: Doanh Nghiệp 100 Chi Nhánh (Mục 130)",
+      duration: "4 phút",
       type: "exercise",
-      description: "Nhận diện nhóm chức năng kiểm soát quyền truy cập của người dùng.",
+      description: "Đánh giá đa chiều lý do lựa chọn mô hình phân tán và các thách thức đi kèm.",
       content: {
-        objective: "Mức độ: Thông hiểu | Thời gian: 2 phút. Nhận diện chức năng bảo mật CSDL.",
+        objective: "Mức độ: Vận dụng cao | Thời gian: 4 phút. Tư duy kiến trúc hệ thống thực tế.",
         requirements: [
-          "Tình huống: Hệ thống CSDL của nhà trường được cấu hình sao cho: Chỉ có giáo viên chủ nhiệm mới được xem số điện thoại của phụ huynh lớp mình; học sinh khác không thể xem được.",
-          "Câu hỏi: Cấu hình này thể hiện nhóm chức năng nào của Hệ QTCSDL?"
+          "Một doanh nghiệp bán lẻ đang phát triển mạnh và mở rộng tới 100 chi nhánh trên toàn quốc.\n1. Vì sao việc chuyển sang mô hình CSDL phân tán có thể hợp lý hơn là giữ nguyên 1 máy chủ tập trung duy nhất?\n2. Nêu ít nhất 3 khó khăn lớn nhất khi vận hành hệ CSDL phân tán 100 chi nhánh này."
         ],
         qaList: [
           {
-            q: "Cấu hình thể hiện nhóm chức năng nào?",
-            a: "Đáp án: Nhóm chức năng BẢO MẬT CSDL (Security) — kiểm soát quyền truy cập chi tiết, xác thực đúng người đúng quyền, ngăn chặn xem hoặc can thiệp dữ liệu trái phép."
+            q: "Hướng dẫn giải chi tiết:",
+            a: "1. Lý do nên dùng Phân tán:\n• Giảm tải nghẽn mạng: Dữ liệu khách hàng địa phương lưu ngay tại chi nhánh giúp thu ngân bán hàng cực nhanh không phụ thuộc đường truyền xa.\n• Độ sẵn sàng cao: Nếu cáp quang quốc tế hoặc mạng khu vực Hà Nội gặp sự cố, 99 chi nhánh còn lại vẫn bán hàng bình thường.\n• Dễ mở rộng: Mở thêm chi nhánh 101 chỉ cần bổ sung 1 trạm mới mà không làm quá tải cụm máy chủ cũ.\n\n2. Ba khó khăn lớn nhất:\n• Khó đảm bảo tính nhất quán (ví dụ: cập nhật bảng giá khuyến mại mới đồng loạt cho 100 trạm rất dễ bị lệch).\n• Thiết kế và bảo trì hệ thống cực kỳ phức tạp.\n• Chi phí đầu tư thiết bị và bảo mật mạng cho 100 trạm cao hơn rất nhiều so với tập trung."
           }
         ]
       }
@@ -585,41 +540,39 @@ export const b12Content = {
     {
       id: "practice-b12-6",
       badge: "Bài 6 – 2 phút",
-      title: "Bài 6 – Xác Định Chức Năng: Tự Động Tạo Bản Sao Lưu",
+      title: "Bài 6 – Câu Gài 1: 50 Ứng Dụng Đặt Trên 50 Máy Khác Nhau (Mục 131)",
       duration: "2 phút",
       type: "exercise",
-      description: "Nhận diện chức năng an toàn và sao lưu dự phòng của DBMS.",
+      description: "Phá vỡ ngộ nhận thường gặp giữa 'nhiều ứng dụng' và 'CSDL phân tán'.",
       content: {
-        objective: "Mức độ: Thông hiểu | Thời gian: 2 phút. Nắm vững vai trò của an toàn dữ liệu.",
+        objective: "Mức độ: Vận dụng | Thời gian: 2 phút. Phản xạ tránh bẫy đề thi.",
         requirements: [
-          "Tình huống: Quản trị viên thiết lập cho Hệ QTCSDL cứ vào đúng 23:00 mỗi đêm sẽ tự động xuất một bản sao lưu (Backup) toàn bộ CSDL ra ổ cứng thứ hai.",
-          "Câu hỏi: Thao tác này thuộc nhóm chức năng nào và nhằm mục đích gì?"
+          "Một bạn học sinh khẳng định: 'Trường em có 50 máy tính đặt ở 50 phòng ban khác nhau, mỗi máy cài một phần mềm ứng dụng riêng, nên hệ thống CSDL của trường em chắc chắn là Hệ CSDL phân tán!'\nKhẳng định của bạn có chính xác không? Vì sao?"
         ],
         qaList: [
           {
-            q: "Nhóm chức năng và mục đích?",
-            a: "Đáp án:\n• Nhóm chức năng AN TOÀN CSDL (Safety).\n• Mục đích: Đảm bảo dữ liệu không bị mất mát khi máy chủ gặp sự cố cháy nổ, hỏng ổ cứng hoặc nhiễm mã độc; cho phép phục hồi (Restore) lại trạng thái hoạt động bình thường nhanh chóng."
+            q: "Đáp án phân tích bẫy:",
+            a: "Đáp án: KHẲNG ĐỊNH CỦA BẠN LÀ SAI!\n• Giải thích: Số lượng máy tính người dùng hay số lượng phần mềm ứng dụng KHÔNG quyết định hệ thống là tập trung hay phân tán. Điều quyết định là: DỮ LIỆU CSDL ĐƯỢC LƯU Ở ĐÂU. Nếu toàn bộ dữ liệu điểm và hồ sơ học sinh vẫn lưu trữ trên 1 máy chủ duy nhất của trường thì đây vẫn là HỆ CSDL TẬP TRUNG."
           }
         ]
       }
     },
     {
       id: "practice-b12-7",
-      badge: "Bài 7 – 3 phút",
-      title: "Bài 7 – Phân Biệt CSDL, Hệ QTCSDL Và Hệ CSDL",
-      duration: "3 phút",
+      badge: "Bài 7 – 2 phút",
+      title: "Bài 7 – Câu Gài 2: Dữ Liệu Phân Tán Có Nhất Thiết Giống Hệt Nhau? (Mục 132)",
+      duration: "2 phút",
       type: "exercise",
-      description: "Ghép 3 thành phần thực tế vào đúng 3 khái niệm kỹ thuật cốt lõi.",
+      description: "Làm rõ bản chất phân tán dữ liệu: Phân mảnh dữ liệu theo nghiệp vụ địa phương.",
       content: {
-        objective: "Mức độ: Thông hiểu | Thời gian: 3 phút. Khắc sâu sự khác biệt giữa 3 khái niệm nền tảng.",
+        objective: "Mức độ: Thông hiểu | Thời gian: 2 phút. Hiểu đúng về CSDL cục bộ.",
         requirements: [
-          "Cho 3 thành phần sau trong một thư viện điện tử:\n1. Phần mềm PostgreSQL.\n2. Tập hợp dữ liệu về sách, bạn đọc và các phiếu mượn trả lưu trên máy chủ.\n3. Hệ thống gồm: Website tra cứu sách trực tuyến + Phần mềm PostgreSQL + Dữ liệu thư viện.",
-          "Nhiệm vụ: Hãy ghép từng thành phần với đúng khái niệm: CSDL, Hệ QTCSDL hay Hệ CSDL."
+          "Có người cho rằng: 'Trong hệ CSDL phân tán, dữ liệu ở mọi trạm lúc nào cũng phải được sao chép y hệt nhau 100%'. Ý kiến này đúng hay sai? Vì sao?"
         ],
         qaList: [
           {
-            q: "Kết quả ghép nối 3 thành phần?",
-            a: "Đáp án chính xác:\n• Thành phần 1 (PostgreSQL) ➜ Hệ QTCSDL (DBMS).\n• Thành phần 2 (Dữ liệu sách, bạn đọc, mượn trả) ➜ CSDL (Database).\n• Thành phần 3 (Website + PostgreSQL + Dữ liệu) ➜ Hệ CSDL (Database System)."
+            q: "Đáp án phân tích:",
+            a: "Đáp án: Ý KIẾN NÀY LÀ SAI!\n• Giải thích: Trong CSDL phân tán, các trạm thường lưu các phần DỮ LIỆU CỤC BỘ KHÁC NHAU theo địa bàn quản lý. Trạm Hà Nội lưu khách hàng Hà Nội; Trạm Đà Nẵng lưu khách hàng miền Trung. Chúng chỉ thuộc chung một hệ CSDL thống nhất và có thể truy xuất phối hợp khi cần chứ không nhất thiết trạm nào cũng phải giữ bản sao của nhau."
           }
         ]
       }
@@ -627,20 +580,19 @@ export const b12Content = {
     {
       id: "practice-b12-8",
       badge: "Bài 8 – 2 phút",
-      title: "Bài 8 – Nhận Diện: Hệ CSDL Tập Trung Hay Phân Tán?",
+      title: "Bài 8 – Câu Gài 3: Hệ QTCSDL Có Phải Giao Diện Website Không? (Mục 133)",
       duration: "2 phút",
       type: "exercise",
-      description: "Phân tích mô hình máy chủ trường học phục vụ nhiều phòng máy tính.",
+      description: "Phân biệt rạch ròi giữa giao diện người dùng và phần mềm quản trị phía sau.",
       content: {
-        objective: "Mức độ: Thông hiểu | Thời gian: 2 phút. Phân biệt bản chất của hệ CSDL tập trung.",
+        objective: "Mức độ: Nhận biết | Thời gian: 2 phút. Phân biệt tầng ứng dụng và tầng quản trị.",
         requirements: [
-          "Tình huống: Một trường THPT có 1.500 học sinh. Nhà trường đặt toàn bộ dữ liệu điểm trên một máy chủ duy nhất ở phòng máy chủ. Các máy tính ở phòng Hiệu trưởng, phòng Giám thị, phòng Giáo viên và các phòng học đều kết nối qua mạng LAN vào máy chủ này.",
-          "Câu hỏi: Đây là Hệ CSDL tập trung hay Hệ CSDL phân tán? Giải thích vì sao."
+          "Khi học sinh mở website tra cứu điểm thi và nhìn thấy các ô nhập Số báo danh, nút bấm 'Tra cứu', có phải bạn đang nhìn thấy Hệ quản trị CSDL không?"
         ],
         qaList: [
           {
-            q: "Tập trung hay phân tán và giải thích?",
-            a: "Đáp án: Đây là HỆ CSDL TẬP TRUNG.\n• Giải thích: Toàn bộ dữ liệu CSDL được lưu trữ tại duy nhất MỘT máy tính trung tâm (máy chủ của trường). Dù có rất nhiều máy tính khác nhau truy cập vào qua mạng LAN, nhưng dữ liệu không hề bị chia nhỏ lưu ở các máy đó."
+            q: "Đáp án phân tích:",
+            a: "Đáp án: KHÔNG PHẢI!\n• Giải thích: Màn hình giao diện màu sắc, ô nhập văn bản và nút bấm đó là PHẦN MỀM ỨNG DỤNG CSDL (giao diện người dùng). Còn Hệ quản trị CSDL (như MySQL, PostgreSQL) là phần mềm chạy ngầm phía sau máy chủ, không hiển thị trực tiếp cho học sinh xem mà chỉ giao tiếp với website qua giao diện lập trình."
           }
         ]
       }
@@ -648,196 +600,186 @@ export const b12Content = {
     {
       id: "practice-b12-9",
       badge: "Bài 9 – 2 phút",
-      title: "Bài 9 – Nhận Diện: CSDL Chuỗi Siêu Thị Ba Miền",
+      title: "Bài 9 – Câu Gài 4: Mục Đích Chính Của Backup Có Phải Chống Đăng Nhập Lậu? (Mục 134)",
       duration: "2 phút",
       type: "exercise",
-      description: "Phân tích mô hình dữ liệu lưu trữ tại nhiều chi nhánh địa lý.",
+      description: "Phân định ranh giới giữa Bảo mật (Security) và An toàn dữ liệu (Safety / Backup).",
       content: {
-        objective: "Mức độ: Thông hiểu | Thời gian: 2 phút. Nắm vững bản chất của hệ CSDL phân tán.",
+        objective: "Mức độ: Thông hiểu | Thời gian: 2 phút. Phân biệt Bảo mật vs An toàn.",
         requirements: [
-          "Tình huống: Một hệ thống siêu thị điện máy có 3 chi nhánh tại Hà Nội, Đà Nẵng và TP.HCM. Mỗi chi nhánh sở hữu một máy chủ riêng lưu CSDL thành phần phục vụ bán hàng và quản lý kho tại chi nhánh đó. Hàng ngày các máy chủ này kết nối và chia sẻ số liệu với nhau qua mạng Internet.",
-          "Câu hỏi: Đây là mô hình hệ CSDL nào? Nêu 1 ưu điểm lớn nhất của mô hình này."
+          "Một kỹ thuật viên nói: 'Chúng tôi sao lưu dự phòng (Backup) CSDL mỗi ngày để ngăn chặn người lạ đăng nhập trái phép vào hệ thống'. Phát biểu này có đúng về mặt mục đích chuyên môn không?"
         ],
         qaList: [
           {
-            q: "Mô hình và ưu điểm lớn nhất?",
-            a: "Đáp án:\n• Đây là HỆ CSDL PHÂN TÁN (Distributed Database System).\n• Ưu điểm lớn nhất: Dữ liệu đặt gần người dùng địa phương, giúp thao tác bán hàng và xuất kho tại mỗi chi nhánh diễn ra cực kỳ nhanh chóng và nếu đường truyền mạng giữa các tỉnh bị đứt thì mỗi chi nhánh vẫn hoạt động bình thường với CSDL cục bộ."
+            q: "Đáp án phân tích:",
+            a: "Đáp án: PHÁT BIỂU SAI MỤC ĐÍCH!\n• Giải thích: Mục đích chính của Backup (Sao lưu dự phòng) là bảo đảm AN TOÀN DỮ LIỆU – giúp khôi phục dữ liệu nguyên vẹn khi máy chủ hỏng hóc, cháy nổ, mất điện hoặc xóa nhầm. Còn việc ngăn chặn người lạ đăng nhập trái phép là chức năng BẢO MẬT (xác thực và phân quyền truy cập)."
           }
         ]
       }
     },
     {
       id: "practice-b12-10",
-      badge: "Bài 10 – 6 phút",
-      title: "Bài 10 – Thử Thách Tổng Hợp: Phân Tích Hệ Thống Thực Tế & Thách Thức Nhất Quán",
-      duration: "6 phút",
+      badge: "Bài 10 – 2 phút",
+      title: "Bài 10 – Câu Gài 5: 'Cập Nhật Dữ Liệu' Có Phải Chỉ Là Sửa Dữ Liệu? (Mục 135)",
+      duration: "2 phút",
       type: "exercise",
-      description: "Phân tích kiến trúc 4 tầng của một hệ thống quản lý và giải thích thách thức đồng bộ dữ liệu trong hệ phân tán.",
+      description: "Nắm trọn bộ 3 thao tác cơ bản cấu thành khái niệm Cập nhật dữ liệu.",
       content: {
-        objective: "Mức độ: Vận dụng cao | Thời gian: 6 phút. Đánh giá toàn diện năng lực hiểu sâu kiến trúc CSDL.",
+        objective: "Mức độ: Nhận biết | Thời gian: 2 phút. Hiểu chuẩn thuật ngữ Cập nhật.",
         requirements: [
-          "Tình huống: Một công ty thời trang có hệ thống gồm:\n- Ứng dụng bán hàng POS tại quầy + Website mua hàng trực tuyến.\n- Hệ QTCSDL MySQL quản lý dữ liệu.\n- CSDL lưu trữ thông tin sản phẩm, đơn hàng và kho hàng.\n\nNhiệm vụ học sinh:\n1. Vẽ sơ đồ luồng dữ liệu 4 tầng của hệ thống trên.\n2. Nếu công ty mở 30 chi nhánh và chuyển sang Hệ CSDL phân tán, tại sao việc 'duy trì tính nhất quán của giá sản phẩm' lại trở thành một thách thức kỹ thuật rất lớn?"
+          "Trong ngôn ngữ hàng ngày, từ 'cập nhật' thường được hiểu là sửa thông tin cũ thành mới. Trong Tin học và CSDL, khái niệm 'Cập nhật dữ liệu' bao gồm những thao tác nào?"
         ],
-        submissionHint: "Hướng dẫn giải chi tiết:\n1. Sơ đồ 4 tầng:\n   Người mua / Thu ngân (Người dùng) ➜ Website / App POS (Phần mềm ứng dụng) ➜ MySQL (Hệ QTCSDL) ➜ CSDL sản phẩm/đơn hàng (CSDL vật lý trên đĩa).\n\n2. Thách thức duy trì tính nhất quán trong hệ phân tán:\n   • Khi dữ liệu bị chia nhỏ và lưu tại 30 máy chủ ở 30 chi nhánh, khi công ty ban hành đợt giảm giá mới (ví dụ áo khoác giảm từ 500k xuống 400k), lệnh cập nhật giá phải truyền qua mạng đến cả 30 máy chủ.\n   • Nếu có 5 chi nhánh bị chập chờn mạng Internet chưa nhận được lệnh cập nhật, khách hàng đến 5 chi nhánh đó vẫn bị tính giá 500k, trong khi 25 chi nhánh kia bán giá 400k ➜ Xảy ra hiện tượng MÂU THUẪN, MẤT TÍNH NHẤT QUÁN dữ liệu trên toàn hệ thống công ty!\n   • Việc đồng bộ dữ liệu tức thời giữa 30 nút qua mạng là bài toán kỹ thuật phức tạp hơn nhiều so với việc chỉ sửa giá tại 1 máy chủ trung tâm duy nhất.",
-        scoring: [
-          { level: "Đạt (7-8đ)", desc: "Trình bày đúng sơ đồ 4 tầng và nhận biết được khó khăn khi dữ liệu lưu ở nhiều nơi." },
-          { level: "Khá (9đ)", desc: "Phân tích rõ dòng luồng dữ liệu và giải thích đúng ví dụ mâu thuẫn giá giữa các chi nhánh." },
-          { level: "Xuất sắc (10đ)", desc: "Lập luận sắc bén, hiểu trọn vẹn sự đánh đổi giữa tính sẵn sàng địa phương và độ phức tạp đồng bộ nhất quán trong kiến trúc phân tán." }
-        ]
-      }
-    },
-    {
-      id: "practice-b12-minitest",
-      badge: "Mini Test – 7 phút",
-      title: "Mini Test Đánh Giá Năng Lực Cuối Buổi (10 Câu Trắc Nghiệm)",
-      duration: "7 phút",
-      type: "quiz",
-      description: "10 câu hỏi trắc nghiệm tương tác kiểm tra độ hiểu sâu các khái niệm Hệ QTCSDL, Hệ CSDL, Tập trung và Phân tán của Bài 12.",
-      content: {
-        objective: "Đánh giá mức độ tiếp thu 3 trọng tâm cốt lõi sau 100 phút học tập.",
-        questions: [
+        qaList: [
           {
-            q: "Câu 1: Hệ quản trị cơ sở dữ liệu (DBMS) là:",
-            options: [
-              "A. Một tập hợp dữ liệu được ghi chép trên giấy",
-              "B. Phần mềm cung cấp các phương tiện để quản lý và khai thác CSDL",
-              "C. Một trang web tra cứu thông tin",
-              "D. Một máy tính để bàn"
-            ],
-            answer: "B",
-            explanation: "Hệ QTCSDL là phần mềm quản lý và khai thác CSDL."
-          },
-          {
-            q: "Câu 2: Thao tác nào sau đây thuộc nhóm chức năng CẬP NHẬT dữ liệu?",
-            options: [
-              "A. Tìm học sinh lớp 11A",
-              "B. Xem danh sách sản phẩm",
-              "C. Sửa số điện thoại khách hàng",
-              "D. Thống kê doanh thu tháng"
-            ],
-            answer: "C",
-            explanation: "Sửa số điện thoại làm thay đổi dữ liệu bên trong CSDL, thuộc nhóm Cập nhật."
-          },
-          {
-            q: "Câu 3: Thao tác nào sau đây thuộc nhóm chức năng TRUY XUẤT dữ liệu?",
-            options: [
-              "A. Xóa học sinh đã chuyển trường",
-              "B. Thêm sản phẩm mới vào kho",
-              "C. Tìm các sản phẩm còn dưới 5 chiếc",
-              "D. Sửa giá bán một mặt hàng"
-            ],
-            answer: "C",
-            explanation: "Tìm kiếm sản phẩm theo điều kiện là thao tác lấy dữ liệu ra xem, thuộc Truy xuất."
-          },
-          {
-            q: "Câu 4: Kiểm soát ai được phép xem điểm và ai được sửa điểm thuộc nhóm chức năng nào?",
-            options: [
-              "A. Định nghĩa dữ liệu",
-              "B. Cập nhật dữ liệu",
-              "C. Bảo mật CSDL",
-              "D. Truy xuất dữ liệu"
-            ],
-            answer: "C",
-            explanation: "Phân quyền truy cập thuộc nhóm chức năng Bảo mật."
-          },
-          {
-            q: "Câu 5: Việc định kỳ tạo bản sao CSDL dự phòng nhằm mục đích chủ yếu là:",
-            options: [
-              "A. Đảm bảo an toàn dữ liệu, sẵn sàng phục hồi khi gặp sự cố",
-              "B. Tăng tốc độ truy vấn",
-              "C. Thêm dữ liệu mới",
-              "D. Thiết kế giao diện"
-            ],
-            answer: "A",
-            explanation: "Sao lưu (Backup) phục vụ tính An toàn dữ liệu."
-          },
-          {
-            q: "Câu 6: Thành phần nào sau đây là một Hệ quản trị cơ sở dữ liệu?",
-            options: [
-              "A. Dữ liệu học sinh",
-              "B. PostgreSQL",
-              "C. Website tra cứu điểm",
-              "D. Bảng danh sách lớp"
-            ],
-            answer: "B",
-            explanation: "PostgreSQL là phần mềm Hệ QTCSDL."
-          },
-          {
-            q: "Câu 7: Một Hệ CSDL hoàn chỉnh có thể hình dung gồm những thành phần nào?",
-            options: [
-              "A. Chỉ có CSDL",
-              "B. Chỉ có Hệ QTCSDL",
-              "C. CSDL + Hệ QTCSDL + Các phần mềm ứng dụng CSDL",
-              "D. Chỉ có website"
-            ],
-            answer: "C",
-            explanation: "Hệ CSDL gồm CSDL + DBMS + Phần mềm ứng dụng."
-          },
-          {
-            q: "Câu 8: Dữ liệu được đặt tại một máy chủ trung tâm duy nhất, người dùng từ nhiều tỉnh thành cùng kết nối vào để tra cứu. Đây là:",
-            options: [
-              "A. Hệ CSDL tập trung",
-              "B. Chắc chắn là Hệ CSDL phân tán",
-              "C. Không phải CSDL",
-              "D. Hệ tệp văn bản"
-            ],
-            answer: "A",
-            explanation: "Dữ liệu đặt tại 1 máy chủ trung tâm thì là Hệ CSDL tập trung."
-          },
-          {
-            q: "Câu 9: Dữ liệu được phân chia thành các CSDL thành phần đặt trên nhiều máy tính ở các địa điểm khác nhau và kết nối qua mạng. Đây là:",
-            options: [
-              "A. Hệ CSDL tập trung",
-              "B. Hệ CSDL phân tán",
-              "C. Hệ CSDL cá nhân",
-              "D. File văn bản thô"
-            ],
-            answer: "B",
-            explanation: "Dữ liệu phân chia trên nhiều máy ở nhiều nơi là Hệ CSDL phân tán."
-          },
-          {
-            q: "Câu 10: Khó khăn nổi bật nhất của Hệ CSDL phân tán so với hệ tập trung là:",
-            options: [
-              "A. Không thể có nhiều người dùng",
-              "B. Không thể tìm kiếm dữ liệu",
-              "C. Quản lý, bảo mật và duy trì tính nhất quán, đồng bộ dữ liệu giữa các nơi phức tạp hơn",
-              "D. Không thể kết nối mạng"
-            ],
-            answer: "C",
-            explanation: "Đảm bảo nhất quán và đồng bộ dữ liệu giữa nhiều địa điểm là thách thức kỹ thuật lớn nhất của hệ phân tán."
+            q: "Đáp án giải thích thuật ngữ:",
+            a: "Đáp án:\n• Trong môn Tin học và CSDL, khái niệm CẬP NHẬT DỮ LIỆU bao gồm đầy đủ CẢ BA THAO TÁC làm thay đổi nội dung CSDL:\n  1. THÊM dữ liệu mới (Insert / Add).\n  2. SỬA dữ liệu đã có (Update / Modify).\n  3. XÓA dữ liệu không còn cần thiết (Delete / Remove)."
           }
         ]
       }
     },
     {
-      id: "practice-b12-summary",
-      badge: "Tổng Kết Buổi Học",
-      title: "Chốt 8 Điểm Cốt Lõi, 7 Câu Hỏi Tự Vấn & Mạch Nối Sang Bài 13",
-      duration: "Tổng kết",
+      id: "practice-b12-library",
+      badge: "Vận Dụng Lớn – 5 phút",
+      title: "Bài Vận Dụng Lớn: Phân Tích Hệ Thống CSDL Thư Viện Hoàn Chỉnh (Mục 164–165)",
+      duration: "5 phút",
       type: "exercise",
-      description: "8 kiến thức cốt lõi học sinh tự nói lại, 7 câu hỏi chốt chuẩn đầu ra và mạch nối sang Bài 13 (Cơ sở dữ liệu quan hệ).",
+      description: "Chỉ rõ các thành phần cấu thành một Hệ CSDL thư viện thực tế theo chuẩn SGK.",
       content: {
-        objective: "Khắc sâu toàn bộ kiến thức Bài 12 và tạo đà chuyển tiếp sang Bài 13.",
-        knowledgeNotice: "📌 7 CÂU HỎI HỌC SINH PHẢI TỰ TRẢ LỜI ĐƯỢC CUỐI BUỔI:\n1. Hệ QTCSDL là gì? ➜ Phần mềm cung cấp phương tiện tạo lập, cập nhật, truy xuất, bảo mật và an toàn cho CSDL.\n2. Cập nhật dữ liệu gồm những thao tác nào? ➜ Thêm, Sửa, Xóa (làm thay đổi dữ liệu bên trong).\n3. Truy xuất dữ liệu là gì? ➜ Tìm kiếm, Lọc, Tra cứu, Thống kê (lấy dữ liệu ra xem, không làm đổi dữ liệu gốc).\n4. CSDL khác Hệ QTCSDL thế nào? ➜ CSDL là DỮ LIỆU; Hệ QTCSDL là PHẦN MỀM quản lý dữ liệu.\n5. Hệ CSDL gồm những thành phần nào? ➜ CSDL + Hệ QTCSDL + Phần mềm ứng dụng CSDL (+ con người).\n6. Tập trung và phân tán khác nhau ở đâu? ➜ Tập trung là dữ liệu tại 1 hệ thống trung tâm; Phân tán là dữ liệu chia thành các CSDL con trên nhiều máy qua mạng.\n7. Vì sao không thể nói hệ phân tán luôn tốt hơn tập trung? ➜ Vì phân tán quản lý cực kỳ phức tạp, khó đồng bộ nhất quán và bảo mật tốn kém hơn.",
-        table: {
-          headers: ["Khoảng thời gian", "Nội dung hoạt động sư phạm", "Mục tiêu trọng tâm cần đạt"],
-          rows: [
-            ["0–8 phút", "Khởi động tra cứu điểm", "Nhận thức vai trò của lớp phần mềm trung gian đứng giữa"],
-            ["8–18 phút", "Vì sao cần Hệ QTCSDL?", "Hiểu khó khăn khi người dùng phải tự thao tác file thô"],
-            ["18–30 phút", "Khái niệm Hệ QTCSDL (DBMS)", "Phân biệt rạch ròi giữa Dữ liệu (CSDL) và Phần mềm (DBMS)"],
-            ["30–54 phút", "4 Nhóm chức năng của DBMS", "Phân biệt Cập nhật vs Truy xuất, Bảo mật vs An toàn"],
-            ["54–68 phút", "Hệ CSDL & Sơ đồ 4 tầng", "Nắm vững dòng luồng: Người dùng ➜ App ➜ DBMS ➜ CSDL"],
-            ["68–85 phút", "Tập trung vs Phân tán", "So sánh ưu nhược điểm qua ví dụ trường học & chuỗi siêu thị"],
-            ["85–95 phút", "10 Bài Luyện Tập Thực Tế", "Rèn luyện kỹ năng phân loại thao tác và chẩn đoán hệ thống"],
-            ["95–100 phút", "Mini Test 10 Câu & Mạch Nối", "Đánh giá chuẩn đầu ra và chuẩn bị tâm thế sang CSDL quan hệ"]
-          ]
-        },
-        criteria: [
-          { level: "Mức Đạt (5-6.5đ)", desc: "Nêu được khái niệm Hệ QTCSDL; phân biệt được CSDL vs DBMS; phân biệt được thao tác Cập nhật vs Truy xuất cơ bản." },
-          { level: "Mức Khá (7-8.5đ)", desc: "Trình bày chuẩn xác 4 tầng của Hệ CSDL; phân biệt được Hệ CSDL tập trung vs phân tán; hiểu rõ vai trò của sao lưu và bảo mật." },
-          { level: "Mức Xuất Sắc (9-10đ)", desc: "Phân tích sâu sắc bài toán đồng bộ nhất quán trong CSDL phân tán; giải thích vì sao nhiều người truy cập không đồng nghĩa phân tán; tư vấn được mô hình tối ưu cho bài toán doanh nghiệp." }
+        objective: "Mức độ: Vận dụng | Thời gian: 5 phút. Tích hợp toàn diện kiến thức Bài 12.",
+        requirements: [
+          "Một thư viện số của trường học bao gồm: CSDL sách và độc giả; Hệ QTCSDL MySQL quản lý ngầm; Màn hình cảm ứng cho học sinh tra cứu sách tại sảnh; Phần mềm quét mã vạch mượn trả của thủ thư; và Đội ngũ thủ thư, học sinh sử dụng.\n1. Hãy chỉ rõ từng thành phần trên thuộc bộ phận nào của Hệ CSDL thư viện.\n2. Khi thủ thư bấm 'Gia hạn mượn sách thêm 7 ngày', Hệ QTCSDL thực hiện nhóm chức năng nào?"
+        ],
+        qaList: [
+          {
+            q: "1. Phân loại thành phần Hệ CSDL Thư viện:",
+            a: "• CSDL: Dữ liệu về sách, thể loại, thông tin độc giả và lịch sử mượn trả lưu trên đĩa máy chủ.\n• Hệ QTCSDL: Phần mềm MySQL quản trị kho dữ liệu phía sau.\n• Phần mềm ứng dụng CSDL: Gồm 2 ứng dụng (Màn hình cảm ứng tra cứu sách + Phần mềm quét mã vạch của thủ thư).\n• Con người: Thủ thư (người dùng vận hành/nhập liệu), Học sinh (người dùng cuối tra cứu), Chuyên viên IT (người quản trị hệ thống)."
+          },
+          {
+            q: "2. Chức năng khi thủ thư gia hạn sách:",
+            a: "• Đó là chức năng CẬP NHẬT DỮ LIỆU (thao tác SỬA hạn trả sách từ ngày cũ sang ngày mới)."
+          }
+        ]
+      }
+    },
+    {
+      id: "practice-b12-quick15",
+      badge: "Phản Xạ – 3 phút",
+      title: "Bộ 15 Tình Huống Ngắn Kiểm Tra Phản Xạ Toàn Diện (Mục 181)",
+      duration: "3 phút",
+      type: "exercise",
+      description: "Đọc tình huống và gọi tên đúng khái niệm hoặc chức năng CSDL trong 3 giây!",
+      content: {
+        objective: "Rèn luyện phản xạ thần tốc cho các câu hỏi trắc nghiệm kiểm tra.",
+        requirements: [
+          "Xác định nhanh khái niệm hoặc chức năng tương ứng cho 15 tình huống sau:\n1. Tạo CSDL mới.\n2. Thêm một học sinh vào lớp.\n3. Xóa một bản ghi nhập nhầm.\n4. Xem điểm thi của học sinh.\n5. Chỉ giáo viên dạy môn nào được sửa điểm môn đó.\n6. Hai nhân viên cùng sửa/xóa đồng thời một khách hàng.\n7. Tạo bản sao lưu dữ liệu lúc 23h.\n8. Website gửi yêu cầu lấy dữ liệu tới DBMS.\n9. Phần mềm PostgreSQL.\n10. Dữ liệu điểm số của học sinh.\n11. Website xem điểm thi.\n12. CSDL + DBMS + Website tra cứu.\n13. 20 người cùng truy cập 1 CSDL trên 1 máy tính.\n14. Mỗi chi nhánh có một máy chủ chứa CSDL riêng kết nối qua mạng.\n15. Tính tổng doanh thu của cả chi nhánh Hà Nội và Đà Nẵng."
+        ],
+        qaList: [
+          {
+            q: "Đáp án phản xạ chuẩn xác 15 tình huống:",
+            a: "1. Tạo CSDL mới ➜ Định nghĩa dữ liệu.\n2. Thêm học sinh ➜ Cập nhật dữ liệu.\n3. Xóa bản ghi nhầm ➜ Cập nhật dữ liệu.\n4. Xem điểm thi ➜ Truy xuất dữ liệu.\n5. Chỉ giáo viên sửa điểm ➜ Bảo mật CSDL (phân quyền).\n6. Thao tác đồng thời ➜ Kiểm soát giao dịch (giữ nhất quán).\n7. Tạo bản sao lưu ➜ An toàn CSDL (sao lưu dự phòng).\n8. App gửi yêu cầu tới DBMS ➜ Giao diện lập trình ứng dụng.\n9. PostgreSQL ➜ Hệ quản trị CSDL (DBMS).\n10. Dữ liệu điểm số ➜ Cơ sở dữ liệu (CSDL).\n11. Website xem điểm ➜ Phần mềm ứng dụng CSDL.\n12. CSDL + DBMS + App ➜ Hệ cơ sở dữ liệu.\n13. 20 người dùng 1 CSDL trên 1 máy ➜ Hệ CSDL tập trung.\n14. Mỗi chi nhánh có CSDL riêng ➜ Hệ CSDL phân tán.\n15. Doanh thu nhiều chi nhánh ➜ Ứng dụng toàn cục / phân tán."
+          }
+        ]
+      }
+    },
+    {
+      id: "practice-b12-essay",
+      badge: "Tự Luận – 5 phút",
+      title: "Bảy Câu Hỏi Tự Luận Cốt Lõi Buổi Học (Mục 146–152)",
+      duration: "5 phút",
+      type: "exercise",
+      description: "7 câu hỏi tự luận giúp học sinh tự diễn đạt trôi chảy toàn bộ kiến thức Bài 12.",
+      content: {
+        objective: "Đánh giá mức độ hiểu sâu bản chất kiến thức chuẩn đầu ra.",
+        requirements: [
+          "Câu 1: Vì sao không thể chỉ đưa tệp CSDL cho mọi người tự mở khai thác?\nCâu 2: Nêu 4 nhóm chức năng chính của Hệ QTCSDL.\nCâu 3: Vì sao kiểm soát giao dịch lại liên quan trực tiếp tới tính nhất quán?\nCâu 4: Phân biệt CSDL, Hệ QTCSDL, Phần mềm ứng dụng CSDL và Hệ CSDL.\nCâu 5: Phân biệt Hệ CSDL tập trung và Hệ CSDL phân tán.\nCâu 6: Vì sao CSDL phân tán lại khó quản lý hơn hệ tập trung?\nCâu 7: Ứng dụng cục bộ và Ứng dụng toàn cục khác nhau như thế nào?"
+        ],
+        qaList: [
+          {
+            q: "Đáp án và dàn ý 7 câu tự luận chuẩn mực:",
+            a: "• Câu 1: Vì người dùng bình thường không biết cấu trúc tệp nhị phân phức tạp; không thể kiểm soát quyền xem/sửa (dễ bị sửa trộm hay xóa nhầm); và không xử lý được xung đột khi nhiều người cùng mở tệp một lúc.\n• Câu 2: Bốn nhóm: 1. Định nghĩa dữ liệu; 2. Cập nhật và truy xuất dữ liệu; 3. Bảo mật, an toàn CSDL; 4. Cung cấp giao diện lập trình ứng dụng.\n• Câu 3: Khi nhiều người cùng thao tác (sửa, xóa, chuyển tiền) đồng thời, nếu không kiểm soát giao dịch thì các thao tác sẽ đè lên nhau hoặc dở dang, dẫn tới số liệu mâu thuẫn, mất tính nhất quán.\n• Câu 4: CSDL là DỮ LIỆU; Hệ QTCSDL là PHẦN MỀM QUẢN TRỊ DỮ LIỆU; Phần mềm ứng dụng CSDL là PHẦN MỀM NGƯỜI DÙNG TƯƠNG TÁC; Hệ CSDL là TOÀN BỘ HỆ THỐNG gồm cả 3 thành phần trên (+ con người).\n• Câu 5: Hệ tập trung: Toàn bộ CSDL lưu tại 1 máy tính duy nhất. Hệ phân tán: Dữ liệu được phân bố lưu trữ trên nhiều trạm của mạng máy tính.\n• Câu 6: Vì có nhiều trạm, nhiều đường truyền mạng, rất khó đồng bộ dữ liệu để giữ tính nhất quán, bảo mật khó khăn và chi phí duy trì rất cao.\n• Câu 7: Ứng dụng cục bộ chỉ cần dữ liệu của 1 trạm duy nhất. Ứng dụng toàn cục/phân tán cần kết hợp dữ liệu từ ít nhất 2 trạm khác nhau để cho kết quả cuối cùng."
+          }
         ]
       }
     }
-  ]
+  ],
+
+  examTypes: [
+    {
+      id: "exam-type-1",
+      title: "Dạng 1: Phân biệt bộ tứ: CSDL vs Hệ QTCSDL vs Ứng dụng vs Hệ CSDL",
+      importance: "Rất hay gặp (Kiểm tra 15p & Học kỳ)",
+      technique: "Công thức nhớ nhanh: CSDL = Dữ liệu; Hệ QTCSDL = Phần mềm quản trị (MySQL, Access, PostgreSQL); Ứng dụng = Phần mềm cho người dùng (Website, App); Hệ CSDL = Toàn bộ hệ thống kết hợp.",
+      examples: [
+        "Đề bài: Cho các đối tượng: MySQL, Danh sách học sinh lớp 11A, Website tra cứu điểm thi. Hãy xác định từng đối tượng thuộc khái niệm nào?"
+      ]
+    },
+    {
+      id: "exam-type-2",
+      title: "Dạng 2: Phân loại 4 nhóm chức năng của Hệ QTCSDL",
+      importance: "Trọng tâm bài học",
+      technique: "Đọc hành động trong câu hỏi: Tạo khung/bảng/cột/ràng buộc ➜ Định nghĩa. Thêm/sửa/xóa ➜ Cập nhật. Xem/tìm/xuất báo cáo ➜ Truy xuất. Phân quyền/mật khẩu ➜ Bảo mật. Backup/khôi phục/giao dịch ➜ An toàn. App kết nối ➜ Giao diện lập trình.",
+      examples: [
+        "Câu hỏi: 'Người quản trị bổ sung cột Ngày sinh vào bảng NhanVien' thuộc nhóm chức năng nào của Hệ QTCSDL? ➜ Định nghĩa dữ liệu."
+      ]
+    },
+    {
+      id: "exam-type-3",
+      title: "Dạng 3: Nhận diện kiến trúc 4 tầng của một Hệ CSDL",
+      importance: "Cơ bản",
+      technique: "Thứ tự từ trên xuống: Người dùng ➜ Phần mềm ứng dụng CSDL ➜ Hệ QTCSDL (DBMS) ➜ CSDL. Chú ý: Ứng dụng không bao giờ chui qua mặt DBMS để vào thẳng CSDL!",
+      examples: [
+        "Đề bài: Điền tên các tầng trong sơ đồ luồng dữ liệu khi thí sinh tra cứu điểm thi THPT quốc gia."
+      ]
+    },
+    {
+      id: "exam-type-4",
+      title: "Dạng 4: Phân biệt Hệ CSDL Tập trung vs Hệ CSDL Phân tán",
+      importance: "Trọng tâm lý thuyết và đề thi",
+      technique: "Bí quyết vàng: Nhìn vào NƠI LƯU CSDL, KHÔNG nhìn vào số lượng người dùng. Lưu trên 1 máy tính duy nhất ➜ Tập trung (kể cả có 1.000 người truy cập qua mạng). Lưu trên nhiều trạm kết nối mạng ➜ Phân tán.",
+      examples: [
+        "Câu hỏi gài: 'Một hệ thống có 1 CSDL đặt ở Hà Nội, 20 chi nhánh gửi lệnh truy cập qua mạng. Đây là hệ tập trung hay phân tán?' ➜ Đáp án: Hệ CSDL tập trung!"
+      ]
+    },
+    {
+      id: "exam-type-5",
+      title: "Dạng 5: Phân biệt Ứng dụng cục bộ vs Ứng dụng toàn cục (Phân tán)",
+      importance: "Vận dụng điểm 9 - 10",
+      technique: "Chỉ dùng dữ liệu của 1 trạm ➜ Cục bộ. Dùng dữ liệu từ ≥ 2 trạm để cho kết quả ➜ Toàn cục (phân tán).",
+      examples: [
+        "Tình huống: Chi nhánh TP.HCM in danh sách tồn kho của kho TP.HCM ➜ Cục bộ. Giám đốc in tổng tồn kho toàn quốc của cả kho HN và kho TP.HCM ➜ Toàn cục."
+      ]
+    }
+  ],
+
+  homework: {
+    title: "Bài Tập Về Nhà Bài 12 (Chuẩn Bị Cho Bài 13: CSDL Quan Hệ)",
+    part1: {
+      title: "Phần 1: Trắc nghiệm củng cố (Tự làm lại Mini Test 10 câu)",
+      description: "Làm lại toàn bộ 10 câu trắc nghiệm của Bài 12, giải thích rõ căn cứ chọn đáp án đúng cho từng câu."
+    },
+    part2: {
+      title: "Phần 2: Phân tích Hệ CSDL thực tế – Cửa hàng tiện lợi",
+      description: "Một cửa hàng tiện lợi gồm: Máy tính thu ngân quét mã vạch, CSDL hàng hóa và hóa đơn, Hệ QTCSDL SQLite và phần mềm bán hàng. Hãy: 1. Chỉ rõ 4 thành phần của Hệ CSDL này. 2. Cho ví dụ về một thao tác cập nhật và một thao tác truy xuất dữ liệu tại quầy thu ngân."
+    },
+    part3: {
+      title: "Phần 3: Câu hỏi mở đầu Bài 13",
+      description: "Suy nghĩ và tìm hiểu trước: 'Trong các CSDL hiện đại ngày nay, dữ liệu thường được tổ chức dưới dạng các BẢNG gồm các hàng và cột có liên kết chặt chẽ với nhau. Mô hình tổ chức này được gọi là gì?' ➜ Tìm hiểu về CƠ SỞ DỮ LIỆU QUAN HỆ (Relational Database)."
+    }
+  },
+
+  pedagogyTips: {
+    teachingSteps: [
+      { step: "Bước 1: Khởi động bằng tình huống thực tế", desc: "Đưa ví dụ website tra cứu điểm thi ➜ Hỏi: 'Có phải website mở thẳng file dữ liệu không?' ➜ Khẳng định cần một lớp phần mềm trung gian bảo vệ và điều phối." },
+      { step: "Bước 2: Chuẩn hóa thuật ngữ Hệ QTCSDL", desc: "Giới thiệu DBMS và phân biệt rõ: DBMS là công cụ phần mềm quản lý, CSDL là nội dung dữ liệu." },
+      { step: "Bước 3: Dạy 4 nhóm chức năng bằng hình ảnh đời thường", desc: "Định nghĩa (Tạo khung), Cập nhật & truy xuất (Thêm/Sửa/Xóa/Xem), Bảo mật & an toàn (Đúng người, không xung đột, có backup), Giao diện lập trình (Cho app nói chuyện với DBMS)." },
+      { step: "Bước 4: Dạy kiến trúc Hệ CSDL và bộ tứ khái niệm", desc: "Vẽ sơ đồ 4 tầng: Người dùng ➜ Ứng dụng CSDL ➜ Hệ QTCSDL ➜ CSDL. Phân biệt CSDL / DBMS / Ứng dụng / Hệ CSDL." },
+      { step: "Bước 5: Dạy Tập trung vs Phân tán qua câu hỏi gài", desc: "Nhấn mạnh: 'Nhiều người dùng qua mạng KHÔNG CÓ NGHĨA là phân tán'. CSDL ở 1 máy là tập trung, CSDL ở nhiều trạm mới là phân tán." }
+    ],
+    rulesToAvoid: [
+      "TUYỆT ĐỐI KHÔNG dạy câu lệnh SQL (SELECT, INSERT, UPDATE, DELETE, CREATE TABLE...) trong Bài 12.",
+      "TUYỆT ĐỐI KHÔNG dạy các thuật ngữ nâng cao ngoài SGK như ACID chi tiết, Sharding, Replication, Khóa chính, Khóa ngoại, JOIN.",
+      "Không nhầm lẫn 'Giao diện lập trình ứng dụng (API)' với 'Giao diện người dùng (UI)'.",
+      "Không nhầm lẫn 'CSDL phân tán' với 'Xử lý phân tán'."
+    ]
+  }
 }
