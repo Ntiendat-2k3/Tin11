@@ -19,6 +19,8 @@ export { b6Content } from "./b6Content.js"
 export { b7Content } from "./b7Content.js"
 export { b11Content } from "./b11Content.js"
 export { b12Content } from "./b12Content.js"
+export { b13Content } from "./b13Content.js"
+export { b14Content } from "./b14Content.js"
 
 import { common11 } from "./common11.js"
 import { database11 } from "./database11.js"
@@ -33,6 +35,8 @@ import { b6Content } from "./b6Content.js"
 import { b7Content } from "./b7Content.js"
 import { b11Content } from "./b11Content.js"
 import { b12Content } from "./b12Content.js"
+import { b13Content } from "./b13Content.js"
+import { b14Content } from "./b14Content.js"
 
 export function getLessonById(id) {
   const allLessons = [...common11, ...database11, ...cs11, ...advanced11]

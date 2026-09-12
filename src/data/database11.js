@@ -116,29 +116,32 @@ export const database11 = [
     priority: "critical",
     hours: 3,
     mustKnow: [
-      "Mô hình dữ liệu quan hệ (Relational Data Model)",
-      "Cấu trúc CSDL quan hệ: Bảng (Table / Relation), Hàng (Row / Tuple / Record), Cột (Column / Attribute / Field)",
-      "Khái niệm Khóa (Key), Khóa chính (Primary Key) và tính duy nhất của hàng",
-      "Khái niệm Khóa ngoài (Foreign Key) và cơ chế liên kết giữa các bảng",
-      "Các ràng buộc toàn vẹn dữ liệu: Toàn vẹn thực thể, Toàn vẹn tham chiếu, Ràng buộc miền giá trị",
-      "Hiện tượng dư thừa dữ liệu và các bất thường khi Cập nhật / Thêm / Xóa (Anomalies)"
+      "Mô hình dữ liệu quan hệ (Relational Model) & CSDL quan hệ: Bảng + Quan hệ giữa các bảng",
+      "Cấu trúc 2 chiều: Bảng (Table), Hàng = Bản ghi (Record / Tuple), Cột = Trường / Thuộc tính (Field / Attribute)",
+      "Kiểu dữ liệu của trường: Số nguyên, Số thực, Xâu ký tự, Ngày tháng, Logic (tiết kiệm bộ nhớ & kiểm soát tính đúng đắn logic)",
+      "Khái niệm Khóa (Key): Khóa một trường vs Khóa ghép (nhiều trường trong bảng Điểm thi)",
+      "Khóa chính (Primary Key): Nhận diện chính thức duy nhất mỗi bản ghi, không trùng, NOT NULL ('Tôi là ai?')",
+      "Khóa ngoài (Foreign Key): Tham chiếu tới PK bảng khác để tạo liên kết ('Tôi liên quan tới ai?', có thể lặp, bảng nhiều FK)",
+      "Liên kết dữ liệu theo khóa & Ràng buộc toàn vẹn tham chiếu (ngăn chặn dữ liệu mồ côi)",
+      "Hóa giải 6 câu gài đề thi: 'Có chữ Mã là khóa', 'PK luôn 1 cột', 'FK không được lặp', 'Họ tên làm khóa tốt'"
     ],
     codeSkills: [
-      "Xác định khóa chính và khóa ngoài cho sơ đồ CSDL gồm 3-4 bảng",
-      "Vẽ sơ đồ liên kết giữa các bảng (Entity-Relationship Diagram / Table Relationship)",
-      "Kiểm tra tính hợp lệ của dữ liệu nhập vào theo quy tắc khóa chính và khóa ngoài"
+      "Thiết kế phân rã bảng tránh dư thừa dữ liệu cho bài toán Quản lý học tập, Cửa hàng, Mạng xã hội, Game online",
+      "Xác định đúng Khóa chính (đơn hoặc ghép) và các Khóa ngoài liên kết trong sơ đồ CSDL 3-4 bảng",
+      "Chẩn đoán và xử lý lỗi vi phạm ràng buộc toàn vẹn tham chiếu khi nhập liệu"
     ],
     examSkills: [
-      "Xác định chính xác Khóa chính, Khóa ngoài từ mô tả cấu trúc bảng trong đề thi",
-      "Suy luận mối quan hệ giữa các bảng (1-1, 1-N, N-N) và cách phân rã bảng",
-      "Phát hiện dữ liệu dư thừa, dữ liệu vi phạm ràng buộc toàn vẹn trong đề bài",
-      "Trả lời xuất sắc cụm câu hỏi Đúng/Sai về thiết kế CSDL quan hệ trong đề thi 2026"
+      "Giải quyết 5 dạng bài thi trọng tâm: Chọn trường làm PK, Xác định FK, Phân rã bảng, Khóa ghép, Vi phạm tham chiếu",
+      "Phân biệt chính xác bộ ba thuật ngữ: Bảng (Table/Relation) - Bản ghi (Record/Row/Tuple) - Trường (Field/Column/Attribute)",
+      "Hóa giải các bẫy trắc nghiệm về tính duy nhất của Khóa chính và khả năng lặp lại của Khóa ngoài",
+      "Trả lời xuất sắc 10 câu hỏi trắc nghiệm Mini Test và các câu hỏi tự luận chuẩn đầu ra Bài 13"
     ],
     practice: [
-      "Bài tập thiết kế CSDL Quan hệ 3 bảng cho Quản lí Học sinh - Lớp học - Môn học",
-      "12 câu bài tập xác định khóa chính / khóa ngoài trong các bảng dữ liệu thực tế",
-      "1 cụm bài tập Đúng/Sai 4 ý về tính toàn vẹn tham chiếu trong CSDL quan hệ",
-      "Bài tập phân tích sơ đồ CSDL Quản lí Đặt hàng (KhachHang, SanPham, HoaDon, ChiTietHoaDon)"
+      "10 bài tập thực hành in-class (Đếm bản ghi & trường, chọn PK, truy tìm nhạc sĩ CSDL âm nhạc, phân biệt PK/FK, khóa ghép...)",
+      "Bài vận dụng lớn: Thiết kế CSDL Kì thi tốt nghiệp THPT quốc gia 4 bảng (THISINH, PHONGTHI, MONTHI, KETQUA)",
+      "Bộ 10 câu hỏi phản xạ nhanh thuật ngữ CSDL quan hệ trong 3 giây",
+      "Mini Test 10 câu trắc nghiệm tương tác chuẩn SGK kèm giải thích chi tiết",
+      "Ba bài tập về nhà có lời giải chi tiết bảo vệ bằng mã khóa"
     ],
     sourceIds: ["kgv-cs11", "gov-2026-exam", "nxbgd-training"],
     lectureContent: b13Content
@@ -150,31 +153,37 @@ export const database11 = [
     priority: "critical",
     hours: 5,
     mustKnow: [
-      "Tổng quan về ngôn ngữ SQL (Structured Query Language)",
-      "Cú pháp cơ bản của câu lệnh truy vấn dữ liệu: SELECT ... FROM ... WHERE ...",
-      "Các biểu thức điều kiện trong WHERE: Toán tử so sánh (=, <>, >, <, >=, <=), Toán tử logic (AND, OR, NOT)",
-      "Các toán tử bổ trợ: LIKE (tìm kiếm mẫu ký tự %), IN, BETWEEN ... AND ..., IS NULL",
-      "Sắp xếp kết quả với ORDER BY (ASC / DESC)",
-      "Làm quen với câu lệnh liên kết hai bảng INNER JOIN ... ON ...",
-      "Đọc hiểu và dự đoán bảng kết quả trả về của một truy vấn SQL"
+      "Bản chất ngôn ngữ SQL: Ngôn ngữ truy vấn có cấu trúc mang tính Khai báo (Declarative: chỉ định 'muốn dữ liệu gì' thay vì 'làm thế nào')",
+      "Ba nhóm ngôn ngữ cấu thành: DDL (Định nghĩa - CREATE, ALTER), DML (Thao tác - SELECT, INSERT, UPDATE, DELETE, JOIN), DCL (Kiểm soát quyền - GRANT, REVOKE)",
+      "Cú pháp DDL: CREATE DATABASE, CREATE TABLE, khai báo PRIMARY KEY (đơn & ghép), FOREIGN KEY ... REFERENCES, ALTER TABLE",
+      "Kiểu dữ liệu SQL: Phân biệt CHAR(n) (độ dài cố định) vs VARCHAR(n) (độ dài thay đổi tối đa n), INT, REAL, DATE, BOOLEAN",
+      "Cú pháp truy vấn DML: SELECT ... FROM ... WHERE ... ORDER BY (ASC / DESC)",
+      "Các toán tử điều kiện trong WHERE: So sánh (=, <>, >, <, >=, <=), Logic (AND, OR), quy tắc đặt xâu ký tự trong dấu nháy đơn ('...')",
+      "Bộ ba cập nhật: INSERT INTO ... VALUES, UPDATE ... SET ... WHERE, DELETE FROM ... WHERE",
+      "Cảnh báo khẩn cấp: Thảm họa mất sạch dữ liệu hoặc sai lệch toàn bộ bảng khi UPDATE / DELETE thiếu mệnh đề WHERE",
+      "Liên kết bảng với INNER JOIN ... ON ... và cú pháp TenBang.TenCot để tránh mơ hồ",
+      "Hàm tính trung bình AVG() và ý tưởng các hàm tổng hợp COUNT, SUM, MIN, MAX",
+      "Phân biệt các cặp lệnh dễ nhầm: CREATE vs INSERT; ALTER vs UPDATE; DELETE vs DROP"
     ],
     codeSkills: [
-      "Viết câu lệnh SELECT lấy danh sách cột cụ thể hoặc toàn bộ các cột (*)",
-      "Viết câu lệnh lọc dữ liệu theo nhiều điều kiện kết hợp phức tạp",
-      "Viết câu lệnh truy vấn liên kết 2 bảng bằng khóa chính - khóa ngoài",
-      "Chạy và kiểm thử các câu lệnh SQL trên công cụ quản trị CSDL"
+      "Viết câu lệnh CREATE TABLE tạo bảng đầy đủ Khóa chính và Khóa ngoài tham chiếu",
+      "Áp dụng quy trình 5 bước viết câu lệnh SELECT lọc dữ liệu theo nhiều điều kiện và sắp xếp",
+      "Viết câu lệnh truy vấn liên kết 2 bảng và 3 bảng với INNER JOIN ... ON",
+      "Viết câu lệnh thêm mới, sửa đổi và xóa dữ liệu an toàn có kiểm soát điều kiện WHERE",
+      "Phát hiện và sửa 6 lỗi cú pháp SQL kinh điển (thiếu nháy đơn, thiếu SET, DELETE TABLE, JOIN sai cột...)"
     ],
     examSkills: [
-      "Đọc hiểu câu lệnh SQL trong đề thi và dự đoán chính xác kết quả đầu ra",
-      "Lựa chọn câu lệnh SQL đúng nhất thỏa mãn yêu cầu truy vấn nghiệp vụ",
-      "Phát hiện lỗi cú pháp hoặc lỗi logic điều kiện trong các phương án trắc nghiệm",
-      "Giải quyết dạng bài tập viết/sửa câu lệnh SQL trong phần riêng đề thi THPT 2026"
+      "Giải quyết 5 dạng bài thi trọng tâm: Phân loại DDL/DML/DCL, Dự đoán kết quả SELECT, Bẫy WHERE, Tạo bảng PK/FK, Truy vấn INNER JOIN",
+      "Đọc hiểu và dự đoán chính xác bảng kết quả truy vấn SQL trong đề thi THPT 2026",
+      "Phát hiện các lỗi cú pháp hoặc bẫy điều kiện logic trong các phương án trắc nghiệm",
+      "Trả lời xuất sắc 10 câu hỏi Mini Test và 4 câu hỏi tự luận cốt lõi về bản chất SQL"
     ],
     practice: [
-      "Bộ 20 bài tập viết câu lệnh SQL từ mức độ Cơ bản đến Nâng cao",
-      "10 bài tập Trace (theo dõi) kết quả câu lệnh SQL trên bảng dữ liệu giả định",
-      "4 mini-case bài tập truy vấn tổng hợp: Quản lí thư viện, Quản lí điểm số, Quản lí bán hàng",
-      "Bài tập phân biệt SELECT DISTINCT, ORDER BY, và lọc dữ liệu với LIKE"
+      "10 bài tập thực hành in-class (SELECT đơn giản, AND & ORDER BY, cập nhật DML, tạo bảng casi & banthuam, INNER JOIN 2-3 bảng...)",
+      "Bài tập viết trọn bộ SQL cho hệ thống Quản lý Bán hàng (SANPHAM)",
+      "Bộ 10 câu hỏi phản xạ phân loại DDL / DML / DCL trong 3 giây",
+      "Mini Test 10 câu trắc nghiệm tương tác chuẩn SGK kèm giải thích chi tiết",
+      "Ba bài tập về nhà thực hành viết code và tự luận tư duy bản chất SQL"
     ],
     sourceIds: ["kgv-cs11", "gov-2026-exam", "vietjack-mock2026"],
     lectureContent: b14Content
